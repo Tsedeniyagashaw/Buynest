@@ -1,11 +1,14 @@
-import { useState } from "react"
+import { useState, useContext } from "react"
 import API from "../services/api"
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
     const [form, setForm] = useState({
         email: "",
         password: ""
     });
+
+    const { login } = useContext(AuthContext)
 
     const handleChange = (e) => {
         setForm({
@@ -20,7 +23,7 @@ function Login() {
             const res = await API.post("/auth/login", form);
             console.log(res.data);
 
-            localStorage.setItem("token", res.data.token);
+            login(res.data.token);
 
             alert("Login successful");
 
