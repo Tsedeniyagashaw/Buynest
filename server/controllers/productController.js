@@ -51,6 +51,20 @@ const getProductById = async( req, res) => {
     }
 };
 
+const getMyProducts = async (req, res) => {
+    try {
+        const products = await Product.find({
+            seller: req.user.id 
+        });
+        res.json(products);
+    }
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
 module.exports = {
-    createProduct, getProducts, getProductById
+    createProduct, getProducts, getProductById, getMyProducts
 }

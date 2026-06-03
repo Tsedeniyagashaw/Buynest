@@ -12,6 +12,7 @@ const { authorizeRoles } = require("../middleware/roleMiddleware")
 
 router.get("/", getProducts)
 router.get("/:id", getProductById)
+router.get("/my-products", protect, authorizeRoles("seller"), getProducts)
 
 
 router.post("/", protect, authorizeRoles("seller"), createProduct);
