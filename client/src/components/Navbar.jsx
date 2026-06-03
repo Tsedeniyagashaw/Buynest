@@ -17,6 +17,7 @@ function Navbar() {
                 <>
                 <Link to="/product">Products</Link>
                 <Link to="/cart">Cart</Link>
+                <Link to="/orders">Orders</Link>
                 
                 <button onClick={logout}>
                     Logout

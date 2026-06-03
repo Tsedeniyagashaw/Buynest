@@ -5,6 +5,25 @@ function Cart() {
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const handleCheckout = async () => {
+        try {
+            const token = localStorage.getItem("token");
+            const res = await API.post(
+                "/orders", {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            alert("Order Successfully placed");
+            console.log(res.data);
+        }
+        catch(error){
+            console.log(error.response?.data)
+        }
+    };
+
     useEffect(() => {
         const fetchCart = async () => {
            try {
@@ -42,6 +61,9 @@ function Cart() {
                 <p>Price: ${item.product.price}</p>
                 <p>Quantity: {item.quantity}</p>
                 <p>Total: ${item.product.price * item.quantity}</p>
+               <button onClick={handleCheckout}>
+    Checkout
+</button>
                </div> 
             ))}
         </div>
