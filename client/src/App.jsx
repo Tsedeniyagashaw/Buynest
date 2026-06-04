@@ -7,6 +7,8 @@ import Products from "./pages/Products"
 import Cart from "./pages/Cart"
 import Orders from "./pages/Orders"
 import SellerDashboard from "./pages/SellerDashboard"
+import SellerOrders from "./pages/SellerOrders"
+import ProductDetails from "./pages/ProductDetails"
 
 function App() {
  
@@ -22,7 +24,8 @@ function App() {
       <Route path="/cart" element = { <Cart /> } />
       <Route path="/orders" element = { <Orders /> } />
       <Route path="/seller-dashboard" element = { <SellerDashboard /> } />
-
+      <Route path="/seller-orders" element = { <SellerOrders /> } />
+      <Route path="/products/:id" element={<ProductDetails />} />
     </Routes>
   </div>
   )

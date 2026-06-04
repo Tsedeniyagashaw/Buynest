@@ -1,4 +1,5 @@
 import API from "../services/api";
+import { Link } from "react-router-dom";
 
 function ProductCard({ product }) {
 
@@ -25,6 +26,7 @@ function ProductCard({ product }) {
 
     return (
          <div style={{ border: "1px solid black", padding: "10px", margin: "10px" }}>
+              <Link to={`/products/${product._id}`}>
                <h2>{product.name}</h2>
                     <p>{product.description}</p>
                     <p>${product.price}</p>
@@ -32,6 +34,7 @@ function ProductCard({ product }) {
          <button onClick={() => handleAddToCart(product._id)}>
                 Add to Cart
             </button>
+            </Link>
         </div>
     );
 }

@@ -53,9 +53,56 @@ const getMyOrders = async (req, res) => {
     }
 }
 
+const getSellerOrders = async (req, res) => {
+    try {
+        const orders = await Order.find()
+        .populate("user", "email")
+        .populate("orderItems.product");
+
+        const sellerOrders = orders.filter(order =>
+
+            order.orderItems.some(
+                item => item.product.seller.toString() === req.user.id
+            )
+        );
+        res.json(sellerOrders);
+    }
+    catch(error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+const updateOrderStatus = async (req, res) => {
+    try {
+        const { status } = req.body;
+
+        const order = await Order.findById(req.params.id);
+
+        if(!order) {
+            return res.status(404).json({
+                message: "Order not found"
+            });
+        }
+
+        order.status = status;
+
+        const updateOrder = await order.save();
+
+        res.json(updateOrder);
+    }
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
 
 module.exports = {
     createOrder,
-    getMyOrders
+    getMyOrders,
+    getSellerOrders,
+    updateOrderStatus
 
 };
