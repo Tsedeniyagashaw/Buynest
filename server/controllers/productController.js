@@ -65,6 +65,67 @@ const getMyProducts = async (req, res) => {
     }
 }
 
+const updateProduct = async (req, res ) => {
+    try {
+        const { name, description, price, image} = req.body;
+        const product = await Product.findById(req.params.id);
+
+        if(!product) {
+            return res.status(404).json({
+                message: "Product not found"
+            });
+        }
+
+        if (product.seller.toString() !== req.user.id) {
+            return res.status(403).json({
+                message: "Not authorized to update this product!"
+            });
+        }
+        product.name = name || product.name;
+        product.description = description || product.description;
+        product.price = price || product.price;
+        product.image = image || product.image;
+
+        const updateProduct = await product.save()
+
+        res.json(updateProduct);
+    }
+
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
+const deleteProduct = async (req,res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if(!product) {
+            return res.status(404).json({
+                message: "Product not found!!"
+            });
+        }
+
+        if (product.seller.toString() !== req.user.id) {
+            return res.status(403).json({
+                message: "Not Authorized to delete this product!!"
+            });
+        }
+        await product.deleteOne();
+
+        res.json({
+            message: "Product deleted successfully"
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
 module.exports = {
-    createProduct, getProducts, getProductById, getMyProducts
+    createProduct, getProducts, getProductById, getMyProducts,updateProduct, deleteProduct
 }
