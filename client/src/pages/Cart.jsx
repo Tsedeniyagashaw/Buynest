@@ -24,6 +24,46 @@ function Cart() {
         }
     };
 
+    const removeItem = async (productId) => {
+        try {
+            const token = localStorage.getItem("token");
+
+            const res = await API.delete(`/cart/${productId}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            });
+            setCart(res.data);
+
+        } catch(error){
+            console.log(error.response?.data);
+        }
+    }
+
+
+    const updateQty = async (productId, quantity) =>{
+        if (quantity <  1) return;
+
+        try {
+            const token = localStorage.getItem("token");
+
+            const res = await API.put(
+                "/cart",
+                { productId, quantity},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+
+            setCart(res.data);
+        }
+        catch (error) {
+            console.log(error.response?.data) 
+        }
+    }
+
     useEffect(() => {
         const fetchCart = async () => {
            try {
@@ -59,11 +99,16 @@ function Cart() {
                <div>
                 <h3>{item.product.name}</h3>
                 <p>Price: ${item.product.price}</p>
-                <p>Quantity: {item.quantity}</p>
-                <p>Total: ${item.product.price * item.quantity}</p>
+                <p>Quantity:</p> 
+                <button onClick={() => updateQty(item.product._id, item.quantity - 1)}> - </button>
+                <span>{item.quantity}</span> 
+                <button className="border b-1" onClick={() => updateQty(item.product._id, item.quantity + 1)}> + </button>
+                <p>Total: ${cart.items.reduce((acc,item) => acc + item.product.price * item.quantity, 0)}</p>
                <button onClick={handleCheckout}>
     Checkout
 </button>
+
+<button onClick={() => removeItem(item.product._id)}>Remove</button>
                </div> 
             ))}
         </div>
