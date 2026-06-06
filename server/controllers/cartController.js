@@ -29,7 +29,11 @@ const addToCart = async (req, res) => {
         }
         await cart.save();
 
-        res.json(cart);
+        const updatedCart = await Cart.findOne({
+    user: req.user.id
+}).populate("items.product");
+
+        res.json(updatedCart);
     }
     catch (error){
         res.status(500).json({ message: error.message});
@@ -102,7 +106,11 @@ const removeFromCart = async (req, res) => {
         );
         await cart.save();
 
-        res.json(cart);
+       const updatedCart = await Cart.findOne({
+    user: req.user.id
+}).populate("items.product");
+
+res.json(updatedCart);
     }
     catch (error){
         res.status(500).json({
