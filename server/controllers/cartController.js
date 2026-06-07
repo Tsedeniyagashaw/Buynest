@@ -66,7 +66,7 @@ const updateCartItem = async (req, res) => {
                 message: "Cart not found"
             });
         }
-
+      
 
         const item = cart.items.find(
             i => i.product.toString() === productId 
@@ -79,8 +79,13 @@ const updateCartItem = async (req, res) => {
             });
         }
         item.quantity = quantity;
-        await cart.save();
-        res.json(cart);
+await cart.save();
+
+const updatedCart = await Cart.findOne({
+    user: req.user.id
+}).populate("items.product");
+
+res.json(updatedCart);
     }
 
     catch(error){

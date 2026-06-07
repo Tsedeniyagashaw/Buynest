@@ -96,7 +96,7 @@ function Cart() {
         <div>
             <h1>Your Cart</h1>
             {cart.items.map((item) => (
-               <div>
+               <div key={item.product._id}>
                 <h3>{item.product.name}</h3>
                 <p>Price: ${item.product.price}</p>
                 <p>Quantity:</p> 
