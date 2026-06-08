@@ -1,7 +1,27 @@
 const Product = require("../models/Product")
 
+
 const createProduct = async ( req, res) => {
     try{
+        const seller = await User.findById(req.user.id);
+
+        if (!seller) {
+    return res.status(404).json({
+        message: "User not found"
+    });
+}
+
+if (seller.role !== "seller") {
+    return res.status(403).json({
+        message: "Only sellers can create products"
+    });
+}
+
+        if(!seller.isApproved) {
+            return res.status(403).json({
+                message: "Seller not Approved!"
+            })
+        }      
         const { name, description, price, image } = req.body;
 
         const product = await Product.create({

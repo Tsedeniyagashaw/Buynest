@@ -2,6 +2,7 @@ const Order = require("../models/Order");
 const Cart = require("../models/Cart");
 
 
+
 const createOrder = async(req, res) => {
 try {
     const cart = await Cart.findOne({ user: req.user.id }).populate("items.product");
@@ -56,15 +57,16 @@ const getMyOrders = async (req, res) => {
 const getSellerOrders = async (req, res) => {
     try {
         const orders = await Order.find()
-        .populate("user", "email")
+        .populate("user", "firstName email")
         .populate("orderItems.product");
 
         const sellerOrders = orders.filter(order =>
-
-            order.orderItems.some(
-                item => item.product.seller.toString() === req.user.id
-            )
-        );
+    order.orderItems.some(
+        item =>
+            item.product &&
+            item.product.seller.toString() === req.user.id
+    )
+);
         res.json(sellerOrders);
     }
     catch(error) {
@@ -98,6 +100,8 @@ const updateOrderStatus = async (req, res) => {
         });
     }
 }
+
+
 
 module.exports = {
     createOrder,
