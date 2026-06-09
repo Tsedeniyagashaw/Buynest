@@ -80,19 +80,45 @@ const updateOrderStatus = async (req, res) => {
     try {
         const { status } = req.body;
 
-        const order = await Order.findById(req.params.id);
-
-        if(!order) {
+       const order = await Order.findById(req.params.id)
+    .populate("orderItems.product"); 
+    if(!order) {
             return res.status(404).json({
                 message: "Order not found"
             });
         }
 
+const ownsProduct = order.orderItems.some(
+    item =>
+        item.product &&
+        item.product.seller.toString() === req.user.id
+);
+
+if (!ownsProduct) {
+    return res.status(403).json({
+        message: "Not authorized"
+    });
+}
+
+       
+        const allowedStatuses = [
+    "pending",
+    "paid",
+    "shipped",
+    "delivered"
+];
+
+if (!allowedStatuses.includes(status)) {
+    return res.status(400).json({
+        message: "Invalid status"
+    });
+}
+
         order.status = status;
 
-        const updateOrder = await order.save();
+        const updatedOrder = await order.save();
 
-        res.json(updateOrder);
+        res.json(updatedOrder);
     }
     catch (error) {
         res.status(500).json({

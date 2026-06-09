@@ -11,6 +11,6 @@ router.post("/", protect, createOrder);
 
 router.get("/",protect,getMyOrders);
 router.get("/seller", protect, authorizeRoles("seller"), getSellerOrders);
-router.put("/:id/status", protect, authorizeRoles("seller"), updateOrderStatus)
+router.put("/seller/:id/status", protect, authorizeRoles("seller"), updateOrderStatus)
 
 module.exports = router

@@ -9,6 +9,10 @@ import Orders from "./pages/Orders"
 import SellerDashboard from "./pages/SellerDashboard"
 import SellerOrders from "./pages/SellerOrders"
 import ProductDetails from "./pages/ProductDetails"
+import AdminLayout from "./layouts/AdminLayout"
+import AdminHome from "./pages/admin/AdminHome"
+import Users from "./pages/admin/Users"
+import Sellers from "./pages/admin/Sellers"
 
 function App() {
  
@@ -27,6 +31,21 @@ function App() {
       <Route path="/seller-orders" element = { <SellerOrders /> } />
       <Route path="/products/:id" element={<ProductDetails />} />
     </Routes>
+
+       <Routes>
+
+            <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminHome />} />
+                <Route path="users" element={<Users />} />
+                <Route path="sellers" element={<Sellers />} />
+                <Route path="products" element={<Products />} />
+                <Route path="orders" element={<Orders />} />
+            </Route>
+
+        </Routes>
+
+    
+
   </div>
   )
 }
