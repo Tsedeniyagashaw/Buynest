@@ -1,5 +1,6 @@
 const User = require("../models/user");
 const Order = require("../models/Order");
+const Product = require("../models/Product");
 
 const getAllUsers = async (req, res) => {
     try {
@@ -66,6 +67,20 @@ const getAllOrders =async (req, res) => {
     }
 };
 
+const getAllProducts = async (req, res) => {
+    try {
+        const products = await Product.find()
+        .populate("seller", "email");
+    
+        res.json(products);
+    }
+    catch (error){
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
 
 
-module.exports = { getAllUsers, getPendingSellers, approveSeller, getAllOrders };
+
+module.exports = { getAllUsers, getPendingSellers, approveSeller, getAllOrders, getAllProducts };
