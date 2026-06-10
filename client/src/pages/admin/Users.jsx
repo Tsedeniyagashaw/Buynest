@@ -3,7 +3,7 @@ import API from "../../services/api"
 
 function Users() {
   const [users, setUsers] = useState([]);
-  const [loading. setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect (() => {
     const fetchUsers = async () => {

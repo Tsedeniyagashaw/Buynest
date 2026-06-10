@@ -4,7 +4,9 @@ function Sellers() {
   const [sellers, setSellers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fetchSellers = async () => {
+
+   useEffect(() => {
+     const fetchSellers = async () => {
     try {
       const token = localStorage.getItem("token");
 
@@ -21,7 +23,9 @@ function Sellers() {
     finally {
       setLoading(false);
     }
-  };
+  }; 
+        fetchSellers();
+    }, []);
 
   const approveSeller = async (id) => {
     try {
@@ -44,9 +48,7 @@ function Sellers() {
     }
   };
 
-   useEffect(() => {
-        fetchSellers();
-    }, []);
+ 
 
   if (loading) return <h2>Loading sellers ...</h2>
 
