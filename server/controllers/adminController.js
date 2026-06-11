@@ -81,6 +81,29 @@ const getAllProducts = async (req, res) => {
     }
 }
 
+const getAdminStats  = async (req, res) => {
+    try {
+        const users = await User.countDocuments();
+        const products = await Product.countDocuments();
+        const orders = await orders.countDocuments();
+        const pendingSellers = await User.countDocuments({
+            role: "seller",
+            isApproved: false
+        });
+
+        res.json({
+            users,products, orders, pendingSellers
+        })
 
 
-module.exports = { getAllUsers, getPendingSellers, approveSeller, getAllOrders, getAllProducts };
+    }
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
+
+
+module.exports = { getAllUsers, getPendingSellers, approveSeller, getAllOrders, getAllProducts, getAdminStats };

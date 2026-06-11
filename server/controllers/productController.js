@@ -44,12 +44,23 @@ if (seller.role !== "seller") {
 
 const getProducts = async (req, res) => {
     try {
-        const products = await Product.find().populate("seller", "email role");
+        const keyword = req.query.search 
+        ? {
+            name: {
+                $regex: req.query.search,
+                $options: "i"
+            }
+        } : {};
+
+        const product = await Product.find(keyword)
+        .populate("seller", "email role");
+
         res.json(products);
-
-    }catch(error){
-        res.status(500).json({ message: error.message });
-
+    }
+    catch(error) {
+        res.status(500).json({
+            message: error.message
+        })
     }
 };
 

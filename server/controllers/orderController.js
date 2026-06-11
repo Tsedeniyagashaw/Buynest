@@ -7,7 +7,7 @@ const createOrder = async(req, res) => {
 try {
     const cart = await Cart.findOne({ user: req.user.id }).populate("items.product");
     if (!cart || cart.items.length === 0) {
-        return res.status(404).json({
+        return res.status(400).json({
             message: "There is nothing in the cart Yet!",
         });
     }
@@ -127,12 +127,48 @@ if (!allowedStatuses.includes(status)) {
     }
 }
 
+const getSellerStats = async (req, res) => {
+    try {
+        const products = await Product.countDocuments({
+            seller: req.user.id
+        });
+
+        const orders = await Orders.find()
+        .populate("orderItems.product");
+
+        const sellerOrders = orders.filter(order =>
+            order.orderItems.some(
+                item => 
+                    item.product &&
+                item.product.seller.toString() === req.user.id
+            )
+        );
+
+        const revenue = sellerOrders.reduce(
+            (sum,order) => sum + order.totalPrice,
+            0
+        );
+
+        res.json({
+            products,
+            orders : sellerOrders.length,
+            revenue
+        });
+    }
+    catch(error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
 
 
 module.exports = {
     createOrder,
     getMyOrders,
     getSellerOrders,
-    updateOrderStatus
+    updateOrderStatus,
+    getSellerStats
 
 };
