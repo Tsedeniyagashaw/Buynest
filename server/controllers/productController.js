@@ -1,4 +1,5 @@
 const Product = require("../models/Product")
+const User = require("../models/User");
 
 
 const createProduct = async ( req, res) => {
@@ -52,7 +53,7 @@ const getProducts = async (req, res) => {
             }
         } : {};
 
-        const product = await Product.find(keyword)
+        const products = await Product.find(keyword)
         .populate("seller", "email role");
 
         res.json(products);
@@ -117,9 +118,9 @@ const updateProduct = async (req, res ) => {
         product.price = price || product.price;
         product.image = image || product.image;
 
-        const updateProduct = await product.save()
+        const updatedProduct = await product.save()
 
-        res.json(updateProduct);
+        res.json(updatedProduct);
     }
 
     catch (error) {

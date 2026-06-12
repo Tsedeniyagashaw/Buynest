@@ -144,10 +144,20 @@ const getSellerStats = async (req, res) => {
             )
         );
 
-        const revenue = sellerOrders.reduce(
-            (sum,order) => sum + order.totalPrice,
-            0
-        );
+       let revenue = 0;
+
+sellerOrders.forEach(order => {
+    order.orderItems.forEach(item => {
+
+        if (
+            item.product &&
+            item.product.seller.toString() === req.user.id
+        ) {
+            revenue += item.product.price * item.quantity;
+        }
+
+    });
+});
 
         res.json({
             products,

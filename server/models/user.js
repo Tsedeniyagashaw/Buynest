@@ -39,7 +39,12 @@ const userSchema = new mongoose.Schema(
         isApproved:{
             type: Boolean,
             default: false
-        }
+        },
+        isBlocked: {
+    type: Boolean,
+    default: false
+}
+
     },
     {timestamps: true}
 );

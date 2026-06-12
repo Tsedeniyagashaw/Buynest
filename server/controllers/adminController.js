@@ -70,7 +70,7 @@ const getAllOrders =async (req, res) => {
 const getAllProducts = async (req, res) => {
     try {
         const products = await Product.find()
-        .populate("seller", "email");
+        .populate("seller", "email role");
     
         res.json(products);
     }
@@ -81,11 +81,33 @@ const getAllProducts = async (req, res) => {
     }
 }
 
+const deleteProductAdmin = async (req, res) =>{
+    try {
+        const product = await Product.findById(req.params.id);
+
+        if(!product) {
+            return res.status(404).json({
+                message: "product not found!"
+            });
+        }
+        await product.deleteOne();
+
+        res.json({
+            message: "Product deleted successfully!"
+        });
+    }
+    catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
+
 const getAdminStats  = async (req, res) => {
     try {
         const users = await User.countDocuments();
         const products = await Product.countDocuments();
-        const orders = await orders.countDocuments();
+        const orders = await Orders.countDocuments();
         const pendingSellers = await User.countDocuments({
             role: "seller",
             isApproved: false
@@ -106,4 +128,4 @@ const getAdminStats  = async (req, res) => {
 
 
 
-module.exports = { getAllUsers, getPendingSellers, approveSeller, getAllOrders, getAllProducts, getAdminStats };
+module.exports = { getAllUsers, getPendingSellers, approveSeller, getAllOrders, getAllProducts, getAdminStats, deleteProductAdmin };
