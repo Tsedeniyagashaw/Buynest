@@ -13,12 +13,14 @@ import AdminLayout from "./layouts/AdminLayout"
 import AdminHome from "./pages/admin/AdminHome"
 import Users from "./pages/admin/Users"
 import Sellers from "./pages/admin/Sellers"
+import Header from "./components/Header"
 
 function App() {
  
 
   return (
   <div>
+    <Header />
     <Navbar />
     <Routes>
       <Route path="/" element = {<Home />} />
