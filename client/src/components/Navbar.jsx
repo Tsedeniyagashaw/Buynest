@@ -6,20 +6,21 @@ function Navbar() {
     const { token, logout } = useContext(AuthContext);
 
     return (
-        <nav>
-            <Link to="/">Home</Link>
+        <nav className="bg-violet-900 text-white p-4 flex justify-start gap-5 items-center shadow-sm">
+            
+            <Link to="/" className=" border-b-2 border-transparent hover:border-white">Home</Link>
             {!token ? (
                 <>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
+                <Link to="/login" className=" border-b-2 border-transparent hover:border-white">Login</Link>
+                <Link to="/register" className=" border-b-2 border-transparent hover:border-white">Register</Link>
                 </>
             ):(
                 <>
-                <Link to="/product">Products</Link>
-                <Link to="/cart">Cart</Link>
-                <Link to="/orders">Orders</Link>
-                <Link to="/seller-dashboard">Dashboard</Link>
-                <Link to="/seller-orders">Orders</Link>
+                <Link to="/product" className=" border-b-2 border-transparent hover:border-white transition">Products</Link>
+                <Link to="/cart" className=" border-b-2 border-transparent hover:border-white transition">Cart</Link>
+                <Link to="/orders" className=" border-b-2 border-transparent hover:border-white transition">Orders</Link>
+                <Link to="/seller-dashboard" className=" border-b-2 border-transparent hover:border-white transition">Dashboard</Link>
+                <Link to="/seller-orders" className=" border-b-2 border-transparent hover:border-white transition">Orders</Link>
 
                 
                 <button onClick={logout}>

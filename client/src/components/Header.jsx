@@ -1,27 +1,28 @@
-import logo from '../assets/logo2.png'
-import { FaSearch, FaBell } from "react-icons/fa";
+import logo from '../assets/logo.png'
+import profile from '../assets/profile.png'
+import { FiSearch, FiBell } from "react-icons/fi";
 
 
 function Header() {
   return (
-    <div className='flex justify-between items-center border b-1 p-2'>
+    <div className='flex justify-between items-center border-purple-200   border-b b-1  py-4'>
         <div>
         <img
   src={logo}
   alt="BuyNest"
-  className="h-15 w-auto object-contain"
+  className="h-12 w-auto object-contain"
 />
         </div>
-        <div className='flex items-center'>
-            <input type="text" className='border b-1' />
-            <FaSearch />
+        <div className='flex items-center relative text-purple-500'>
+            <FiSearch className='absolute m-1' />  <input type="text" className='border b-1 border-purple-200 pl-7 py-1 px-20 shadow-sm rounded-sm ' placeholder='Search...' />
+          
         </div>
-        <div className='flex items-center justify-between'>
-            <FaBell />
+        <div className='flex items-center justify-between  text-purple-500'>
+            <FiBell className='mr-6 '/>
           <img
-  src={logo}
-  alt="BuyNest"
-  className="h-15 w-auto object-contain border b-1 rounded-full"
+  src={profile}
+  alt="Profile"
+  className="h-10 w-auto object-contain border b-1 rounded-full"
 />
 
         </div>
