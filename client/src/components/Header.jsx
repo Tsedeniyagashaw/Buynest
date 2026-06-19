@@ -1,6 +1,6 @@
 import logo from '../assets/logo.png'
 import profile from '../assets/profile.png'
-import { FiSearch, FiBell } from "react-icons/fi";
+import { FiSearch,  FiShoppingCart } from "react-icons/fi";
 
 
 function Header() {
@@ -14,11 +14,11 @@ function Header() {
 />
         </div>
         <div className='flex items-center relative text-purple-500'>
-            <FiSearch className='absolute m-1' />  <input type="text" className='border b-1 border-purple-200 pl-7 py-1 px-20 shadow-sm rounded-sm ' placeholder='Search...' />
+            <FiSearch className='absolute m-2' />  <input type="text" className='border b-1 border-purple-200 pl-10 py-2 px-30  shadow-sm rounded-sm outline-none   focus:ring-1 focus:ring-violet-300' placeholder='Search...' />
           
         </div>
         <div className='flex items-center justify-between  text-purple-500'>
-            <FiBell className='mr-6 '/>
+            <FiShoppingCart className='mr-6 text-2xl'/>
           <img
   src={profile}
   alt="Profile"

@@ -6,27 +6,33 @@ function Navbar() {
     const { token, logout } = useContext(AuthContext);
 
     return (
-        <nav className="bg-violet-900 text-white p-4 flex justify-start gap-5 items-center shadow-sm">
+        <nav className="bg-violet-900 text-white flex align-middle  gap-5 items-center shadow-sm h-20 px-3">
+    
+
             
-            <Link to="/" className=" border-b-2 border-transparent hover:border-white">Home</Link>
+            <Link to="/" className="relative flex items-center bottom-0 text-center transition-colors duration-300 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full h-full">Home</Link>
             {!token ? (
                 <>
-                <Link to="/login" className=" border-b-2 border-transparent hover:border-white">Login</Link>
-                <Link to="/register" className=" border-b-2 border-transparent hover:border-white">Register</Link>
+                <Link to="/login"  className="relative flex items-center bottom-0 text-center transition-colors duration-300 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full h-full">Login</Link>
+                <Link to="/register"  className="relative flex items-center bottom-0  text-center transition-colors duration-300 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full h-full">Register</Link>
                 </>
             ):(
-                <>
-                <Link to="/product" className=" border-b-2 border-transparent hover:border-white transition">Products</Link>
-                <Link to="/cart" className=" border-b-2 border-transparent hover:border-white transition">Cart</Link>
-                <Link to="/orders" className=" border-b-2 border-transparent hover:border-white transition">Orders</Link>
-                <Link to="/seller-dashboard" className=" border-b-2 border-transparent hover:border-white transition">Dashboard</Link>
-                <Link to="/seller-orders" className=" border-b-2 border-transparent hover:border-white transition">Orders</Link>
-
-                
-                <button onClick={logout}>
+                <div className="flex justify-between w-full h-full">
+                <div className="flex gap-4">
+                <Link to="/product" className="relative flex items-center bottom-0  text-center transition-colors duration-300 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full h-full">Products</Link>
+                <Link to="/cart"  className="relative flex items-center bottom-0  text-center transition-colors duration-300 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full h-full">Cart</Link>
+                <Link to="/orders"  className="relative flex items-center bottom-0  text-center transition-colors duration-300 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full h-full">Orders</Link>
+                <Link to="/seller-dashboard"  className="relative flex items-center bottom-0  text-center transition-colors duration-300 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full h-full">Dashboard</Link>
+                <Link to="/seller-orders"   className="relative flex items-center bottom-0  text-center transition-colors duration-300 after:absolute after:left-0 after:bottom-0 after:h-[2px] after:w-0 after:bg-white after:transition-all after:duration-300 hover:after:w-full h-full">S_Orders</Link>
+              </div>
+                <div className=" flex items-center">
+                    <button class="bg-transparent hover:bg-purple-700 font-semibold py-2 px-4 border border-purple-500 rounded shadow" onClick={logout}>
                     Logout
-                </button>
-                </>
+                </button>  
+                </div>
+              
+                </div>
+                
             )}
         </nav>
     );
