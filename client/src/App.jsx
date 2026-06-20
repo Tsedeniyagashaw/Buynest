@@ -14,14 +14,16 @@ import AdminHome from "./pages/admin/AdminHome"
 import Users from "./pages/admin/Users"
 import Sellers from "./pages/admin/Sellers"
 import Header from "./components/Header"
+import Layout from "./layouts/Layout"
 
 function App() {
  
 
   return (
-  <div class=" mx-10">
-    <Header />
-    <Navbar />
+  <div class="mx-0 lg:mx-10">
+    {/* <Header />
+    <Navbar /> */}
+    <Layout />
     <Routes>
       <Route path="/" element = {<Home />} />
       <Route path="/login" element = {<Login />} />
