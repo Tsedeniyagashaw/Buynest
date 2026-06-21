@@ -48,7 +48,7 @@ const linkClass =
     
     <div
   className={`md:hidden bg-purple-800 text-white overflow-hidden transition-all duration-300
-  ${menuOpen ? "h-full py-5" : "max-h-0 py-0"}`}
+  ${menuOpen ? "h-screen py-5" : "max-h-0 py-0"}`}
 >
   <div className="flex flex-col px-6">
 
@@ -87,7 +87,7 @@ const linkClass =
           Seller Orders
         </Link>
 
-        <div className="mt-4 pt-4 px-3 border-t border-gray-200 flex flex-col gap-5">
+        <div className="mt-4 pt-4 px-3 border-t border-purple-200 flex flex-col gap-5">
 
           <Link onClick={() => setMenuOpen(false)} to="/profile" className="flex items-center gap-2">
              <img
@@ -104,7 +104,7 @@ const linkClass =
 
 
            <Link onClick={() => setMenuOpen(false)} to="/profile">
-            👤 Settings
+             Settings
           </Link>
 
        
