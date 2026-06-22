@@ -47,7 +47,7 @@ const linkClass =
 
     
     <div
-  className={`md:hidden bg-purple-800 text-white overflow-hidden transition-all duration-300
+  className={`md:hidden  bg-violet-900 text-white overflow-hidden transition-all duration-300
   ${menuOpen ? "h-screen py-5" : "max-h-0 py-0"}`}
 >
   <div className="flex flex-col px-6">

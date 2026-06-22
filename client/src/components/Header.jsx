@@ -2,11 +2,13 @@ import logo from '../assets/logo.png'
 import profile from '../assets/profile.png'
 import { FiSearch,  FiShoppingCart } from "react-icons/fi";
 import { CiMenuFries, CiCircleRemove } from "react-icons/ci";
+import { RxCross2 } from "react-icons/rx";
 
 
 function Header({ onMenuToggle, menuOpen }) {
+  
   return (
-    <div className="sticky top-0 z-50 bg-white/80 backdrop-blur-md flex justify-between items-center border-b border-purple-200 py-3 px-4 md:px-6">
+    <div className="sticky h-20 top-0 z-50 bg-white/80 backdrop-blur-md flex justify-between  items-center border-b border-purple-200 py-2 px-4 md:px-6">
 
       <img src={logo} alt="BuyNest" className="h-10 md:h-12" />
 
@@ -34,7 +36,9 @@ function Header({ onMenuToggle, menuOpen }) {
           onClick={onMenuToggle}
           className="text-purple-600 md:hidden flex items-center justify-center w-10 h-10"
         >
-          {menuOpen ? <CiCircleRemove size={28} /> : <CiMenuFries size={28} />}
+          {menuOpen ? <div className="absolute -bottom-1 -right-1 bg-violet-900 text-white w-15 h-16  flex items-center justify-center rounded-tl-3xl  ">
+  <RxCross2 size={18} />
+</div> : <CiMenuFries size={28} />}
         </button>
       </div>
     </div>
