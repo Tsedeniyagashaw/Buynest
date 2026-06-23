@@ -23,13 +23,14 @@ if (seller.role !== "seller") {
                 message: "Seller not Approved!"
             })
         }      
-        const { name, description, price, image } = req.body;
+        const { name, description, price, image, category } = req.body;
 
         const product = await Product.create({
             name,
             description,
             price,
             image,
+            category,
             seller: req.user.id,
 
         });

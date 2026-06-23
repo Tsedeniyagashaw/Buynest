@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import API from "../services/api"
+import prod from "../../public/images.jfif"
+
+
 
 function ProductDetails() {
 
@@ -33,10 +36,12 @@ function ProductDetails() {
         return <h2>Product not found!</h2>
     }
 
-
+console.log(prod);
 
   return (
     <div>
+        <h1>TEST RENDER</h1>
+   <img src="/images.jfjf" alt="test" style={{ width: "200px", border: "2px solid red" }} />
        
             <h1>{product.name}</h1>
 
@@ -45,6 +50,7 @@ function ProductDetails() {
             <p>Price: ${product.price}</p>
 
             <p>Seller: {product.seller.email}</p>
+            <p>Seller: {product.category}</p>
       
     </div>
   )

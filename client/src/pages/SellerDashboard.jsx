@@ -4,11 +4,49 @@ import API from "../services/api";
 function SellerDashboard() {
     const [products, setProducts] = useState([]);
     const [editingProduct,setEditingProduct] = useState(null);
+    const [newProduct, setNewProduct] = useState({
+        name: "",
+        description: "",
+        price: "",
+        image: "",
+        category:""
+    });
+
+
+    const handleCreateProduct = async () =>{
+        try {
+            const token = localStorage.getItem("token");
+            
+            const res = await API.post(
+                "/products",
+                newProduct,
+                {
+                    headers:{
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+            );
+            setProducts((prev) => [...prev, res.data])
+
+            setNewProduct({
+                 name: "",
+                description: "",
+                price: "",
+                image: "",
+                category:""
+            });
+            alert("Product created Successfully!");
+        }
+        catch(error) {
+            console.log(error.response?.data);
+        }
+    };
 
     const handleEdit = (product) => {
         setEditingProduct(product);
     }
 
+ 
     const updateProduct = async () => {
         try {
             const token =localStorage.getItem("token");
@@ -71,7 +109,7 @@ function SellerDashboard() {
                 setProducts(res.data);
             }
             catch(error) {
-                console.log(error.respose?.data)
+                console.log(error.response?.data)
             }
         };
         fetchMyProducts();
@@ -127,6 +165,19 @@ function SellerDashboard() {
             <button onClick={() => setEditingProduct(null)}>Cancel</button>
         </div>
       )}
+      
+      <h2>Create New Product</h2>
+
+      <input placeholder="Product Name" value={newProduct.name} onChange={(e) => setNewProduct({...newProduct, name:e.target.value}) } />
+      <input placeholder="Product Description" value={newProduct.description} onChange={(e) => setNewProduct({...newProduct, description:e.target.value}) } />
+      <input type="number" placeholder="Product Price" value={newProduct.price} onChange={(e) => setNewProduct({...newProduct, price:e.target.value}) } />
+      <input placeholder="Product Image URL" value={newProduct.image} onChange={(e) => setNewProduct({...newProduct, image:e.target.value}) } />
+      <input placeholder="Product category" value={newProduct.category} onChange={(e) => setNewProduct({...newProduct, category:e.target.value}) } /> 
+
+
+     <button className="border b-3" onClick={handleCreateProduct}>Create Product</button>
+
+
     </div>
   )
 }
