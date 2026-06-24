@@ -15,6 +15,7 @@ import Users from "./pages/admin/Users"
 import Sellers from "./pages/admin/Sellers"
 import Header from "./components/Header"
 import Layout from "./layouts/Layout"
+import Search from "./pages/Search"
 
 function App() {
  
@@ -23,30 +24,28 @@ function App() {
   <div class="mx-0 lg:mx-10">
     {/* <Header />
     <Navbar /> */}
-    <Layout />
-    <Routes>
-      <Route path="/" element = {<Home />} />
-      <Route path="/login" element = {<Login />} />
-      <Route path="/register" element = {<Register />} />
-      <Route path="/product" element = { <Products /> } />
-      <Route path="/cart" element = { <Cart /> } />
-      <Route path="/orders" element = { <Orders /> } />
-      <Route path="/seller-dashboard" element = { <SellerDashboard /> } />
-      <Route path="/seller-orders" element = { <SellerOrders /> } />
-      <Route path="/products/:id" element={<ProductDetails />} />
-    </Routes>
+   <Routes>
+  <Route path="/" element={<Layout />}>
+    <Route index element={<Home />} />
+    <Route path="search" element={<Search />} />
+    <Route path="login" element={<Login />} />
+    <Route path="register" element={<Register />} />
+    <Route path="product" element={<Products />} />
+    <Route path="cart" element={<Cart />} />
+    <Route path="orders" element={<Orders />} />
+    <Route path="seller-dashboard" element={<SellerDashboard />} />
+    <Route path="seller-orders" element={<SellerOrders />} />
+    <Route path="products/:id" element={<ProductDetails />} />
+  </Route>
 
-       <Routes>
-
-            <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminHome />} />
-                <Route path="users" element={<Users />} />
-                <Route path="sellers" element={<Sellers />} />
-                <Route path="products" element={<Products />} />
-                <Route path="orders" element={<Orders />} />
-            </Route>
-
-        </Routes>
+  <Route path="/admin" element={<AdminLayout />}>
+    <Route index element={<AdminHome />} />
+    <Route path="users" element={<Users />} />
+    <Route path="sellers" element={<Sellers />} />
+    <Route path="products" element={<Products />} />
+    <Route path="orders" element={<Orders />} />
+  </Route>
+</Routes>
 
     
 

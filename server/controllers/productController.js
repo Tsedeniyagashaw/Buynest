@@ -46,23 +46,27 @@ if (seller.role !== "seller") {
 
 const getProducts = async (req, res) => {
     try {
-        const keyword = req.query.search 
-        ? {
-            name: {
-                $regex: req.query.search,
-                $options: "i"
-            }
-        } : {};
+        console.log(req.query);
+
+        const keyword = req.query.search
+            ? {
+                  name: {
+                      $regex: req.query.search,
+                      $options: "i",
+                  },
+              }
+            : {};
+
+        console.log(keyword);
 
         const products = await Product.find(keyword)
-        .populate("seller", "email role");
+            .populate("seller", "email role");
 
         res.json(products);
-    }
-    catch(error) {
+    } catch (error) {
         res.status(500).json({
-            message: error.message
-        })
+            message: error.message,
+        });
     }
 };
 
@@ -81,6 +85,18 @@ const getProductById = async( req, res) => {
     }catch (error){
         res.status(500).json({ message: error.message });
 
+    }
+};
+
+const getNewProducts = async (req, res) => {
+    try {
+        const products = await Product.find()
+            .sort({ createdAt: -1 }) 
+            .limit(8);
+
+        res.json(products);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -160,5 +176,5 @@ const deleteProduct = async (req,res) => {
 }
 
 module.exports = {
-    createProduct, getProducts, getProductById, getMyProducts,updateProduct, deleteProduct
+   getNewProducts, createProduct, getProducts, getProductById, getMyProducts,updateProduct, deleteProduct
 }

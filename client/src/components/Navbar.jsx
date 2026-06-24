@@ -21,16 +21,17 @@ const linkClass =
 
       <nav className="hidden md:flex bg-violet-900 text-white items-center justify-between h-16 px-6">
         <div className="flex gap-6 items-center h-full">
-          <Link to="/" className={linkClass}>Home</Link>
+          <Link to="/" className={linkClass}>Home</Link>  <Link to="/product" className={linkClass}>Products</Link>
 
           {!token ? (
             <>
               <Link to="/login" className={linkClass}>Login</Link>
               <Link to="/register" className={linkClass}>Register</Link>
+             
             </>
           ) : (
             <>
-              <Link to="/product" className={linkClass}>Products</Link>
+             
               <Link to="/cart" className={linkClass}>Cart</Link>
               <Link to="/orders" className={linkClass}>Orders</Link>
               <Link to="/seller-orders" className={linkClass}>orders</Link>
@@ -68,9 +69,7 @@ const linkClass =
       </>
     ) : (
       <>
-        <Link onClick={() => setMenuOpen(false)} className="py-2" to="/product">
-          Products
-        </Link>
+     
 
         <Link onClick={() => setMenuOpen(false)} className="py-2" to="/cart">
           Cart
