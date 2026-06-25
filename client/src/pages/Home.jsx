@@ -1,6 +1,7 @@
 import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../context/AuthContext"
 import home from "../assets/home2.jpg"
+import banner from "../assets/banner3.png"
 import API from "../services/api"
 import ProductCard from "../components/ProductCard";
 
@@ -72,6 +73,8 @@ function Home() {
             ))}
 </div>
         </div>
+
+        <img src={banner} className="w-full" alt="" />
 
 </div>
 )

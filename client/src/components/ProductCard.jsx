@@ -46,7 +46,7 @@ function ProductCard({ product }) {
       <h2 className="font-bold text-lg text-indigo-700 hover:text-indigo-900 transition">
         {product.name}
       </h2>
-    </Link>
+   
 
     <p className="text-gray-600 text-sm mt-2 line-clamp-2">
       {product.description}
@@ -61,7 +61,8 @@ function ProductCard({ product }) {
         {product.seller.email}
       </p>
     </div>
-
+    
+ </Link>
     <button
       onClick={() => handleAddToCart(product._id)}
       className="mt-4 w-full bg-indigo-700 hover:bg-indigo-800 text-white py-2 rounded-lg transition flex items-center justify-center gap-2"
