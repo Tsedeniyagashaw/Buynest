@@ -15,7 +15,7 @@ const navigate = useNavigate();
   return (
     <div className="sticky h-20 top-0 z-50 bg-white/80 backdrop-blur-md flex justify-between  items-center border-b border-purple-200 py-2 px-4 md:px-6">
 <Link to="/">
-  <img src={logo} alt="BuyNest" className="h-10 md:h-12" />
+  <img src={logo} alt="BuyNest" className="h-7" />
 </Link>
     
 

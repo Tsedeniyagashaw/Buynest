@@ -66,7 +66,7 @@ function Home() {
 
    <div className="max-w-7xl mx-auto  px-4 py-6">
 
-            <h1 className="text-2xl md:text-4xl font-bold text-gray-700 my-5">Available Products</h1>
+            <h1 className="text-2xl md:text-4xl font-bold text-gray-700 my-5">New Products</h1>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 lg:gap-10">
             {newProducts.map((product) => (
                 <ProductCard key={product._id}  product={product}/>
@@ -74,7 +74,6 @@ function Home() {
 </div>
         </div>
 
-        <img src={banner} className="w-full" alt="" />
 
 </div>
 )

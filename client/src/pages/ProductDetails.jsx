@@ -33,27 +33,7 @@ function ProductDetails() {
   return (
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-10 p-6">
 
-      <div className="flex-1 space-y-4">
-
-        <div className="w-full h-[60vh] bg-white border rounded-xl flex items-center justify-center overflow-hidden shadow-sm">
-          <img
-            src={prod}
-            alt="main"
-            className="w-full h-full object-contain hover:scale-105 transition duration-300"
-          />
-        </div>
-
-        <div className="flex gap-3 justify-center">
-          {[prod1, prod2, prod3].map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              className="w-24 h-24 object-cover rounded-lg border cursor-pointer hover:scale-105 transition"
-              alt="thumb"
-            />
-          ))}
-        </div>
-      </div>
+     
 
      
       <div className="flex-1 space-y-4">
@@ -62,44 +42,12 @@ function ProductDetails() {
           {product.name}
         </h1>
 
-        <div className="flex items-center gap-3">
+        <div className="">
           <div className="text-2xl font-bold text-purple-600">
             ${product.price}
           </div>
 
-          <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full">
-            In Stock
-          </span>
-        </div>
-
-        <p className="text-gray-600 leading-relaxed">
-          {product.description}
-        </p>
-
-        <div className="bg-gray-50 p-4 rounded-lg  space-y-2">
-          <h3 className="font-semibold text-gray-700">Highlights</h3>
-          <ul className="text-sm text-gray-600 list-disc pl-5 space-y-1">
-            <li>High quality premium material</li>
-            <li>Fast delivery within 2–5 days</li>
-            <li>30-day return guarantee</li>
-            <li>Secure payment system</li>
-          </ul>
-        </div>
-
-        <div className="text-sm text-gray-500 space-y-1">
-          <p>
-            <span className="font-medium">Seller:</span>{" "}
-            {product.seller.email}
-          </p>
-          <p>
-            <span className="font-medium">Category:</span>{" "}
-            {product.category}
-          </p>
-        </div>
-
-      
-
-        <div className="flex items-center gap-3 pt-2">
+            <div className="flex items-center gap-3 pt-2">
           <span className="font-medium text-gray-700">Quantity:</span>
 
           <div className="flex items-center border border-violet-200 rounded-lg overflow-hidden">
@@ -121,7 +69,41 @@ function ProductDetails() {
           </div>
         </div>
 
-        <button className="w-full mt-3 bg-violet-600 text-white py-3 rounded-lg font-semibold hover:bg-violet-700 transition">
+        
+        </div>
+
+        <div className='space-y-2'>
+
+        <h1 className='mt-5 font-bold text-xl'>Product Overview</h1>
+  <div className="bg-gray-50 px-4 pb-2 rounded-lg">
+        {/* <p className="text-gray-600 leading-relaxed">
+          {product.description}
+        </p> */}
+
+      
+          {/* <h3 className="font-semibold text-gray-700">Highlights</h3> */}
+          <p className="text-sm text-gray-600 p-4">
+           The current generation of the MacBook combines elegant design, powerful performance, and exceptional portability, making it one of the most popular laptops for students, professionals, and creators. Powered by Apple's advanced M-series chips, it delivers fast processing speeds, excellent energy efficiency, and long battery life while remaining thin and lightweight. Its high-resolution Liquid Retina display offers vibrant colors and sharp details, making it ideal for productivity, creative work, and entertainment. With features such as a comfortable Magic Keyboard, large precision trackpad, high-quality webcam, and seamless integration with the Apple ecosystem, the latest MacBook provides a premium user experience that balances performance, reliability, and modern aesthetics.
+
+          </p>
+        </div>
+</div>
+        <div className="text-sm text-gray-500 space-y-1">
+          <p>
+            <span className="font-medium">Seller:</span>{" "}
+            {product.seller.email}
+          </p>
+          <p>
+            <span className="font-medium">Category:</span>{" "}
+            {product.category}
+          </p>
+        </div>
+
+      
+
+      
+
+        <button className="w-1/2 mt-3 bg-violet-600 text-white py-3 rounded-lg font-semibold hover:bg-violet-700 transition">
           Add to Cart
         </button>
      
@@ -135,6 +117,44 @@ function ProductDetails() {
          
 
       </div>
+
+
+      <div className="flex flex-col lg:flex-row gap-5 flex-1">
+
+  {/* Thumbnail Images */}
+  <div className="order-2 flex lg:flex-col gap-3 justify-center">
+    {[prod1, prod2, prod3].map((img, i) => (
+      <div
+        key={i}
+        className="group w-20 h-20 md:w-24 md:h-24 rounded-xl overflow-hidden border-2 border-gray-200 hover:border-purple-600 transition-all duration-300 cursor-pointer bg-white shadow-sm hover:shadow-lg"
+      >
+        <img
+          src={img}
+          alt={`Thumbnail ${i + 1}`}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+        />
+      </div>
+    ))}
+  </div>
+
+  {/* Main Product Image */}
+  <div className="order-1  flex-1">
+    <div className="relative h-[400px]  rounded-2xl bg-gray-50 border border-gray-200 shadow-lg overflow-hidden flex items-center justify-center">
+
+      {/* Optional badge */}
+      <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full font-medium shadow">
+        Featured
+      </span>
+
+      <img
+        src={prod}
+        alt="Main Product"
+        className="w-full h-full object-contain  transition-transform duration-500 hover:scale-110"
+      />
+    </div>
+  </div>
+
+</div>
     </div>
   );
 }
