@@ -5,11 +5,8 @@ import profile from '../assets/profile.png'
 import {   FiShoppingCart } from "react-icons/fi";
 
 
-
 function Navbar({ menuOpen, setMenuOpen }) {
   const { token, logout } = useContext(AuthContext);
-
-
 
 const linkClass =
   "relative flex items-center h-full transition-colors duration-300 " +
@@ -18,10 +15,10 @@ const linkClass =
 
   return (
     <>
-
       <nav className="hidden md:flex bg-violet-900 text-white items-center justify-between h-16 px-6">
         <div className="flex gap-6 items-center h-full">
-          <Link to="/" className={linkClass}>Home</Link>  <Link to="/product" className={linkClass}>Products</Link>
+          <Link to="/" className={linkClass}>Home</Link>  
+          <Link to="/product" className={linkClass}>Products</Link>
 
           {!token ? (
             <>
@@ -41,7 +38,7 @@ const linkClass =
         </div>
 
         {token && (
-          <button onClick={logout} className="px-4 py-2 border rounded">
+          <button onClick={logout} className="px-4 py-2 border rounded hover:bg-white hover:text-violet-900">
             Logout
           </button>
         )}

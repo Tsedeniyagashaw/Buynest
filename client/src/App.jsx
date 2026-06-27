@@ -21,7 +21,7 @@ function App() {
  
 
   return (
-  <div class="mx-0 lg:mx-10">
+  <div class="mx-0 lg:mx-10  ">
     {/* <Header />
     <Navbar /> */}
    <Routes>

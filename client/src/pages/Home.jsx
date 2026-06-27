@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react"
 import { AuthContext } from "../context/AuthContext"
-import home from "../assets/home2.jpg"
+import home from "../assets/home.png"
 import banner from "../assets/banner3.png"
 import API from "../services/api"
 import ProductCard from "../components/ProductCard";
@@ -26,7 +26,7 @@ function Home() {
 
     return (
         <div>
-    <div className="min-h-[80vh] flex flex-col-reverse lg:flex-row items-center">
+    <div className="min-h-[70vh] flex flex-col-reverse lg:flex-row items-center border-b border-violet-200 ">
 
 
         <div className="flex-1 text-center">
@@ -39,8 +39,8 @@ function Home() {
         </div>
     </div>
 
-    <div className="bg-white rounded-xl shadow-xl
-                grid grid-cols-2 md:grid-cols-4 gap-8
+    <div className="rounded-xl shadow-xl
+                grid grid-cols-2 md:grid-cols-4 gap-8 bg-violet-50
                 p-8 max-w-5xl mx-auto  md:-mt-10 relative z-10">
 
   <div className="text-center">

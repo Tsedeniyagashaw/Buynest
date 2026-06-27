@@ -96,36 +96,130 @@ function Cart() {
         return <h2>Your Cart is Empty</h2>
     }
 
-    return (
-        <div>
-            <h1 className="font-bold text-2xl text-gray-500 my-4">Your Cart</h1>
-            <div className="grid gap-3 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
-            {cart.items.map((item) => (
-               <div className="p-4 bg-violet-50 shadow-sm" key={item.product._id}>
-                <img src={prod} alt="" />
-                <h3 className="text-lg font-semibold p-3 border-b border-gray-200">{item.product.name}</h3>
-                <p className="p-2 border-b border-gray-200">Price: ${item.product.price}</p>
-                <p className="p-2 border-b border-gray-200">Quantity:
-                <button onClick={() => updateQty(item.product._id, item.quantity - 1)}> - </button>
-                <span>{item.quantity}</span> 
-                <button className="border b-1" onClick={() => updateQty(item.product._id, item.quantity + 1)}> + </button>
-              </p> 
-                <p  className="p-2 border-b border-gray-200">Total: ${cart.items.reduce((acc,item) => acc + item.product.price * item.quantity, 0)}</p>
-               
-               <div className="flex justify-center gap-3">
-               <button className=" mt-2 px-4 py-2 bg-violet-900 shadow-sm hover:bg-violet-800 rounded-md text-white" onClick={handleCheckout}>
-    Checkout
-</button>
+  const total = cart.items.reduce(
+  (acc, item) => acc + item.product.price * item.quantity,
+  0
+);
 
-<button className=" mt-2 px-4 py-2 bg-violet-900 shadow-sm hover:bg-violet-800 rounded-md text-white" onClick={() => removeItem(item.product._id)}>Remove</button>
-              
-              
-          </div>    
-              
-               </div> 
-            ))}
-        </div></div>
-    );
+return (
+  <div className="max-w-7xl mx-auto px-5 py-10">
+    <h1 className="text-3xl font-bold text-gray-800 mb-8">
+      Shopping Cart
+    </h1>
+
+    <div className="flex flex-col lg:flex-row gap-8">
+      <div className="flex-1 space-y-5">
+        {cart.items.map((item) => (
+          <div
+            key={item.product._id}
+            className="bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex gap-5 hover:shadow-md transition"
+          >
+            <div className="w-32 h-32 bg-violet-50 rounded-lg overflow-hidden flex items-center justify-center">
+              <img
+                src={prod}
+                alt={item.product.name}
+                className="w-full h-full object-contain"
+              />
+            </div>
+
+            <div className="flex-1 flex flex-col justify-between">
+              <div>
+                <h2 className="text-xl font-semibold text-gray-800">
+                  {item.product.name}
+                </h2>
+
+                <p className="text-gray-500 mt-1">
+                  Premium Quality Product
+                </p>
+
+                <p className="mt-3 text-violet-900 font-bold text-lg">
+                  ${item.product.price}
+                </p>
+              </div>
+
+              <div className="flex flex-wrap items-center justify-between mt-5">
+                <div className="flex items-center border rounded-lg overflow-hidden">
+                  <button
+                    className="px-4 py-2 hover:bg-gray-100"
+                    onClick={() =>
+                      updateQty(item.product._id, item.quantity - 1)
+                    }
+                  >
+                    −
+                  </button>
+
+                  <span className="px-5 font-medium">
+                    {item.quantity}
+                  </span>
+
+                  <button
+                    className="px-4 py-2 hover:bg-gray-100"
+                    onClick={() =>
+                      updateQty(item.product._id, item.quantity + 1)
+                    }
+                  >
+                    +
+                  </button>
+                </div>
+
+                <div className="text-lg font-semibold text-gray-700">
+                  $
+                  {(item.product.price * item.quantity).toFixed(2)}
+                </div>
+
+                <button
+                  onClick={() => removeItem(item.product._id)}
+                  className="text-red-600 hover:text-red-700 font-medium"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="lg:w-80">
+        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6 sticky top-24">
+          <h2 className="text-2xl font-bold mb-6">
+            Order Summary
+          </h2>
+
+          <div className="flex justify-between mb-4">
+            <span className="text-gray-600">Items</span>
+            <span>{cart.items.length}</span>
+          </div>
+
+          <div className="flex justify-between mb-4">
+            <span className="text-gray-600">Subtotal</span>
+            <span>${total.toFixed(2)}</span>
+          </div>
+
+          <div className="flex justify-between mb-4">
+            <span className="text-gray-600">Shipping</span>
+            <span className="text-green-600">FREE</span>
+          </div>
+
+          <hr className="my-5" />
+
+          <div className="flex justify-between text-xl font-bold">
+            <span>Total</span>
+            <span className="text-violet-900">
+              ${total.toFixed(2)}
+            </span>
+          </div>
+
+          <button
+            onClick={handleCheckout}
+            className="w-full mt-8 bg-violet-900 hover:bg-violet-800 text-white py-3 rounded-lg font-semibold transition"
+          >
+            Proceed to Checkout
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+);
 
 }
 
