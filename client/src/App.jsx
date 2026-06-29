@@ -38,13 +38,13 @@ function App() {
     <Route path="products/:id" element={<ProductDetails />} />
   </Route>
 
-  <Route path="/admin" element={<AdminLayout />}>
-    <Route index element={<AdminHome />} />
-    <Route path="users" element={<Users />} />
-    <Route path="sellers" element={<Sellers />} />
-    <Route path="products" element={<Products />} />
-    <Route path="orders" element={<Orders />} />
-  </Route>
+     <Route path="/admin" element={<AdminLayout />}>
+        <Route index element={<AdminHome />} />
+        <Route path="users" element={<Users />} />
+        <Route path="orders" element={<Orders />} />
+        <Route path="products" element={<Products />} />
+        <Route path="sellers" element={<Sellers />} />
+      </Route>
 </Routes>
 
     

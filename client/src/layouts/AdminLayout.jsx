@@ -1,32 +1,28 @@
-import { Outlet, Link } from "react-router-dom";
+import Sidebar from "./Sidebar";
+import Topbar from "./Topbar";
+import { Outlet } from "react-router-dom";
 
 function AdminLayout() {
-    return (
-        <div className="admin-container">
-            
-            <div className="sidebar">
-                <h2>Admin Panel</h2>
+  return (
+    <div className="flex h-screen bg-gray-100">
 
-                <Link to="/admin">Dashboard</Link>
-                <Link to="/admin/users">Users</Link>
-                <Link to="/admin/sellers">Sellers</Link>
-                <Link to="/admin/products">Products</Link>
-                <Link to="/admin/orders">Orders</Link>
-            </div>
+      {/* Sidebar */}
+      <Sidebar />
 
-            <div className="main">
-                
-                <div className="topbar">
-                    <h3>Welcome Admin</h3>
-                </div>
+      {/* Main area */}
+      <div className="flex-1 flex flex-col">
 
-                <div className="content">
-                    <Outlet />
-                </div>
+        {/* Topbar */}
+        <Topbar />
 
-            </div>
-        </div>
-    );
+        {/* Page content */}
+        <main className="p-6 overflow-y-auto">
+          <Outlet />
+        </main>
+
+      </div>
+    </div>
+  );
 }
 
 export default AdminLayout;

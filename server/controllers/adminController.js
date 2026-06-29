@@ -103,28 +103,36 @@ const deleteProductAdmin = async (req, res) =>{
     }
 }
 
-const getAdminStats  = async (req, res) => {
-    try {
-        const users = await User.countDocuments();
-        const products = await Product.countDocuments();
-        const orders = await Orders.countDocuments();
-        const pendingSellers = await User.countDocuments({
-            role: "seller",
-            isApproved: false
-        });
+const getAdminStats = async (req, res) => {
+  try {
+    const [
+      users,
+      products,
+      orders,
+      sellers,
+      pendingSellers
+    ] = await Promise.all([
+      User.countDocuments(),
+      Product.countDocuments(),
+      Order.countDocuments(),
+      User.countDocuments({ role: "seller" }),
+      User.countDocuments({ role: "seller", isApproved: false })
+    ]);
 
-        res.json({
-            users,products, orders, pendingSellers
-        })
+    res.json({
+      users,
+      products,
+      orders,
+      sellers,
+      pendingSellers
+    });
 
-
-    }
-    catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-}
+  } catch (error) {
+    res.status(500).json({
+      message: error.message
+    });
+  }
+};
 
 
 
