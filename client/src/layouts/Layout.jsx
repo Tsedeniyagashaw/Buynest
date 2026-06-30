@@ -7,14 +7,14 @@ function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <>
+    <div class="mx-0 lg:mx-10  ">
         <Header
         onMenuToggle={() => setMenuOpen(prev => !prev)}
         menuOpen={menuOpen}
       />
       <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <Outlet />
-    </>
+    </div>
   );
 }
 

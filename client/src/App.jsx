@@ -21,7 +21,7 @@ function App() {
  
 
   return (
-  <div class="mx-0 lg:mx-10  ">
+  <div >
     {/* <Header />
     <Navbar /> */}
    <Routes>
@@ -38,7 +38,7 @@ function App() {
     <Route path="products/:id" element={<ProductDetails />} />
   </Route>
 
-     <Route path="/admin" element={<AdminLayout />}>
+     <Route path="/admin"  element={<AdminLayout />}>
         <Route index element={<AdminHome />} />
         <Route path="users" element={<Users />} />
         <Route path="orders" element={<Orders />} />

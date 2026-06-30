@@ -1,12 +1,10 @@
-import Sidebar from "./Sidebar";
-import Topbar from "./Topbar";
+import Sidebar from "../pages/admin/Sidebar";
+import Topbar from "../pages/admin/Topbar";
 import { Outlet } from "react-router-dom";
 
 function AdminLayout() {
   return (
-    <div className="flex h-screen bg-gray-100">
-
-      {/* Sidebar */}
+    <div className="flex h-screen">
       <Sidebar />
 
       {/* Main area */}

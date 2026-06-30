@@ -35,7 +35,6 @@ function AdminHome() {
         Admin Dashboard
       </h1>
 
-      {/* STATS CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
 
         <div className="bg-white rounded-2xl shadow-md p-5 border-l-4 border-blue-500 hover:shadow-lg transition">
