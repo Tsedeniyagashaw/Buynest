@@ -11,7 +11,7 @@ const {
   getAllOrders,
   getAllProducts,
   getAdminStats,
-  deleteProductAdmin
+  deleteProductAdmin, getAdminProfile
 } = require("../controllers/adminController");
 
 router.get("/users", protect, authorizeRoles("admin"), getAllUsers);
@@ -21,4 +21,5 @@ router.get("/orders", protect, authorizeRoles("admin"), getAllOrders);
 router.get("/products", protect, authorizeRoles("admin"), getAllProducts);
 router.get("/stats", protect, authorizeRoles("admin"), getAdminStats);
 router.delete("/products/:id", protect, authorizeRoles("admin"), deleteProductAdmin);
+router.get("/profile", protect, authorizeRoles("admin"), getAdminProfile)
 module.exports = router;

@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react"
 import API from "../../services/api"
+import { useSearch } from "../../context/SearchContext";
 
 
-function Orders() {
+function AdminOrders() {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const { search, setSearch } = useSearch();
+
+    const filteredOrders = orders.filter(order =>
+    order._id.includes(search) ||
+    order.user.firstName.toLowerCase().includes(search.toLowerCase())
+);
+
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -55,4 +63,4 @@ function Orders() {
   )
 }
 
-export default Orders
+export default AdminOrders

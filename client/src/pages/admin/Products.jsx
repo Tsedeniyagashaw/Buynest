@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react"
 import API from "../../services/api"
+import { useSearch } from "../../context/SearchContext";
 
-function Products() {
+function AdminProducts() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { search } = useSearch();
+  const filteredProducts = products.filter(product =>
+    product.name.toLowerCase().includes(search.toLowerCase())
+);
 
  
-
     useEffect(() => {
      const fetchProducts = async () => {
     try {
@@ -60,7 +64,7 @@ function Products() {
    <div>
             <h1>All Products</h1>
 
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
                 <div
                     key={product._id}
                 >
@@ -81,4 +85,4 @@ function Products() {
   )
 }
 
-export default Products
+export default AdminProducts

@@ -14,6 +14,21 @@ const getAllUsers = async (req, res) => {
     }
 };
 
+
+const getAdminProfile = async (req,res) => {
+    try {
+        const admin  = await User.findById(req.user.id).select("firstName lastName");
+
+        if(!admin) {
+            return res.status(404).json({ message: "Admin not Found"});
+        }
+        res.json(admin);
+    }
+    catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
+
 const getPendingSellers = async (req, res) => {
     try {
         const sellers = await User.find({
@@ -136,4 +151,4 @@ const getAdminStats = async (req, res) => {
 
 
 
-module.exports = { getAllUsers, getPendingSellers, approveSeller, getAllOrders, getAllProducts, getAdminStats, deleteProductAdmin };
+module.exports = { getAllUsers, getAdminProfile, getPendingSellers, approveSeller, getAllOrders, getAllProducts, getAdminStats, deleteProductAdmin };

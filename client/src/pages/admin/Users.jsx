@@ -1,11 +1,22 @@
 import { useEffect, useState } from "react"
 import API from "../../services/api"
+import { useSearch } from "../../context/SearchContext";
 
 function Users() {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { search } = useSearch();
+
+
+  const filteredUsers = users.filter(user =>
+    `${user.firstName} ${user.lastName}`
+        .toLowerCase()
+        .includes(search.toLowerCase())
+);
 
   useEffect (() => {
+    
+
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
@@ -46,7 +57,7 @@ function Users() {
                 </thead>
 
                 <tbody>
-                    {users.map((user) => (
+                    {filteredUsers.map((user) => (
                         <tr key={user._id}>
                             <td>{user.name || "N/A"}</td>
                             <td>{user.email}</td>

@@ -22,6 +22,7 @@ const protect = ( req, res, next) => {
             token,
             process.env.JWT_SECRET
         );
+        console.log(decoded);
         req.user = decoded;
 
         next();

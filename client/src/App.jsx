@@ -16,6 +16,9 @@ import Sellers from "./pages/admin/Sellers"
 import Header from "./components/Header"
 import Layout from "./layouts/Layout"
 import Search from "./pages/Search"
+import AdminProducts from "./pages/admin/Products"
+import AdminOrders from "./pages/admin/Orders"
+
 
 function App() {
  
@@ -41,8 +44,8 @@ function App() {
      <Route path="/admin"  element={<AdminLayout />}>
         <Route index element={<AdminHome />} />
         <Route path="users" element={<Users />} />
-        <Route path="orders" element={<Orders />} />
-        <Route path="products" element={<Products />} />
+        <Route path="orders" element={<AdminOrders />} />
+        <Route path="products" element={<AdminProducts />} />
         <Route path="sellers" element={<Sellers />} />
       </Route>
 </Routes>
