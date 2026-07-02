@@ -33,6 +33,7 @@ const linkClass =
               <Link to="/orders" className={linkClass}>Orders</Link>
               <Link to="/seller-orders" className={linkClass}>orders</Link>
               <Link to="/seller-dashboard" className={linkClass}>Dashboard</Link>
+              {/* <Link to="/admin" className={linkClass}>AdDashboard</Link> */}
             </>
           )}
         </div>
