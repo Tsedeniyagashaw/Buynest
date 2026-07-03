@@ -41,7 +41,7 @@ function Topbar() {
     <div className="h-30 text-gray-600 shadow flex items-center justify-between px-6">
      
    
-        <div className="text-md font-semibold">
+        <div className="text-xl font-semibold">
           Welcome back! {admin?.firstName}
         </div>
       

@@ -1,15 +1,8 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from "recharts";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  BarChart,
-  Bar
-} from "recharts";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer,  XAxis, YAxis,CartesianGrid, BarChart, Bar } from "recharts";
+import {  FaUsers,  FaBoxOpen,  FaShoppingCart,  FaUserShield,  FaClock,} from "react-icons/fa";
+
 
 function AdminHome() {
   const [stats, setStats] = useState(null);
@@ -32,6 +25,7 @@ function AdminHome() {
   : [];
 
   const COLORS = ["#6366F1", "#22C55E", "#FACC15", "#A855F7"];
+
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -62,125 +56,166 @@ function AdminHome() {
   }
 
   return (
-    <div className="p-10">
+  <div className="px-4  min-h-screen">
 
-      <h1 className="text-3xl font-bold text-gray-700 mb-10">
-        Admin Dashboard
-      </h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-5">      
-       
-         <div className="bg-white rounded-2xl shadow-md p-5 border-l-4 border-blue-500 hover:shadow-lg transition">
-             <p className="text-2xl font-bold mt-2">
-            {stats?.users}
-          </p>  <h3 className="text-gray-500 text-sm">Users</h3>
-     
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-md p-5 border-l-4 border-green-500 hover:shadow-lg transition">
-             <p className="text-2xl font-bold mt-2">
-            {stats?.products}
-          </p><h3 className="text-gray-500 text-sm">Products</h3>
-       
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-md p-5 border-l-4 border-yellow-500 hover:shadow-lg transition">
-           <p className="text-2xl font-bold mt-2">
-            {stats?.orders}
-          </p>  <h3 className="text-gray-500 text-sm">Orders</h3>
-       
-        </div>
-
-        <div className="bg-white rounded-2xl shadow-md p-5 border-l-4 border-violet-500 hover:shadow-lg transition">
-            <p className="text-2xl font-bold mt-2">
-            {stats?.sellers}
-          </p> <h3 className="text-gray-500 text-sm">Sellers</h3>
-       
-        </div>
-             </div>
-             <div className="flex">
-
-        <div className="mt-10 bg-white p-6 rounded-2xl shadow flex-1">
-  <h2 className="text-xl font-semibold mb-4">Platform Overview</h2>
-
-  <div style={{ width: "100%", height: 300 }}>
-    <ResponsiveContainer>
-      <PieChart>
-        <Pie
-          data={chartData}
-          dataKey="value"
-          nameKey="name"
-          cx="50%"
-          cy="50%"
-          outerRadius={100}
-          label
-        >
-          {chartData.map((entry, index) => (
-            <Cell key={index} fill={COLORS[index % COLORS.length]} />
-          ))}
-        </Pie>
-
-        <Tooltip />
-      </PieChart>
-    </ResponsiveContainer>
+  <div className="mb-8">
+    <p className="text-sm text-gray-500 mt-1">
+      Here is what is happening in your platform today
+    </p>
   </div>
-</div>  
 
-<div className="mt-10 bg-white p-6 rounded-2xl shadow flex-2">
-  <h2 className="text-xl font-semibold mb-4">Platform Breakdown</h2>
+<div className="grid grid-cols-1 md:grid-cols-5 gap-5">
 
-  <div style={{ width: "100%", height: 300 }}>
-    <ResponsiveContainer>
-      <BarChart data={graphData}>
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-
-        <Bar dataKey="value" fill="#22C55E" />
-      </BarChart>
-    </ResponsiveContainer>
+  <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-blue-200">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm text-gray-500 font-medium">Users</p>
+        <h3 className="text-3xl font-bold text-gray-800 mt-1">
+          {stats?.users}
+        </h3>
+      </div>
+      <div className="p-3 rounded-full bg-blue-200/50">
+        <FaUsers className="text-blue-600 text-3xl" />
+      </div>
+    </div>
+    <div className="mt-4 h-1 w-16 bg-blue-400 rounded-full"></div>
   </div>
+
+  <div className="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-purple-200">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm text-gray-500 font-medium">Products</p>
+        <h3 className="text-3xl font-bold text-gray-800 mt-1">
+          {stats?.products}
+        </h3>
+      </div>
+      <div className="p-3 rounded-full bg-purple-200/50">
+        <FaBoxOpen className="text-purple-600 text-3xl" />
+      </div>
+    </div>
+    <div className="mt-4 h-1 w-16 bg-purple-400 rounded-full"></div>
+  </div>
+
+  <div className="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-yellow-200">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm text-gray-500 font-medium">Orders</p>
+        <h3 className="text-3xl font-bold text-gray-800 mt-1">
+          {stats?.orders}
+        </h3>
+      </div>
+      <div className="p-3 rounded-full bg-yellow-200/50">
+        <FaShoppingCart className="text-yellow-600 text-3xl" />
+      </div>
+    </div>
+    <div className="mt-4 h-1 w-16 bg-yellow-400 rounded-full"></div>
+  </div>
+
+  <div className="bg-gradient-to-br from-pink-50 to-pink-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-pink-200">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm text-gray-500 font-medium">Sellers</p>
+        <h3 className="text-3xl font-bold text-gray-800 mt-1">
+          {stats?.sellers}
+        </h3>
+      </div>
+      <div className="p-3 rounded-full bg-pink-200/50">
+        <FaUserShield className="text-pink-600 text-3xl" />
+      </div>
+    </div>
+    <div className="mt-4 h-1 w-16 bg-pink-400 rounded-full"></div>
+  </div>
+
+  <div className="bg-gradient-to-br from-red-50 to-red-100 rounded-2xl p-6 shadow-sm hover:shadow-xl transition-all duration-300 border border-red-200">
+    <div className="flex items-center justify-between">
+      <div>
+        <p className="text-sm text-gray-500 font-medium">Pending</p>
+        <h3 className="text-3xl font-bold text-gray-800 mt-1">
+          {stats?.pendingSellers}
+        </h3>
+      </div>
+      <div className="p-3 rounded-full bg-red-200/50">
+        <FaClock className="text-red-600 text-3xl" />
+      </div>
+    </div>
+    <div className="mt-4 h-1 w-16 bg-red-400 rounded-full"></div>
+  </div>
+
 </div>
 
 
+  <div className="flex gap-6 mt-8">
+    <div className="flex-2 bg-white p-6 rounded-2xl shadow-sm">
+      <h2 className="text-lg font-semibold mb-4">Website Visits</h2>
+
+      <div style={{ width: "100%", height: 300 }}>
+        <ResponsiveContainer>
+          <BarChart data={graphData}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Bar dataKey="value" fill="#6366F1" radius={[6, 6, 0, 0]} />
+          </BarChart>
+        </ResponsiveContainer>
       </div>
-
-    {/* Pending Sellers */}
-      <div className="mt-6 bg-white p-5 rounded-2xl shadow">
-         <p className="text-3xl font-bold mt-2">
-          {stats?.pendingSellers}
-        </p> <h2 className="text-lg font-semibold text-red-500">
-          Pending Sellers
-        </h2>
-      
-      </div>
-
-
-      
-
-      {/* Quick Actions */}
-      <div className="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4">
-
-        <button className="bg-violet-600 text-white p-3 rounded-xl hover:bg-violet-700 transition">
-          View Products
-        </button>
-
-        <button className="bg-violet-600 text-white p-3 rounded-xl hover:bg-violet-700 transition">
-          View Orders
-        </button>
-
-        <button className="bg-violet-600 text-white p-3 rounded-xl hover:bg-violet-700 transition">
-          Manage Users
-        </button>
-
-        <button className="bg-violet-600 text-white p-3 rounded-xl hover:bg-violet-700 transition">
-          Manage Sellers
-        </button>
-
-      </div>
-
     </div>
+    <div className="bg-white flex-1 p-6 rounded-2xl shadow-sm">
+      <h2 className="text-lg font-semibold mb-4">Current Visits</h2>
+
+      <div style={{ width: "100%", height: 300 }}>
+        <ResponsiveContainer>
+          <PieChart>
+            <Pie
+              data={chartData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={100}
+              label
+            >
+              {chartData.map((entry, index) => (
+                <Cell key={index} fill={COLORS[index % COLORS.length]} />
+              ))}
+            </Pie>
+            <Tooltip />
+          </PieChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  </div>
+
+
+  
+
+
+  {/* Quick Actions */}
+ {/* <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+
+  <button className="flex items-center justify-center gap-2 bg-indigo-600 text-white p-3 rounded-xl hover:bg-indigo-700 transition">
+    <FaEye />
+    View Products
+  </button>
+
+  <button className="flex items-center justify-center gap-2 bg-indigo-600 text-white p-3 rounded-xl hover:bg-indigo-700 transition">
+    <FaClipboardList />
+    View Orders
+  </button>
+
+  <button className="flex items-center justify-center gap-2 bg-indigo-600 text-white p-3 rounded-xl hover:bg-indigo-700 transition">
+    <FaUsers />
+    Manage Users
+  </button>
+
+  <button className="flex items-center justify-center gap-2 bg-indigo-600 text-white p-3 rounded-xl hover:bg-indigo-700 transition">
+    <FaUserShield />
+    Manage Sellers
+  </button>
+
+</div> */}
+
+</div>
   );
 }
 

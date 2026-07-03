@@ -24,6 +24,7 @@ function AdminOrders() {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                console.log(res.data);
                 setOrders(res.data);
             }
             catch (error){
@@ -34,15 +35,16 @@ function AdminOrders() {
             }
         };
         fetchOrders();
+        
     }, []);
 
-    if (loading) return <h2>Loaaading</h2>
+    if (loading) return <h2>Loading</h2>
     if (orders.length === 0) return  <h2>No orders yet!</h2>
 
   return (
     <div>
    <h1>Orders</h1>
-   {orders.map((order) => (
+   {filteredOrders.map((order) => (
     <div key={order._id}>
         <h3>Order ID: {order._id}</h3>
         <p>Buyer: {order.user.email}</p>
