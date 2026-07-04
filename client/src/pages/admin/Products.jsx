@@ -77,12 +77,10 @@ function AdminProducts() {
     </button>
   </div>
 
-  {/* Card */}
   <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
 
     <table className="min-w-full">
 
-      {/* Head */}
       <thead className="bg-gray-50">
         <tr className="text-left text-sm text-gray-600 border-b border-gray-300">
           <th className="px-6 py-4 font-medium">Name</th>
@@ -93,35 +91,29 @@ function AdminProducts() {
         </tr>
       </thead>
 
-      {/* Body */}
       <tbody className="divide-y divide-gray-100">
 
         {filteredProducts.map((product) => (
           <tr key={product._id} className="text-sm hover:bg-gray-50 transition">
 
-            {/* Name */}
             <td className="px-6 py-4 font-medium text-gray-900">
               {product.name}
             </td>
 
-            {/* Description */}
             <td className="px-6 py-4 text-gray-600 max-w-xs truncate">
               {product.description}
             </td>
 
-            {/* Price */}
             <td className="px-6 py-4">
               <span className="px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-600">
                 ${product.price}
               </span>
             </td>
 
-            {/* Seller */}
             <td className="px-6 py-4 text-gray-600">
               {product.seller?.email || "N/A"}
             </td>
 
-            {/* Action */}
             <td className="px-6 py-4 text-right">
               <button
                 onClick={() => deleteProduct(product._id)}

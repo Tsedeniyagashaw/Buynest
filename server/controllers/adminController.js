@@ -57,8 +57,11 @@ const approveSeller = async (req, res) => {
         seller.isApproved = true;
         await seller.save()
 
-        res.json({
-            message: "Seller approved successfully"
+         res.json({
+            message: seller.isApproved
+                ? "Seller approved successfully"
+                : "Seller approval revoked successfully",
+            seller,
         });
     }
     catch (error) {
@@ -79,6 +82,17 @@ const getAllOrders =async (req, res) => {
         res.status(500).json({
             message: error.message
         });
+    }
+};
+
+const getAllSellers = async (req, res) => {
+    try {
+        const sellers = await User.find({ role: "seller" })
+            .select("-password");
+
+        res.json(sellers);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
     }
 };
 
@@ -151,4 +165,4 @@ const getAdminStats = async (req, res) => {
 
 
 
-module.exports = { getAllUsers, getAdminProfile, getPendingSellers, approveSeller, getAllOrders, getAllProducts, getAdminStats, deleteProductAdmin };
+module.exports = { getAllUsers, getAdminProfile, getPendingSellers, approveSeller, getAllOrders, getAllProducts, getAdminStats, deleteProductAdmin, getAllSellers };

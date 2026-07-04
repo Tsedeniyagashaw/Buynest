@@ -11,11 +11,17 @@ const {
   getAllOrders,
   getAllProducts,
   getAdminStats,
-  deleteProductAdmin, getAdminProfile
+  deleteProductAdmin, getAdminProfile, getAllSellers
 } = require("../controllers/adminController");
 
 router.get("/users", protect, authorizeRoles("admin"), getAllUsers);
 router.get("/pending-sellers", protect, authorizeRoles("admin"), getPendingSellers);
+router.get(
+    "/sellers",
+    protect,
+    authorizeRoles("admin"),
+    getAllSellers
+);
 router.put("/approve-seller/:id", protect, authorizeRoles("admin"), approveSeller);
 router.get("/orders", protect, authorizeRoles("admin"), getAllOrders);
 router.get("/products", protect, authorizeRoles("admin"), getAllProducts);

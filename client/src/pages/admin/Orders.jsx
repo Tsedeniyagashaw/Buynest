@@ -19,7 +19,7 @@ function AdminOrders() {
             try {
                 const token = localStorage.getItem("token");
 
-                const res = await API.get("/orders/admin/orders",{
+                const res = await API.get("/admin/orders",{
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -42,26 +42,102 @@ function AdminOrders() {
     if (orders.length === 0) return  <h2>No orders yet!</h2>
 
   return (
+ <div className="p-6 bg-gray-50 min-h-screen">
+
+  {/* Header */}
+  <div className="flex items-start justify-between mb-6">
     <div>
-   <h1>Orders</h1>
-   {filteredOrders.map((order) => (
-    <div key={order._id}>
-        <h3>Order ID: {order._id}</h3>
-        <p>Buyer: {order.user.email}</p>
-        <p>Total: {order.totalPrice}</p>
-        <p>Status: {order.status}</p>
+      <h1 className="text-2xl font-semibold text-gray-900">Orders</h1>
+      <p className="text-sm text-gray-500 mt-1">
+        A list of all orders placed in your store including buyer, items, total and status.
+      </p>
+    </div>
+  </div>
 
-        <h4>Items</h4>
-        {order.orderItems.map((item) => (
-            <p key = {item._id}>
-                {item.product.name} x {item.quantity}
+  {/* Table Card */}
+  <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
 
-            </p>
+    <table className="min-w-full">
+
+      {/* Table Head */}
+      <thead className="bg-gray-50">
+        <tr className="text-left text-sm text-gray-600 border-b">
+          <th className="px-6 py-4 font-medium">Order ID</th>
+          <th className="px-6 py-4 font-medium">Buyer</th>
+          <th className="px-6 py-4 font-medium">Items</th>
+          <th className="px-6 py-4 font-medium">Total</th>
+          <th className="px-6 py-4 font-medium">Status</th>
+        </tr>
+      </thead>
+
+      {/* Table Body */}
+      <tbody className="divide-y divide-gray-100">
+
+        {filteredOrders.map((order) => (
+          <tr
+            key={order._id}
+            className="hover:bg-gray-50 transition text-sm"
+          >
+
+            {/* Order ID */}
+            <td className="px-6 py-5 font-semibold text-gray-900">
+              #{order._id.slice(-6).toUpperCase()}
+            </td>
+
+            {/* Buyer */}
+            <td className="px-6 py-5 text-gray-600">
+              {order.user?.email}
+            </td>
+
+            {/* Items */}
+            <td className="px-6 py-5">
+              <div className="space-y-1">
+                {order.orderItems.map((item) => (
+                  <p
+                    key={item._id}
+                    className="text-gray-600"
+                  >
+                    <span className="font-medium">
+                      {item.product?.name}
+                    </span>{" "}
+                    × {item.quantity}
+                  </p>
+                ))}
+              </div>
+            </td>
+
+            {/* Total */}
+            <td className="px-6 py-5">
+              <span className="px-3 py-1 rounded-full bg-green-100 text-green-600 text-xs font-semibold">
+                ${order.totalPrice}
+              </span>
+            </td>
+
+            {/* Status */}
+            <td className="px-6 py-5">
+              <span
+                className={`px-3 py-1 rounded-full text-xs font-semibold
+                ${
+                  order.status === "Delivered"
+                    ? "bg-green-100 text-green-600"
+                    : order.status === "Pending"
+                    ? "bg-yellow-100 text-yellow-600"
+                    : order.status === "Processing"
+                    ? "bg-blue-100 text-blue-600"
+                    : "bg-red-100 text-red-600"
+                }`}
+              >
+                {order.status}
+              </span>
+            </td>
+
+          </tr>
         ))}
 
-    </div>
-   ))}
-    </div>
+      </tbody>
+    </table>
+  </div>
+</div>
   )
 }
 
