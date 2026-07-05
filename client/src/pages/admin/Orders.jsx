@@ -44,7 +44,7 @@ function AdminOrders() {
   return (
  <div className="p-6 bg-gray-50 min-h-screen">
 
-  {/* Header */}
+
   <div className="flex items-start justify-between mb-6">
     <div>
       <h1 className="text-2xl font-semibold text-gray-900">Orders</h1>
@@ -54,12 +54,11 @@ function AdminOrders() {
     </div>
   </div>
 
-  {/* Table Card */}
   <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
 
     <table className="min-w-full">
 
-      {/* Table Head */}
+
       <thead className="bg-gray-50">
         <tr className="text-left text-sm text-gray-600 border-b">
           <th className="px-6 py-4 font-medium">Order ID</th>
@@ -70,7 +69,6 @@ function AdminOrders() {
         </tr>
       </thead>
 
-      {/* Table Body */}
       <tbody className="divide-y divide-gray-100">
 
         {filteredOrders.map((order) => (
@@ -79,17 +77,14 @@ function AdminOrders() {
             className="hover:bg-gray-50 transition text-sm"
           >
 
-            {/* Order ID */}
             <td className="px-6 py-5 font-semibold text-gray-900">
               #{order._id.slice(-6).toUpperCase()}
             </td>
 
-            {/* Buyer */}
             <td className="px-6 py-5 text-gray-600">
               {order.user?.email}
             </td>
 
-            {/* Items */}
             <td className="px-6 py-5">
               <div className="space-y-1">
                 {order.orderItems.map((item) => (
@@ -106,14 +101,12 @@ function AdminOrders() {
               </div>
             </td>
 
-            {/* Total */}
             <td className="px-6 py-5">
               <span className="px-3 py-1 rounded-full bg-green-100 text-green-600 text-xs font-semibold">
                 ${order.totalPrice}
               </span>
             </td>
 
-            {/* Status */}
             <td className="px-6 py-5">
               <span
                 className={`px-3 py-1 rounded-full text-xs font-semibold

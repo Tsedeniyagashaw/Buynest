@@ -49,27 +49,29 @@ const approveSeller = async (req, res) => {
     try {
         const seller = await User.findById(req.params.id);
 
-        if(!seller){
+        if (!seller) {
             return res.status(404).json({
                 message: "Seller not Found!"
             });
         }
-        seller.isApproved = true;
-        await seller.save()
 
-         res.json({
+        seller.isApproved = req.body.isApproved;
+
+        await seller.save();
+
+        res.json({
             message: seller.isApproved
                 ? "Seller approved successfully"
                 : "Seller approval revoked successfully",
             seller,
         });
-    }
-    catch (error) {
+
+    } catch (error) {
         res.status(500).json({
             message: error.message
-        })
+        });
     }
-}
+};
 
 const getAllOrders =async (req, res) => {
     try{
