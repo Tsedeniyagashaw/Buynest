@@ -9,24 +9,32 @@ function Cart() {
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    const handleCheckout = async () => {
-        try {
-            const token = localStorage.getItem("token");
-            const res = await API.post(
-                "/orders", {},
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                }
-            );
-            alert("Order Successfully placed");
-            console.log(res.data);
-        }
-        catch(error){
-            console.log(error.response?.data)
-        }
-    };
+  const handleCheckout = async () => {
+  try {
+    const token = localStorage.getItem("token");
+
+    const res = await API.post(
+      "/orders",
+      {
+        orderItems: cart.items.map((item) => ({
+          product: item.product._id,
+          quantity: item.quantity,
+          seller: item.product.seller,
+        })),
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    alert("Order Successfully placed");
+    console.log(res.data);
+  } catch (error) {
+    console.log(error.response?.data);
+  }
+};
 
     const removeItem = async (productId) => {
         try {

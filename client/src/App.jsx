@@ -7,7 +7,7 @@ import Products from "./pages/Products"
 import Cart from "./pages/Cart"
 import Orders from "./pages/Orders"
 import SellerDashboard from "./pages/SellerDashboard"
-import SellerOrders from "./pages/SellerOrders"
+import SellerOrders from "./pages/seller/Orders"
 import ProductDetails from "./pages/ProductDetails"
 import AdminLayout from "./layouts/AdminLayout"
 import AdminHome from "./pages/admin/AdminHome"
@@ -18,6 +18,10 @@ import Layout from "./layouts/Layout"
 import Search from "./pages/Search"
 import AdminProducts from "./pages/admin/Products"
 import AdminOrders from "./pages/admin/Orders"
+import SellerLayout from "./layouts/SellerLayout"
+import SellerOverview from "./pages/seller/Overview"
+import SellerProducts from "./pages/seller/Products"
+import SellerAnalytics from "./pages/seller/Analytics"
 
 
 function App() {
@@ -37,7 +41,7 @@ function App() {
     <Route path="cart" element={<Cart />} />
     <Route path="orders" element={<Orders />} />
     <Route path="seller-dashboard" element={<SellerDashboard />} />
-    <Route path="seller-orders" element={<SellerOrders />} />
+    {/* <Route path="seller-orders" element={<SellerOrders />} /> */}
     <Route path="products/:id" element={<ProductDetails />} />
   </Route>
 
@@ -48,6 +52,13 @@ function App() {
         <Route path="products" element={<AdminProducts />} />
         <Route path="sellers" element={<Sellers />} />
       </Route>
+
+      <Route path="/seller" element={<SellerLayout/>}>
+    <Route index element={<SellerOverview />} />
+    <Route path="products" element={<SellerProducts />} />
+    <Route path="orders" element={<SellerOrders />} />
+    <Route path="analytics" element={<SellerAnalytics />} />
+</Route>
 </Routes>
 
     
