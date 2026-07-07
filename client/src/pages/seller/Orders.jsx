@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
+import { useSearch } from "../../context/SearchContext";
 
 function SellerOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const { search } = useSearch();
+
 
   useEffect(() => {
     const fetchOrders = async () => {
@@ -73,6 +76,25 @@ function SellerOrders() {
     );
   }
 
+  const filteredOrders = orders.filter((order) => {
+
+  const buyerName =
+    `${order.user.firstName} ${order.user.lastName}`.toLowerCase();
+
+  const productNames = order.orderItems
+    .map(item => item.product.name)
+    .join(" ")
+    .toLowerCase();
+
+  const status = order.status.toLowerCase();
+
+  return (
+    buyerName.includes(search.toLowerCase()) ||
+    productNames.includes(search.toLowerCase()) ||
+    status.includes(search.toLowerCase())
+  );
+});
+
   return (
     <div className="p-6 md:p-10 bg-gray-50 min-h-screen">
 
@@ -82,7 +104,7 @@ function SellerOrders() {
 
       <div className="space-y-6">
 
-        {orders.map((order) => (
+        {filteredOrders.map((order) => (
           <div
             key={order._id}
             className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-md transition"

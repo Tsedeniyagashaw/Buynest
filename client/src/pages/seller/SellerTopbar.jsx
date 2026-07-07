@@ -1,15 +1,19 @@
 import { useState, useEffect } from "react";
 import API from "../../services/api";
+import { useSearch } from "../../context/SearchContext";
+
+
 
 function SellerTopbar() {
   const [user, setUser] = useState(null);
+const { search, setSearch } = useSearch();
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
         const token = localStorage.getItem("token");
 
-        const res = await API.get("/profile", {
+        const res = await API.get("/seller/profile", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -30,14 +34,16 @@ function SellerTopbar() {
   return (
     <div className="h-16 bg-white border-b flex items-center justify-between px-6">
 
-      {/* Search (later we can make global) */}
-      <input
-        type="text"
-        placeholder="Search..."
-        className="border px-3 py-1 rounded-md w-80"
-      />
+    
+    <input
+  type="text"
+  placeholder="Search..."
+  value={search}
+  onChange={(e) => setSearch(e.target.value)}
+  className="border px-3 py-1 rounded-md w-80"
+/>
 
-      {/* Profile */}
+   
       <div className="flex items-center gap-3">
 
         <div className="w-10 h-10 bg-violet-600 text-white flex items-center justify-center rounded-full font-bold">

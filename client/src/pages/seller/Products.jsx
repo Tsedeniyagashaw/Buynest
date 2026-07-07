@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
+import { useSearch } from "../../context/SearchContext";
 
 function SellerProducts() {
   const [products, setProducts] = useState([]);
@@ -7,6 +8,7 @@ function SellerProducts() {
   const [showModal, setShowModal] = useState(false);
   const [editingProduct, setEditingProduct] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+     const { search, setSearch } = useSearch();
 
 const [newProduct, setNewProduct] = useState({
   name: "",
@@ -125,6 +127,11 @@ const handleDelete = async (id) => {
   }
 };
 
+const filteredProducts = products.filter((product) =>
+  product.name.toLowerCase().includes(search.toLowerCase()) ||
+  product.category?.toLowerCase().includes(search.toLowerCase()) ||
+  product.description?.toLowerCase().includes(search.toLowerCase())
+);
   return (
     <div className="p-4">
 
@@ -161,7 +168,7 @@ const handleDelete = async (id) => {
           {/* Body */}
           <tbody>
 
-            {products.map((product) => (
+            {filteredProducts.map((product) => (
               <tr
                 key={product._id}
                 className="border-b hover:bg-gray-50"

@@ -1,9 +1,12 @@
 import { Outlet } from "react-router-dom";
 import SellerSidebar from "../pages/seller/SellerSidebar";
 import SellerTopbar from "../pages/seller/SellerTopbar";
+import { SearchProvider } from "../context/SearchContext";
+
 
 function SellerLayout() {
   return (
+    <SearchProvider >
     <div className="flex min-h-screen bg-gray-100">
 
       <SellerSidebar />
@@ -19,6 +22,7 @@ function SellerLayout() {
       </div>
 
     </div>
+   </SearchProvider>
   );
 }
 
