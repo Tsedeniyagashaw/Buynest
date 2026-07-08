@@ -6,7 +6,7 @@ import Navbar from "./components/Navbar"
 import Products from "./pages/Products"
 import Cart from "./pages/Cart"
 import Orders from "./pages/Orders"
-import SellerDashboard from "./pages/SellerDashboard"
+import SellerDashboard from "./pages/seller/SellerDashboard"
 import SellerOrders from "./pages/seller/Orders"
 import ProductDetails from "./pages/ProductDetails"
 import AdminLayout from "./layouts/AdminLayout"
@@ -53,8 +53,8 @@ function App() {
         <Route path="sellers" element={<Sellers />} />
       </Route>
 
-      <Route path="/seller" element={<SellerLayout/>}>
-    <Route index element={<SellerOverview />} />
+      <Route path="/seller" element={<SellerLayout />}>
+    <Route index element={<SellerDashboard />} />
     <Route path="products" element={<SellerProducts />} />
     <Route path="orders" element={<SellerOrders />} />
     <Route path="analytics" element={<SellerAnalytics />} />

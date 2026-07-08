@@ -133,50 +133,6 @@ const getMyOrders = async (req, res) => {
 //     }
 // }
 
-const getSellerStats = async (req, res) => {
-    try {
-        const products = await Product.countDocuments({
-            seller: req.user.id
-        });
-
-        const orders = await Orders.find()
-        .populate("orderItems.product");
-
-        const sellerOrders = orders.filter(order =>
-            order.orderItems.some(
-                item => 
-                    item.product &&
-                item.product.seller.toString() === req.user.id
-            )
-        );
-
-       let revenue = 0;
-
-sellerOrders.forEach(order => {
-    order.orderItems.forEach(item => {
-
-        if (
-            item.product &&
-            item.product.seller.toString() === req.user.id
-        ) {
-            revenue += item.product.price * item.quantity;
-        }
-
-    });
-});
-
-        res.json({
-            products,
-            orders : sellerOrders.length,
-            revenue
-        });
-    }
-    catch(error) {
-        res.status(500).json({
-            message: error.message
-        });
-    }
-}
 
 
 
@@ -279,7 +235,7 @@ module.exports = {
     getMyOrders,
     getSellerOrders,
     updateOrderStatus,
-    getSellerStats,
+    // getSellerStats,
     getSellerAnalytics
 
 };
