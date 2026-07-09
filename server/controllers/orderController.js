@@ -1,5 +1,6 @@
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
+const User = require("../models/User");
 
 
 
@@ -19,7 +20,7 @@ const createOrder = async (req, res) => {
     cart.items.forEach((item) => {
       totalPrice += item.product.price * item.quantity;
     });
-
+const buyer = await User.findById(req.user.id);
     const order = await Order.create({
       user: req.user.id,
 
@@ -31,6 +32,15 @@ const createOrder = async (req, res) => {
 
       totalPrice,
     });
+    const Notification = require("../models/Notification");
+
+for (const item of cart.items) {
+  await Notification.create({
+    seller: item.product.seller,
+    order: order._id,
+    message: `New order is placed for "${item.product.name}"`,
+  });
+}
 
     cart.items = [];
     await cart.save();

@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import API from "../services/api"
 import ProductCard from "../components/ProductCard";
-import banner from "../assets/banner2.png"
 
 
 
@@ -31,7 +30,6 @@ function Products() {
     }
     return (
         <div>
-            <img src={banner} className="w-full hidden md:flex"/>
             <div  className="max-w-7xl mx-auto  px-4 py-6">
 
             <h1 className="text-2xl md:text-4xl font-bold text-gray-700 my-5">Available Products</h1>

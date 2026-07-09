@@ -59,7 +59,10 @@ const getProducts = async (req, res) => {
 
         console.log(keyword);
 
-        const products = await Product.find(keyword)
+   const products = await Product.find({
+    ...keyword,
+    // isActive: true
+})
             .populate("seller", "email role");
 
         res.json(products);
@@ -103,7 +106,8 @@ const getNewProducts = async (req, res) => {
 const getMyProducts = async (req, res) => {
     try {
         const products = await Product.find({
-            seller: req.user.id 
+            seller: req.user.id,
+             
         });
         res.json(products);
     }
@@ -148,31 +152,42 @@ const updateProduct = async (req, res) => {
   }
 };
 
-const deleteProduct = async (req,res) => {
-    try {
+const deleteProduct = async(req,res)=>{
+    try{
+
         const product = await Product.findById(req.params.id);
 
-        if(!product) {
+        if(!product){
             return res.status(404).json({
-                message: "Product not found!!"
+                message:"Product not found"
             });
         }
 
-        if (product.seller.toString() !== req.user.id) {
+
+        // make sure seller owns the product
+        if(product.seller.toString() !== req.user.id){
             return res.status(403).json({
-                message: "Not Authorized to delete this product!!"
+                message:"You are not allowed to delete this product"
             });
         }
-        await product.deleteOne();
+
+
+        product.isActive = false;
+
+        await product.save();
+
 
         res.json({
-            message: "Product deleted successfully"
+            message:"Product removed from store"
         });
-    }
-    catch (error) {
+
+
+    }catch(error){
+
         res.status(500).json({
-            message: error.message
-        })
+            message:error.message
+        });
+
     }
 }
 

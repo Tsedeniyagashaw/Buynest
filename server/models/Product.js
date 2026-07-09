@@ -23,6 +23,10 @@ const productSchema = new mongoose.Schema(
     type: String,
     required: true
 },
+isActive: {
+  type: Boolean,
+  default: true
+},
         seller: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",

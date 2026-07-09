@@ -11,6 +11,7 @@ const orderRoutes = require("./routes/orderRoutes");
 const authRoutes = require("./routes/authRoutes");
 const adminRoutes = require("./routes/adminRoutes");
 const sellerRoutes = require("./routes/sellerRoutes");
+const notificationRoutes=require("./routes/notificationRoutes");
 
 const app = express();
 
@@ -23,6 +24,7 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/seller",sellerRoutes);
+app.use("/api/notifications",notificationRoutes);
 
 
 mongoose
