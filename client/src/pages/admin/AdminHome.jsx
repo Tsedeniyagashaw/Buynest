@@ -2,11 +2,13 @@ import { useEffect, useState } from "react";
 import API from "../../services/api";
 import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer,  XAxis, YAxis,CartesianGrid, BarChart, Bar } from "recharts";
 import {  FaUsers,  FaBoxOpen,  FaShoppingCart,  FaUserShield,  FaClock,} from "react-icons/fa";
+import AddAdminModal from "./AddAdmin";
 
 
 function AdminHome() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [showAddAdmin, setShowAddAdmin] = useState(false);
   const chartData = stats
   ? [
       { name: "Users", value: stats.users },
@@ -25,6 +27,7 @@ function AdminHome() {
   : [];
 
   const COLORS = ["#6366F1", "#22C55E", "#FACC15", "#A855F7"];
+
 
 
   useEffect(() => {
@@ -63,6 +66,12 @@ function AdminHome() {
       Here is what is happening in your platform today
     </p>
   </div>
+  <button
+  onClick={() => setShowAddAdmin(true)}
+  className="bg-violet-600 text-white px-4 py-2 rounded-lg"
+>
+  + Add Admin
+</button>
 
 <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
 
@@ -187,7 +196,10 @@ function AdminHome() {
   </div>
 
 
-  
+  <AddAdminModal
+  open={showAddAdmin}
+  onClose={() => setShowAddAdmin(false)}
+/>
 
 
   {/* Quick Actions */}

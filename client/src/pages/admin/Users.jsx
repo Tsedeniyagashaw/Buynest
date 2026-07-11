@@ -39,6 +39,41 @@ function Users() {
     fetchUsers();
   } , []);
 
+  const toggleBlock = async (id) => {
+  try {
+
+    const token = localStorage.getItem("token");
+
+    const res = await API.put(
+      `/admin/users/${id}/block`,
+      {},
+      {
+        headers:{
+          Authorization:`Bearer ${token}`
+        }
+      }
+    );
+
+
+    setUsers(prev =>
+      prev.map(user =>
+        user._id === id
+          ? {
+              ...user,
+              isBlocked: res.data.user.isBlocked
+            }
+          : user
+      )
+    );
+
+
+  } catch(error) {
+
+    console.log(error.response?.data);
+
+  }
+};
+
   if (loading ) return <h2>Loading Users...</h2>
   if (users.length === 0) return <h2>No user found</h2>
 
@@ -68,6 +103,9 @@ function Users() {
           <th className="px-6 py-4 font-medium">Email</th>
           <th className="px-6 py-4 font-medium">Role</th>
           <th className="px-6 py-4 font-medium">Approved</th>
+          <th className="px-6 py-4 font-medium">
+  Status
+</th>
           <th className="px-6 py-4 font-medium text-right">Action</th>
         </tr>
       </thead>
@@ -110,15 +148,43 @@ function Users() {
                 <span className="text-gray-400">-</span>
               )}
             </td>
+            <td className="px-6 py-4">
+
+{
+ user.isBlocked ? (
+
+ <span className="px-2.5 py-1 text-xs rounded-full bg-red-100 text-red-600">
+    Suspended
+ </span>
+
+ ) : (
+
+ <span className="px-2.5 py-1 text-xs rounded-full bg-green-100 text-green-600">
+    Active
+ </span>
+
+ )
+}
+
+</td>
 
             <td className="px-6 py-4 text-right">
-              <button className="text-indigo-600 hover:text-indigo-800 font-medium inline-flex items-center gap-1">
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                  <path d="M12 20h9" />
-                  <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4 12.5-12.5z" />
-                </svg>
-                Edit
-              </button>
+             {user.role !== "admin" && (
+
+<button
+  onClick={() => toggleBlock(user._id)}
+  className={`font-medium ${
+    user.isBlocked
+      ? "text-green-600 hover:text-green-800"
+      : "text-red-600 hover:text-red-800"
+  }`}
+>
+
+  {user.isBlocked ? "Activate" : "Suspend"}
+
+</button>
+
+)}
             </td>
 
           </tr>

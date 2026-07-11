@@ -31,19 +31,16 @@ function Header({ onMenuToggle, menuOpen }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
-      <div className="flex items-center justify-between px-4 md:px-6 h-20 max-w-7xl mx-auto">
-        
-        {/* Logo */}
+    <header className="sticky top-0 z-50  backdrop-blur-md ">
+      <div className="flex items-center justify-between  h-20 mx-auto">
+
         <Link to="/" className="flex items-center gap-2 flex-shrink-0">
           <img 
             src={logo} 
             alt="BuyNest" 
             className="h-8 md:h-9 object-contain hover:scale-105 transition-transform duration-200" 
           />
-          <span className="hidden sm:inline-block text-xl font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent">
-            BuyNest
-          </span>
+      
         </Link>
 
         {/* Search Bar */}

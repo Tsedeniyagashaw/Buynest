@@ -134,6 +134,80 @@ const deleteProductAdmin = async (req, res) =>{
     }
 }
 
+const toggleUserBlock = async (req, res) => {
+    try {
+        const user = await User.findById(req.params.id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        if (user.role === "admin") {
+            return res.status(403).json({
+                message: "Admins cannot be suspended"
+            });
+        }
+
+        user.isBlocked = !user.isBlocked;
+
+        await user.save();
+
+        res.json({
+            message: user.isBlocked
+                ? "User suspended successfully"
+                : "User activated successfully",
+            user
+        });
+
+    } catch(error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
+const toggleProductStatus = async(req,res)=>{
+
+    try{
+
+        const product = await Product.findById(req.params.id);
+
+
+        if(!product){
+            return res.status(404).json({
+                message:"Product not found"
+            });
+        }
+
+
+        product.isActive = !product.isActive;
+
+
+        await product.save();
+
+
+        res.json({
+            message: product.isActive
+                ? "Product activated successfully"
+                : "Product deactivated successfully",
+
+            product
+        });
+
+
+    }
+    catch(error){
+
+        res.status(500).json({
+            message:error.message
+        });
+
+    }
+
+};
+
 const getAdminStats = async (req, res) => {
   try {
     const [
@@ -167,4 +241,5 @@ const getAdminStats = async (req, res) => {
 
 
 
-module.exports = { getAllUsers, getAdminProfile, getPendingSellers, approveSeller, getAllOrders, getAllProducts, getAdminStats, deleteProductAdmin, getAllSellers };
+module.exports = { getAllUsers, getAdminProfile, getPendingSellers, approveSeller, 
+    getAllOrders, getAllProducts, getAdminStats, deleteProductAdmin, getAllSellers, toggleUserBlock, toggleProductStatus };

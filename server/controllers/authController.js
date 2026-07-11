@@ -44,7 +44,13 @@ const login = async (req, res) => {
         return res.status(400).json({
             message: "Invalid Credentials"
         })
-    }    
+    }  
+    
+    if (user.isBlocked) {
+    return res.status(403).json({
+        message: "Your account has been suspended. Please contact support."
+    });
+}
 
 
     const isMatch = await bcrypt.compare(password, user.password)

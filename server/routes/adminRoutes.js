@@ -11,8 +11,10 @@ const {
   getAllOrders,
   getAllProducts,
   getAdminStats,
-  deleteProductAdmin, getAdminProfile, getAllSellers
+  deleteProductAdmin, getAdminProfile, getAllSellers, toggleUserBlock, toggleProductStatus
 } = require("../controllers/adminController");
+
+const { register } = require("../controllers/authController")
 
 router.get("/users", protect, authorizeRoles("admin"), getAllUsers);
 router.get("/pending-sellers", protect, authorizeRoles("admin"), getPendingSellers);
@@ -27,5 +29,19 @@ router.get("/orders", protect, authorizeRoles("admin"), getAllOrders);
 router.get("/products", protect, authorizeRoles("admin"), getAllProducts);
 router.get("/stats", protect, authorizeRoles("admin"), getAdminStats);
 router.delete("/products/:id", protect, authorizeRoles("admin"), deleteProductAdmin);
-router.get("/profile", protect, authorizeRoles("admin"), getAdminProfile)
+router.get("/profile", protect, authorizeRoles("admin"), getAdminProfile);
+router.post("/create-admin",protect,authorizeRoles("admin"),register);
+router.put(
+    "/users/:id/block",
+    protect,
+    authorizeRoles("admin"),
+    toggleUserBlock
+);
+
+router.put(
+    "/products/:id/status",
+    protect,
+    authorizeRoles("admin"),
+    toggleProductStatus
+);
 module.exports = router;

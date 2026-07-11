@@ -34,24 +34,42 @@ function AdminProducts() {
   fetchProducts();
   }, []);
 
-  const deleteProduct = async (id) => {
-    try {
-      const token = localStorage.getItem("token");
+  
 
-      await API.delete(`products/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`
+  const toggleProductStatus = async (id) => {
+  try {
+
+    const token = localStorage.getItem("token");
+
+    const res = await API.put(
+      `/admin/products/${id}/status`,
+      {},
+      {
+        headers:{
+          Authorization:`Bearer ${token}`
         }
-      });
+      }
+    );
 
-      setProducts((prev) =>
-      prev.filter((p) => p._id !== id)
-      );
-    }
-    catch (error) {
-      console.log(error.response?.data);
-    }
-  };
+
+    setProducts(prev =>
+      prev.map(product =>
+        product._id === id
+          ? {
+              ...product,
+              isActive: res.data.product.isActive
+            }
+          : product
+      )
+    );
+
+
+  } catch(error) {
+
+    console.log(error.response?.data);
+
+  }
+};
 
 
 
@@ -87,6 +105,7 @@ function AdminProducts() {
           <th className="px-6 py-4 font-medium">Description</th>
           <th className="px-6 py-4 font-medium">Price</th>
           <th className="px-6 py-4 font-medium">Seller</th>
+          <th className="px-6 py-4 font-medium">Status</th>
           <th className="px-6 py-4 font-medium text-right">Action</th>
         </tr>
       </thead>
@@ -114,14 +133,42 @@ function AdminProducts() {
               {product.seller?.email || "N/A"}
             </td>
 
-            <td className="px-6 py-4 text-right">
-              <button
-                onClick={() => deleteProduct(product._id)}
-                className="text-red-600 hover:text-red-800 font-medium"
-              >
-                Delete
-              </button>
-            </td>
+            <td className="px-6 py-4">
+
+{
+ product.isActive ? (
+
+<span className="px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-600">
+  Active
+</span>
+
+ ) : (
+
+<span className="px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-600">
+  Inactive
+</span>
+
+ )
+}
+
+</td>
+
+            <button
+ onClick={() => toggleProductStatus(product._id)}
+ className={`font-medium ${
+   product.isActive
+   ? "text-red-600 hover:text-red-800"
+   : "text-green-600 hover:text-green-800"
+ }`}
+>
+
+{
+ product.isActive
+ ? "Deactivate"
+ : "Activate"
+}
+
+</button>
 
           </tr>
         ))}
