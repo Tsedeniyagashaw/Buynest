@@ -99,4 +99,59 @@ const authorizeRoles = (...roles) => {
     }
 }
 
-module.exports = { register, login, authorizeRoles };
+const getProfile = async (req, res) => {
+    try {
+
+        const user = await User.findById(req.user.id).select("-password");
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        res.json(user);
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+};
+
+const updateProfile = async (req, res) => {
+    try {
+
+        const user = await User.findById(req.user.id);
+
+        if (!user) {
+            return res.status(404).json({
+                message: "User not found"
+            });
+        }
+
+        user.firstName = req.body.firstName || user.firstName;
+        user.middleName = req.body.middleName || user.middleName;
+        user.lastName = req.body.lastName || user.lastName;
+        user.email = req.body.email || user.email;
+        user.phoneNumber = req.body.phoneNumber || user.phoneNumber;
+
+        await user.save();
+
+        res.json({
+            message: "Profile updated successfully",
+            user
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+};
+
+module.exports = { register, login, authorizeRoles, getProfile, updateProfile };

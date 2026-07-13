@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { 
   LayoutDashboard, 
   Package, 
@@ -189,9 +189,11 @@ function SellerSidebar() {
         {/* Profile dropdown menu */}
         {isExpanded && showProfileMenu && (
           <div className="mt-2 py-1 bg-gray-50 rounded-xl border border-gray-100 shadow-sm">
+             <Link
+            to="/profile" >
             <button className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors text-left rounded-t-xl">
               My Profile
-            </button>
+            </button></Link>
             <button className="w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors text-left">
               Store Settings
             </button>

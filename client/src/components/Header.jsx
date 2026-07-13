@@ -3,6 +3,7 @@ import profile from '../assets/profile.png'
 import { FiSearch, FiShoppingCart, FiUser, FiHeart, FiMenu, FiX } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
+import API from "../services/api";
 
 function Header({ onMenuToggle, menuOpen }) {
   const [query, setQuery] = useState("");
@@ -10,13 +11,52 @@ function Header({ onMenuToggle, menuOpen }) {
   const [cartCount, setCartCount] = useState(0);
   const navigate = useNavigate();
   const searchInputRef = useRef(null);
+    const [user,setUser] = useState(null);
 
-  // Mock cart count - replace with actual cart data
-  useEffect(() => {
-    // Fetch cart count from your cart context/state
-    // For now, using mock data
-    setCartCount(3);
-  }, []);
+    useEffect(() => {
+
+    // setCartCount(3);
+    const fetchUser = async () => {
+
+        try {
+
+            const token = localStorage.getItem("token");
+
+            const res = await API.get(
+                "/auth/profile",
+                {
+                    headers:{
+                        Authorization:`Bearer ${token}`
+                    }
+                }
+            );
+
+            setUser(res.data);
+
+        }
+        catch(error){
+
+            console.log(error.response?.data);
+
+        }
+
+    };
+
+
+    fetchUser();
+
+
+}, []);
+
+
+
+ const getInitials = (firstName, lastName) => {
+    if (!firstName && !lastName) return "";
+    return (
+      (firstName?.[0] || "") +
+      (lastName?.[0] || "")
+    ).toUpperCase();
+  };
 
   const handleSearch = (e) => {
     if (e.key === "Enter" && query.trim()) {
@@ -133,14 +173,20 @@ function Header({ onMenuToggle, menuOpen }) {
             to="/profile" 
             className="hidden md:flex flex-col items-center gap-0.5 text-gray-500 hover:text-violet-600 transition-colors group"
           >
-            <div className="relative">
-              <img
-                src={profile}
-                alt="Profile"
-                className="h-9 w-9 object-cover rounded-full border-2 border-transparent group-hover:border-violet-400 transition-all duration-200"
-              />
-              <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-green-500 rounded-full border-2 border-white"></div>
-            </div>
+          <div className="relative group">
+  {/* Smaller Avatar */}
+  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-violet-600 to-violet-800 text-white flex items-center justify-center text-sm font-medium shadow-md ring-2 ring-violet-200/50 hover:ring-violet-300 transition-all duration-300 hover:scale-105">
+    {getInitials(user?.firstName, user?.lastName)}
+  </div>
+  
+  {/* Smaller Status Indicator */}
+  <div className="absolute -bottom-0.5 -right-0.5">
+    <div className="relative">
+      <div className="w-2.5 h-2.5 bg-green-500 rounded-full border border-white shadow-sm"></div>
+      <div className="absolute inset-0 w-2.5 h-2.5 bg-green-400 rounded-full blur-sm opacity-50 animate-ping"></div>
+    </div>
+  </div>
+</div>
             <span className="text-[10px] font-medium">Account</span>
           </Link>
 

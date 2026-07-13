@@ -22,6 +22,7 @@ import SellerLayout from "./layouts/SellerLayout"
 import SellerOverview from "./pages/seller/Overview"
 import SellerProducts from "./pages/seller/Products"
 import SellerAnalytics from "./pages/seller/Analytics"
+import Profile from "./pages/Profile"
 
 
 function App() {
@@ -40,6 +41,8 @@ function App() {
     <Route path="product" element={<Products />} />
     <Route path="cart" element={<Cart />} />
     <Route path="orders" element={<Orders />} />
+    <Route path="profile" element={<Profile />} />
+
     <Route path="seller-dashboard" element={<SellerDashboard />} />
     {/* <Route path="seller-orders" element={<SellerOrders />} /> */}
     <Route path="products/:id" element={<ProductDetails />} />
