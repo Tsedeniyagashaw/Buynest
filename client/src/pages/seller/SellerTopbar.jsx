@@ -17,6 +17,7 @@ import {
   Package,
   Truck
 } from "lucide-react";
+import UserMenu from "../../components/UserMenu";
 
 function SellerTopbar() {
   const [user, setUser] = useState(null);
@@ -309,9 +310,7 @@ function SellerTopbar() {
             {showProfileMenu && (
               <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                 <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                  <p className="font-semibold text-gray-900">
-                    {user?.firstName} {user?.lastName}
-                  </p>
+                   <UserMenu user={user}/>
                   <p className="text-xs text-gray-500 mt-0.5">
                     {user?.email || 'seller@example.com'}
                   </p>

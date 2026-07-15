@@ -23,6 +23,9 @@ import SellerOverview from "./pages/seller/Overview"
 import SellerProducts from "./pages/seller/Products"
 import SellerAnalytics from "./pages/seller/Analytics"
 import Profile from "./pages/Profile"
+import ChangePassword from "./pages/ChangePassword"
+import AboutUs from "./pages/AboutUs"
+import ContactUs from "./pages/ContactUs"
 
 
 function App() {
@@ -42,10 +45,16 @@ function App() {
     <Route path="cart" element={<Cart />} />
     <Route path="orders" element={<Orders />} />
     <Route path="profile" element={<Profile />} />
+    <Route path="about" element={<AboutUs />} />
+    <Route path="contact" element={<ContactUs />} />
 
     <Route path="seller-dashboard" element={<SellerDashboard />} />
     {/* <Route path="seller-orders" element={<SellerOrders />} /> */}
     <Route path="products/:id" element={<ProductDetails />} />
+    <Route 
+ path="/auth/change-password"
+ element={<ChangePassword />}
+/>
   </Route>
 
      <Route path="/admin"  element={<AdminLayout />}>

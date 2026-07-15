@@ -17,24 +17,47 @@ function Login() {
         });
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsLoading(true);
+   const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
 
-        try {
-            const res = await API.post("/auth/login", form);
-            console.log(res.data);
-            login(res.data.token);
-            alert("Login successful");
+    try {
+
+        const res = await API.post("/auth/login", form);
+
+        login(res.data.token);
+
+        const role = res.data.user.role;
+
+        if (role === "admin") {
+
+            window.location.href = "/admin";
+
         }
-        catch (err){
-            console.log(err.response?.data);
-            alert("Login Failed");
+        else if (role === "seller") {
+
+            window.location.href = "/seller";
+
         }
-        finally {
-            setIsLoading(false);
+        else {
+
+            window.location.href = "/";
+
         }
-    };
+
+    }
+    catch (err){
+
+        console.log(err.response?.data);
+        alert("Login Failed");
+
+    }
+    finally {
+
+        setIsLoading(false);
+
+    }
+};
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
