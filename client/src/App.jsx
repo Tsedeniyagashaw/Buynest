@@ -63,6 +63,8 @@ function App() {
         <Route path="orders" element={<AdminOrders />} />
         <Route path="products" element={<AdminProducts />} />
         <Route path="sellers" element={<Sellers />} />
+    <Route path="profile" element={<Profile />} />
+
       </Route>
 
       <Route path="/seller" element={<SellerLayout />}>
@@ -70,6 +72,8 @@ function App() {
     <Route path="products" element={<SellerProducts />} />
     <Route path="orders" element={<SellerOrders />} />
     <Route path="analytics" element={<SellerAnalytics />} />
+    <Route path="profile" element={<Profile />} />
+
 </Route>
 </Routes>
 

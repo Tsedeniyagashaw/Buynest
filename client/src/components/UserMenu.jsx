@@ -1,4 +1,3 @@
-// UserMenu.jsx - Improved for mobile
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { 
@@ -48,6 +47,12 @@ function UserMenu({ user }) {
     localStorage.removeItem("token");
     navigate("/login");
   };
+  const basePath =
+  user?.role === "admin"
+    ? "/admin"
+    : user?.role === "seller"
+    ? "/seller"
+    : "";
 
   if (!user) {
     return (
@@ -118,7 +123,7 @@ function UserMenu({ user }) {
           {/* Menu Items */}
           <div className="py-2 max-h-[calc(100vh-200px)] overflow-y-auto">
             <Link
-              to="/profile"
+              to={`${basePath}/profile`}
               className="flex items-center gap-3 px-4 sm:px-5 py-2.5 text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 transition-colors duration-150"
               onClick={() => setOpen(false)}
             >
@@ -154,7 +159,7 @@ function UserMenu({ user }) {
             </Link>
 
             <Link
-              to="/auth/change-password"
+              to={`${basePath}/change-password`}
               className="flex items-center gap-3 px-4 sm:px-5 py-2.5 text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 transition-colors duration-150"
               onClick={() => setOpen(false)}
             >
@@ -188,6 +193,8 @@ function UserMenu({ user }) {
               <span>Logout</span>
             </button>
           </div>
+
+          
         </div>
       )}
     </div>
