@@ -30,41 +30,22 @@ function SellerTopbar() {
   const notificationRef = useRef(null);
   const profileRef = useRef(null);
 
-  useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await API.get("/seller/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setUser(res.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    const fetchNotifications = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        const res = await API.get("/notifications", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-        setNotifications(res.data);
-      } catch (err) {
-        console.log(err.response?.data);
-      }
-    };
-
-    fetchUser();
-    fetchNotifications();
-
-    const interval = setInterval(fetchNotifications, 10000);
-    return () => clearInterval(interval);
-  }, []);
+ useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) return;
+          
+          const res = await API.get("/auth/profile", {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          setUser(res.data);
+        } catch (error) {
+          console.log(error.response?.data);
+        }
+      };
+      fetchUser();
+    }, []);
 
   // Click outside handlers
   useEffect(() => {
@@ -283,63 +264,8 @@ function SellerTopbar() {
           </div>
 
           {/* Profile */}
-          <div className="relative" ref={profileRef}>
-            <button
-              onClick={() => setShowProfileMenu(!showProfileMenu)}
-              className="flex items-center gap-2 md:gap-3 p-1.5 pr-2 md:pr-3 rounded-xl hover:bg-gray-100 transition-all duration-200 group"
-            >
-              <div className="w-9 h-9 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white flex items-center justify-center font-bold text-sm shadow-md shadow-violet-500/25 flex-shrink-0">
-                {user && getInitials(user.firstName, user.lastName)}
-              </div>
-              <div className="hidden md:block text-left">
-                <p className="text-sm font-medium text-gray-900 leading-tight">
-                  {user?.firstName} {user?.lastName}
-                </p>
-                <p className="text-xs text-gray-500 leading-tight">
-                  Seller
-                </p>
-              </div>
-              <ChevronDown className={`
-                w-4 h-4 text-gray-400 transition-transform duration-200
-                ${showProfileMenu ? 'rotate-180' : ''}
-                hidden md:block
-              `} />
-            </button>
-
-            {/* Profile Dropdown */}
-            {showProfileMenu && (
-              <div className="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
-                <div className="px-4 py-3 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
-                   <UserMenu user={user}/>
-                  <p className="text-xs text-gray-500 mt-0.5">
-                    {user?.email || 'seller@example.com'}
-                  </p>
-                </div>
-
-                <div className="py-1">
-                  <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                    <User className="w-4 h-4 text-gray-400" />
-                    My Profile
-                  </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                    <Settings className="w-4 h-4 text-gray-400" />
-                    Settings
-                  </button>
-                  <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-gray-700 hover:bg-gray-50 transition-colors">
-                    <HelpCircle className="w-4 h-4 text-gray-400" />
-                    Help & Support
-                  </button>
-                </div>
-
-                <div className="border-t border-gray-100 py-1">
-                  <button className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors">
-                    <LogOut className="w-4 h-4 text-red-400" />
-                    Logout
-                  </button>
-                </div>
-              </div>
-            )}
-          </div>
+<UserMenu user={user}/>
+          
         </div>
       </div>
     </header>

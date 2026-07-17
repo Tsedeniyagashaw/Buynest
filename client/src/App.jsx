@@ -64,6 +64,10 @@ function App() {
         <Route path="products" element={<AdminProducts />} />
         <Route path="sellers" element={<Sellers />} />
     <Route path="profile" element={<Profile />} />
+     <Route 
+ path="change-password"
+ element={<ChangePassword />}
+/>
 
       </Route>
 
@@ -73,6 +77,10 @@ function App() {
     <Route path="orders" element={<SellerOrders />} />
     <Route path="analytics" element={<SellerAnalytics />} />
     <Route path="profile" element={<Profile />} />
+     <Route 
+ path="change-password"
+ element={<ChangePassword />}
+/>
 
 </Route>
 </Routes>

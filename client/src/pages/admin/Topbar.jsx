@@ -3,11 +3,30 @@ import API from "../../services/api"
 import { useEffect } from "react";
 import { useSearch } from "../../context/SearchContext";
 import { FiSearch } from "react-icons/fi";
+import UserMenu from "../../components/UserMenu";
 
 
 function Topbar() {
   const [admin, setAdmin] = useState(null);
   const { search, setSearch } = useSearch();
+    const [user, setUser] = useState(null);
+  
+    useEffect(() => {
+      const fetchUser = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          if (!token) return;
+          
+          const res = await API.get("/auth/profile", {
+            headers: { Authorization: `Bearer ${token}` }
+          });
+          setUser(res.data);
+        } catch (error) {
+          console.log(error.response?.data);
+        }
+      };
+      fetchUser();
+    }, []);
 
   useEffect(() => {
     const fetchAdmin = async () => {
@@ -28,13 +47,13 @@ function Topbar() {
     fetchAdmin();
   }, []);
 
-  const getInitials = (firstName, lastName) => {
-    if (!firstName && !lastName) return "";
-    return (
-      (firstName?.[0] || "") +
-      (lastName?.[0] || "")
-    ).toUpperCase();
-  };
+  // const getInitials = (firstName, lastName) => {
+  //   if (!firstName && !lastName) return "";
+  //   return (
+  //     (firstName?.[0] || "") +
+  //     (lastName?.[0] || "")
+  //   ).toUpperCase();
+  // };
 
 
   return (
@@ -59,9 +78,7 @@ function Topbar() {
           placeholder="Search..."
         />
       </div>
-  <div className="w-10 h-10 rounded-full border border-violet-900 bg-transparent text-violet-900 flex items-center justify-center font-bold">
-          {admin ? getInitials(admin.firstName, admin.lastName) : "A"}
-        </div>
+<UserMenu user={user}/>
  </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import FeedbackModal from "./FeedbackModal";
+
 import { 
   FiUser, 
   FiLock, 
@@ -13,6 +15,7 @@ import {
 } from "react-icons/fi";
 
 function UserMenu({ user }) {
+  const [showFeedback, setShowFeedback] = useState(false);
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const menuRef = useRef(null);
@@ -69,6 +72,8 @@ function UserMenu({ user }) {
   }
 
   return (
+
+    <>
     <div className="relative inline-block" ref={menuRef}>
       {/* Avatar Button */}
       <button
@@ -175,6 +180,23 @@ function UserMenu({ user }) {
               <FiSettings className="w-4 h-4 flex-shrink-0" />
               <span>Settings</span>
             </Link>
+
+            <button
+
+onClick={()=>{
+    setOpen(false);
+    setShowFeedback(true);
+}}
+
+className="w-full flex items-center gap-3 px-4 sm:px-5 py-2.5 text-sm text-gray-700 hover:bg-violet-50 hover:text-violet-700 transition-colors duration-150"
+
+>
+
+<FiSettings className="w-4 h-4"/>
+
+<span>Contact Support</span>
+
+</button>
           </div>
 
           {/* Divider */}
@@ -197,7 +219,17 @@ function UserMenu({ user }) {
           
         </div>
       )}
-    </div>
+
+
+ 
+    </div>   
+      {showFeedback && (
+    <FeedbackModal
+        onClose={() => setShowFeedback(false)}
+    />
+)}
+
+    </>
   );
 }
 
