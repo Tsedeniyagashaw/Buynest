@@ -30,6 +30,10 @@ function Sidebar() {
           Sellers
         </Link>
 
+         <Link className="block w-full px-5 py-4 hover:bg-gray-100" to="/admin/feedback">
+          Users Feedback
+        </Link>
+
       </nav>
     </div>
   );

@@ -28,6 +28,7 @@ const createFeedback = async (req, res) => {
             await Notification.create({
 
                 user: admin._id,
+                 type: "feedback",
 
                 message: `${req.user.firstName} submitted new feedback.`
 

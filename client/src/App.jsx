@@ -26,6 +26,7 @@ import Profile from "./pages/Profile"
 import ChangePassword from "./pages/ChangePassword"
 import AboutUs from "./pages/AboutUs"
 import ContactUs from "./pages/ContactUs"
+import AdminFeedback from "./pages/admin/AdminFeedback"
 
 
 function App() {
@@ -64,6 +65,7 @@ function App() {
         <Route path="products" element={<AdminProducts />} />
         <Route path="sellers" element={<Sellers />} />
     <Route path="profile" element={<Profile />} />
+    <Route path="feedback" element={<AdminFeedback />} />
      <Route 
  path="change-password"
  element={<ChangePassword />}

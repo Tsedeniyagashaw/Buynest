@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken")
 const User = require('../models/user')
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const Notification = require("../models/Notification");
 
 const register = async (req, res) => {
     try {
@@ -24,6 +25,29 @@ const register = async (req, res) => {
            role
         });
         await user.save();
+        // Create notification for new seller registration
+if (role === "seller") {
+
+    const admins = await User.find({
+        role: "admin"
+    });
+
+
+    for (const admin of admins) {
+
+        await Notification.create({
+
+            user: admin._id,
+
+            type: "seller",
+
+            message: `${firstName} ${lastName} registered as a seller and needs approval.`
+
+        });
+
+    }
+
+}
 
         res.status(201).json({
             message: "User Registered successfully"

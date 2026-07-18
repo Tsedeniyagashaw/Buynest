@@ -36,7 +36,7 @@ const buyer = await User.findById(req.user.id);
 
 for (const item of cart.items) {
   await Notification.create({
-    seller: item.product.seller,
+    user: item.product.seller,
     order: order._id,
     message: `New order is placed for "${item.product.name}"`,
   });

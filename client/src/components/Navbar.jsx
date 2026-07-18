@@ -68,7 +68,7 @@ function Navbar({ menuOpen, setMenuOpen }) {
   return (
     <>
       <nav className={`
-        hidden md:flex bg-gradient-to-r from-violet-800 to-indigo-800 text-white 
+        hidden md:flex bg-gray-900 text-white 
         items-center justify-between h-16 px-6 shadow-lg
         transition-all duration-300
         ${scrolled ? 'shadow-2xl backdrop-blur-md bg-opacity-95' : ''}
