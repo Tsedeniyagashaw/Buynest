@@ -37,32 +37,30 @@ function SellerOrders() {
     fetchOrders();
   }, []);
 
-  const updateStatus = async (orderId, status) => {
-    try {
-      setOrders((prev) =>
-        prev.map((o) =>
-          o._id === orderId ? { ...o, status } : o
-        )
-      );
+ const updateStatus = async (orderId, status) => {
+  try {
+    const token = localStorage.getItem("token");
 
-      const token = localStorage.getItem("token");
-      const res = await API.put(
-        `/orders/seller/orders/${orderId}`,
-        { status },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+    const res = await API.put(
+      `/orders/seller/${orderId}/status`,
+      { status },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
 
-      setOrders((prev) =>
-        prev.map((o) => (o._id === orderId ? res.data : o))
-      );
-    } catch (err) {
-      console.log(err.response?.data);
-    }
-  };
+    setOrders((prev) =>
+      prev.map((o) =>
+        o._id === orderId ? res.data : o
+      )
+    );
+
+  } catch (err) {
+    console.log(err.response?.data);
+  }
+};
 
   const getStatusIcon = (status) => {
     const icons = {

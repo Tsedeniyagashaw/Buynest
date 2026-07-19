@@ -153,15 +153,25 @@ const updateOrderStatus = async (req, res) => {
     const order = await Order.findById(req.params.id);
 
     if (!order) {
-      return res.status(404).json({ message: "Order not found" });
+      return res.status(404).json({
+        message: "Order not found",
+      });
     }
 
     order.status = status;
     await order.save();
 
-    res.json(order);
+    // Return populated order
+    const updatedOrder = await Order.findById(order._id)
+      .populate("user", "firstName lastName email")
+      .populate("orderItems.product");
+
+    res.json(updatedOrder);
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 
