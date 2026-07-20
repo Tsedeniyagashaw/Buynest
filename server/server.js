@@ -13,6 +13,7 @@ const adminRoutes = require("./routes/adminRoutes");
 const sellerRoutes = require("./routes/sellerRoutes");
 const notificationRoutes=require("./routes/notificationRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
+const reviewRoutes = require("./routes/reviewRoutes");
 
 const app = express();
 
@@ -27,6 +28,8 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/seller",sellerRoutes);
 app.use("/api/notifications",notificationRoutes);
 app.use("/api/feedback", feedbackRoutes);
+app.use("/api/reviews", reviewRoutes);
+
 
 
 mongoose

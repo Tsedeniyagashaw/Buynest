@@ -12,6 +12,8 @@ function ProductDetails() {
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [qty, setQty] = useState(1);
+  const [reviews, setReviews] = useState([]);
+const [reviewLoading, setReviewLoading] = useState(true);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -26,11 +28,44 @@ function ProductDetails() {
     };
     fetchProduct();
   }, [id]);
+  useEffect(() => {
+
+  const fetchReviews = async()=>{
+
+    try{
+
+      const res = await API.get(
+        `/reviews/product/${id}`
+      );
+
+      setReviews(res.data);
+
+    }
+
+    catch(error){
+
+      console.log(error.response?.data);
+
+    }
+
+    finally{
+
+      setReviewLoading(false);
+
+    }
+
+  };
+
+
+  fetchReviews();
+
+},[id]);
 
   if (loading) return <h2 className="text-center mt-10">Loading....</h2>;
   if (!product) return <h2 className="text-center mt-10">Product not found!</h2>;
 
   return (
+    <>
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-10 p-6">
 
      
@@ -41,6 +76,20 @@ function ProductDetails() {
         <h1 className="text-3xl font-bold text-gray-800">
           {product.name}
         </h1>
+        <div className="flex items-center gap-2 mt-2">
+
+<div className="text-yellow-400 text-xl">
+  {"★".repeat(Math.round(product.averageRating || 0))}
+  {"☆".repeat(5 - Math.round(product.averageRating || 0))}
+</div>
+
+
+<span className="text-gray-500 text-sm">
+  {product.averageRating || 0}
+  ({product.numReviews || 0} reviews)
+</span>
+
+</div>
 
         <div className="">
           <div className="text-2xl font-bold text-purple-600">
@@ -155,7 +204,88 @@ function ProductDetails() {
   </div>
 
 </div>
+
     </div>
+<div className="mt-10 w-full">
+
+<h2 className="text-2xl font-bold text-gray-800 mb-5">
+  Customer Reviews
+</h2>
+
+
+{
+reviewLoading ? (
+
+<p>
+Loading reviews...
+</p>
+
+) : reviews.length === 0 ? (
+
+<p className="text-gray-500">
+No reviews yet. Be the first one!
+</p>
+
+) : (
+
+<div className="space-y-5">
+
+{
+reviews.map((review)=>(
+
+<div
+key={review._id}
+className="bg-gray-50 rounded-xl p-5 border"
+>
+
+<div className="flex justify-between">
+
+<div>
+
+<h3 className="font-semibold">
+{review.user.firstName} {review.user.lastName}
+</h3>
+
+
+<div className="text-yellow-400">
+{"★".repeat(review.rating)}
+{"☆".repeat(5-review.rating)}
+</div>
+
+</div>
+
+
+<span className="text-sm text-gray-400">
+{
+new Date(review.createdAt)
+.toLocaleDateString()
+}
+</span>
+
+</div>
+
+
+<p className="mt-3 text-gray-600">
+{review.comment}
+</p>
+
+
+</div>
+
+))
+
+}
+
+</div>
+
+)
+
+}
+
+</div>
+    
+    
+    </>
   );
 }
 

@@ -2,6 +2,7 @@ import API from "../services/api";
 import { Link } from "react-router-dom";
 import prod from "../../public/images.jfif"
 import { FiShoppingCart } from "react-icons/fi";
+import { FiStar } from "react-icons/fi";
 
 
 
@@ -38,6 +39,29 @@ function ProductCard({ product }) {
       className="w-full h-48 object-cover hover:scale-105 transition duration-300"
     />
   </Link>
+  <div className="flex items-center gap-1 mt-2">
+
+  <div className="flex text-yellow-400">
+    {[1,2,3,4,5].map((star)=>(
+      <FiStar
+        key={star}
+        size={15}
+        className={
+          star <= Math.round(product.averageRating)
+          ? "fill-yellow-400"
+          : "text-gray-300"
+        }
+      />
+    ))}
+  </div>
+
+
+  <span className="text-sm text-gray-500">
+    {product.averageRating || 0}
+    ({product.numReviews || 0})
+  </span>
+
+</div>
 
 
   <div className="p-4 flex flex-col flex-1">
