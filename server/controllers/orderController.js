@@ -7,7 +7,7 @@ const User = require("../models/User");
 const createOrder = async (req, res) => {
   try {
     const cart = await Cart.findOne({ user: req.user.id })
-      .populate("items.product", "name price seller");
+  .populate("items.product", "name price seller category image");
 
     if (!cart || cart.items.length === 0) {
       return res.status(400).json({
@@ -25,10 +25,17 @@ const buyer = await User.findById(req.user.id);
       user: req.user.id,
 
       orderItems: cart.items.map((item) => ({
-        product: item.product._id,
-        quantity: item.quantity,
-        seller: item.product.seller, 
-      })),
+    product: item.product._id,
+    seller: item.product.seller,
+
+    // Snapshot
+    name: item.product.name,
+    price: item.product.price,
+    image: item.product.image || "",
+    category: item.product.category || "",
+
+    quantity: item.quantity,
+})),
 
       totalPrice,
     });
@@ -56,10 +63,13 @@ for (const item of cart.items) {
 
 const getMyOrders = async (req, res) => {
     try {
-        const orders = await Order.find({
-            user: req.user.id,
+        // const orders = await Order.find({
+        //     user: req.user.id,
 
-        }).populate("orderItems.product");
+        // }).populate("orderItems.product");
+const orders = await Order.find({
+    user: req.user.id
+});
 
         res.json(orders);
     }

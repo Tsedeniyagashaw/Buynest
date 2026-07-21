@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 
 const protect = ( req, res, next) => {
     try {
-        let  token;
+        let token;
 
         if (
             req.headers.authorization &&
