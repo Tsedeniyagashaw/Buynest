@@ -121,10 +121,10 @@ function SellerOrders() {
 
   const filteredOrders = orders.filter((order) => {
     const buyerName = `${order.user.firstName} ${order.user.lastName}`.toLowerCase();
-    const productNames = order.orderItems
-      .map(item => item.product.name)
-      .join(" ")
-      .toLowerCase();
+   const productNames = order.orderItems
+  .map(item => item.name)
+  .join(" ")
+  .toLowerCase();
     const status = order.status.toLowerCase();
 
     return (
@@ -140,13 +140,22 @@ function SellerOrders() {
     } else if (sortBy === "oldest") {
       return new Date(a.createdAt) - new Date(b.createdAt);
     } else if (sortBy === "highest") {
-      const totalA = a.orderItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
-      const totalB = b.orderItems.reduce((acc, item) => acc + item.product.price * item.quantity, 0);
+     const totalA = a.orderItems.reduce(
+  (acc, item) => acc + item.price * item.quantity,
+  0
+);
+
+const totalB = b.orderItems.reduce(
+  (acc, item) => acc + item.price * item.quantity,
+  0
+);
       return totalB - totalA;
     }
     return 0;
   });
 
+console.log(orders[0].orderItems[0]);
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
@@ -201,9 +210,9 @@ function SellerOrders() {
         {/* Orders Grid */}
         <div className="space-y-6">
           {sortedOrders.map((order) => {
-            const totalAmount = order.orderItems
-              .reduce((acc, item) => acc + item.product.price * item.quantity, 0)
-              .toFixed(2);
+const totalAmount = order.orderItems
+  .reduce((acc, item) => acc + item.price * item.quantity, 0)
+  .toFixed(2);
 
             return (
               <div
@@ -272,7 +281,7 @@ function SellerOrders() {
                       >
                         <div className="flex-1 min-w-0">
                           <p className="font-medium text-gray-900 truncate">
-                            {item.product.name}
+                            {item.name}
                           </p>
                           <div className="flex items-center gap-3 mt-1">
                             <span className="text-sm text-gray-500">
@@ -280,13 +289,13 @@ function SellerOrders() {
                             </span>
                             <span className="w-1 h-1 rounded-full bg-gray-300"></span>
                             <span className="text-sm text-gray-500">
-                              ${item.product.price.toFixed(2)} each
+                              ${item.price.toFixed(2)} each
                             </span>
                           </div>
                         </div>
                         <div className="text-right">
                           <p className="font-semibold text-gray-900">
-                            ${(item.product.price * item.quantity).toFixed(2)}
+                            ${(item.price * item.quantity).toFixed(2)}
                           </p>
                         </div>
                       </div>

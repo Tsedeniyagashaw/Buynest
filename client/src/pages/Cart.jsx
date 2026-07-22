@@ -125,7 +125,7 @@ return (
             <div className="w-32 h-32 bg-violet-50 rounded-lg overflow-hidden flex items-center justify-center">
               <img
                 src={prod}
-                alt={item.product.name}
+                alt={item.name}
                 className="w-full h-full object-contain"
               />
             </div>
@@ -133,7 +133,7 @@ return (
             <div className="flex-1 flex flex-col justify-between">
               <div>
                 <h2 className="text-xl font-semibold text-gray-800">
-                  {item.product.name}
+                  {item.name}
                 </h2>
 
                 <p className="text-gray-500 mt-1">
