@@ -14,6 +14,7 @@ const sellerRoutes = require("./routes/sellerRoutes");
 const notificationRoutes=require("./routes/notificationRoutes");
 const feedbackRoutes = require("./routes/feedbackRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
+const wishlistRoutes = require("./routes/wishlistRoutes");
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use("/api/seller",sellerRoutes);
 app.use("/api/notifications",notificationRoutes);
 app.use("/api/feedback", feedbackRoutes);
 app.use("/api/reviews", reviewRoutes);
+app.use("/api/wishlist", wishlistRoutes);
 
 
 

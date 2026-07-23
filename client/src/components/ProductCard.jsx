@@ -3,10 +3,102 @@ import { Link } from "react-router-dom";
 import prod from "../../public/images.jfif"
 import { FiShoppingCart } from "react-icons/fi";
 import { FiStar } from "react-icons/fi";
+import { FiHeart } from "react-icons/fi";
+import { useEffect, useState } from "react";
 
 
 
 function ProductCard({ product }) {
+
+  const [isWishlisted, setIsWishlisted] = useState(false);
+const [wishlistLoading, setWishlistLoading] = useState(false);
+
+
+useEffect(() => {
+    checkWishlist();
+}, []);
+
+
+
+const checkWishlist = async () => {
+    try {
+        const token = localStorage.getItem("token");
+
+        if(!token) return;
+
+
+        const res = await API.get("/wishlist", {
+            headers:{
+                Authorization:`Bearer ${token}`
+            }
+        });
+
+
+        const exists = res.data.items?.some(
+            item => item.product._id === product._id
+        );
+
+
+        setIsWishlisted(exists);
+
+
+    } catch(error){
+        console.log(error.response?.data);
+    }
+};
+
+
+
+
+const handleWishlist = async () => {
+
+    try {
+
+        const token = localStorage.getItem("token");
+
+        if(!token){
+            alert("Please login first");
+            return;
+        }
+
+
+        setWishlistLoading(true);
+
+
+        if(isWishlisted){
+
+            await API.delete(`/wishlist/${product._id}`,{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            });
+
+
+            setIsWishlisted(false);
+
+
+        }else{
+
+            await API.post(`/wishlist/${product._id}`,{},{
+                headers:{
+                    Authorization:`Bearer ${token}`
+                }
+            });
+
+
+            setIsWishlisted(true);
+        }
+
+
+    }catch(error){
+        console.log(error.response?.data);
+    }
+
+    finally{
+        setWishlistLoading(false);
+    }
+
+}
 
     const handleAddToCart = async (productId) => {
      try {
@@ -30,7 +122,7 @@ function ProductCard({ product }) {
 
 
     return (
-         <div className="max-w-sm bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col">
+         <div className="relative max-w-sm bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col">
 
   <Link to={`/products/${product._id}`}>
     <img
@@ -85,8 +177,22 @@ function ProductCard({ product }) {
         {product.seller.email}
       </p>
     </div>
+ 
     
- </Link>
+ </Link>   <button
+ onClick={handleWishlist}
+ disabled={wishlistLoading}
+ className="absolute top-3 right-3 bg-white rounded-full p-2 shadow"
+>
+ <FiHeart
+ size={22}
+ className={
+    isWishlisted
+    ? "fill-red-500 text-red-500"
+    : "text-gray-500"
+ }
+ />
+</button>
     <button
       onClick={() => handleAddToCart(product._id)}
       className="mt-4 w-full bg-indigo-700 hover:bg-indigo-800 text-white py-2 rounded-lg transition flex items-center justify-center gap-2"

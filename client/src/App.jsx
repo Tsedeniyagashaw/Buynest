@@ -27,6 +27,7 @@ import ChangePassword from "./pages/ChangePassword"
 import AboutUs from "./pages/AboutUs"
 import ContactUs from "./pages/ContactUs"
 import AdminFeedback from "./pages/admin/AdminFeedback"
+import Wishlist from "./pages/Wishlist"
 
 
 function App() {
@@ -48,6 +49,10 @@ function App() {
     <Route path="profile" element={<Profile />} />
     <Route path="about" element={<AboutUs />} />
     <Route path="contact" element={<ContactUs />} />
+    <Route 
+ path="/wishlist" 
+ element={<Wishlist />}
+/>
 
     <Route path="seller-dashboard" element={<SellerDashboard />} />
     {/* <Route path="seller-orders" element={<SellerOrders />} /> */}
