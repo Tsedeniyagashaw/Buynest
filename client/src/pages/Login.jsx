@@ -1,6 +1,7 @@
 import { useState, useContext } from "react"
 import API from "../services/api"
 import { AuthContext } from "../context/AuthContext";
+import { GoogleLogin } from "@react-oauth/google";
 
 function Login() {
     const [form, setForm] = useState({
@@ -126,6 +127,8 @@ function Login() {
                         )}
                     </button>
 
+
+
                     <div className="relative my-6">
                         <div className="absolute inset-0 flex items-center">
                             <div className="w-full border-t border-gray-300"></div>
@@ -134,6 +137,14 @@ function Login() {
                             <span className="px-4 bg-white text-gray-500">or</span>
                         </div>
                     </div>
+                                        <GoogleLogin
+  onSuccess={(credentialResponse) => {
+    console.log(credentialResponse);
+  }}
+  onError={() => {
+    console.log("Login Failed");
+  }}
+/>
 
                     <p className="text-center text-sm text-gray-600">
                         Don't have an account?{" "}
