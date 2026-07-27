@@ -2,6 +2,9 @@ const jwt = require("jsonwebtoken")
 const User = require('../models/user')
 const bcrypt = require("bcryptjs");
 const Notification = require("../models/Notification");
+const { OAuth2Client } = require("google-auth-library");
+
+const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
 const register = async (req, res) => {
     try {
@@ -111,6 +114,26 @@ const login = async (req, res) => {
         })
     }
 }
+
+const googleLogin = async (req, res) => {
+  try {
+    const { credential } = req.body;
+
+    const ticket = await client.verifyIdToken({
+      idToken: credential,
+      audience: process.env.GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    console.log(payload);
+
+  } catch (error) {
+    res.status(500).json({
+      message: error.message,
+    });
+  }
+};
 
 const authorizeRoles = (...roles) => {
     return (req, res, next) => {
@@ -237,4 +260,4 @@ const changePassword = async (req, res) => {
     }
 };
 
-module.exports = { register, login, authorizeRoles, getProfile, updateProfile, changePassword };
+module.exports = { register, login,googleLogin, authorizeRoles, getProfile, updateProfile, changePassword };
