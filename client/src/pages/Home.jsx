@@ -30,6 +30,8 @@ function Home() {
         console.log(error.response?.data);
       } finally {
         setLoading(false);
+            console.log(import.meta.env.VITE_GOOGLE_CLIENT_ID);
+        
       }
     };
 

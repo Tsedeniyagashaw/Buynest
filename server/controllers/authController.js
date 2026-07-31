@@ -116,23 +116,88 @@ const login = async (req, res) => {
 }
 
 const googleLogin = async (req, res) => {
+
   try {
+
     const { credential } = req.body;
+
 
     const ticket = await client.verifyIdToken({
       idToken: credential,
       audience: process.env.GOOGLE_CLIENT_ID,
     });
 
+
     const payload = ticket.getPayload();
 
-    console.log(payload);
 
-  } catch (error) {
-    res.status(500).json({
-      message: error.message,
+    const {
+      email,
+      name,
+      picture,
+      sub: googleId
+    } = payload;
+
+
+    let user = await User.findOne({ email });
+
+
+    // User does not exist, create account
+    if (!user) {
+
+      user = await User.create({
+        name,
+        email,
+        googleId,
+        profileImage: picture,
+        role: "buyer"
+      });
+
+    }
+
+
+    // Check blocked users
+    if(user.isBlocked){
+      return res.status(403).json({
+        message:"Your account has been suspended."
+      });
+    }
+
+
+    // Generate the SAME JWT
+    const token = jwt.sign(
+      {
+        id:user._id,
+        role:user.role
+      },
+      process.env.JWT_SECRET,
+      {
+        expiresIn:"7d"
+      }
+    );
+
+
+    res.status(200).json({
+
+      token,
+
+      user:{
+        id:user._id,
+        email:user.email,
+        role:user.role
+      }
+
     });
+
+
+  } catch(error){
+
+    res.status(500).json({
+      message:error.message
+    });
+
   }
+
 };
 
 const authorizeRoles = (...roles) => {

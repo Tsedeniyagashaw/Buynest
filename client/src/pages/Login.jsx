@@ -137,12 +137,44 @@ function Login() {
                             <span className="px-4 bg-white text-gray-500">or</span>
                         </div>
                     </div>
-                                        <GoogleLogin
-  onSuccess={(credentialResponse) => {
-    console.log(credentialResponse);
+ <GoogleLogin
+  onSuccess={async (credentialResponse) => {
+
+    try {
+
+      const res = await API.post("/auth/google", {
+        credential: credentialResponse.credential
+      });
+
+
+      login(res.data.token);
+
+
+      const role = res.data.user.role;
+
+
+      if (role === "admin") {
+        window.location.href = "/admin";
+      }
+      else if (role === "seller") {
+        window.location.href = "/seller";
+      }
+      else {
+        window.location.href = "/";
+      }
+
+
+    } catch (err) {
+
+      console.log(err.response?.data);
+      alert("Google login failed");
+
+    }
+
   }}
+
   onError={() => {
-    console.log("Login Failed");
+    console.log("Google Login Failed");
   }}
 />
 

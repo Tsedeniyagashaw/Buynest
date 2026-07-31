@@ -37,6 +37,7 @@ function App() {
   <div >
     {/* <Header />
     <Navbar /> */}
+
    <Routes>
   <Route path="/" element={<Layout />}>
     <Route index element={<Home />} />
