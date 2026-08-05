@@ -113,7 +113,12 @@ const handleWishlist = async () => {
             }
         );
         alert("Added to Cart");
-     }
+           window.dispatchEvent(new Event('cartUpdated'));
+    
+   
+    
+  } 
+     
 
      catch(error) {
         console.log(error.response?.data);

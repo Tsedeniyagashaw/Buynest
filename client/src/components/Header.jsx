@@ -1,5 +1,5 @@
-// Header.jsx
 import logo from '../assets/logo.png'
+import logosm from '../assets/logosm.png'
 import { FiSearch, FiShoppingCart, FiUser, FiHeart, FiMenu, FiX, FiHome } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from 'react';
@@ -11,10 +11,11 @@ function Header({ onMenuToggle, menuOpen }) {
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [cartCount, setCartCount] = useState(0);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
+  const [user, setUser] = useState(null);
   const navigate = useNavigate();
   const searchInputRef = useRef(null);
-  const [user, setUser] = useState(null);
 
+  // Fetch user profile
   useEffect(() => {
     const fetchUser = async () => {
       try {
@@ -32,6 +33,72 @@ function Header({ onMenuToggle, menuOpen }) {
     fetchUser();
   }, []);
 
+  // Function to fetch cart count
+  const fetchCartCount = async () => {
+    try {
+      const token = localStorage.getItem("token");
+      
+      if (!token) {
+        // If no token, get cart from localStorage
+        const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+        const totalItems = localCart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+        setCartCount(totalItems);
+        return;
+      }
+
+      // Get cart from backend
+      const res = await API.get("/cart", {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      
+      // Calculate total items from the cart
+      const cartData = res.data;
+      if (cartData && cartData.items) {
+        const totalItems = cartData.items.reduce((sum, item) => sum + (item.quantity || 0), 0);
+        setCartCount(totalItems);
+      } else {
+        setCartCount(0);
+      }
+    } catch (error) {
+      console.log("Error fetching cart:", error);
+      // Fallback to localStorage
+      const localCart = JSON.parse(localStorage.getItem("cart") || "[]");
+      const totalItems = localCart.reduce((sum, item) => sum + (item.quantity || 1), 0);
+      setCartCount(totalItems);
+    }
+  };
+
+  // Fetch cart count on mount and when user changes
+  useEffect(() => {
+    fetchCartCount();
+
+    // Listen for cart updates
+    const handleCartUpdate = () => {
+      fetchCartCount();
+    };
+
+    window.addEventListener('cartUpdated', handleCartUpdate);
+    
+    return () => {
+      window.removeEventListener('cartUpdated', handleCartUpdate);
+    };
+  }, []);
+
+  // Refresh cart when user logs in/out (token changes)
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'token') {
+        fetchCartCount();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
   useEffect(() => {
     if (isMobileSearchOpen && searchInputRef.current) {
       searchInputRef.current.focus();
@@ -47,15 +114,12 @@ function Header({ onMenuToggle, menuOpen }) {
 
   const toggleMobileSearch = () => {
     setIsMobileSearchOpen(!isMobileSearchOpen);
-    if (!isMobileSearchOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'unset';
-    }
+    document.body.style.overflow = isMobileSearchOpen ? 'unset' : 'hidden';
   };
 
   return (
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+      {/* Mobile Search Overlay */}
       {isMobileSearchOpen && (
         <div className="md:hidden fixed inset-0 bg-white z-50 animate-slideDown">
           <div className="flex items-center gap-3 p-4">
@@ -74,7 +138,7 @@ function Header({ onMenuToggle, menuOpen }) {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 onKeyDown={handleSearch}
-                className="w-full pl-10 pr-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus:border-violet-400 focus:ring-2 focus:ring-violet-500/20 outline-none text-sm"
+                className="w-full pl-10 pr-4 py-3 bg-gray-50 rounded-xl border border-gray-200 focus:border-gray-900 focus:ring-2 focus:ring-gray-900/20 outline-none text-sm"
                 placeholder="Search products..."
                 autoFocus
               />
@@ -98,25 +162,35 @@ function Header({ onMenuToggle, menuOpen }) {
 
       <div className="container mx-auto px-3 sm:px-4 lg:px-6">
         <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
-          <Link to="/" className="flex items-center gap-2 flex-shrink-0">
+          {/* Logo */}
+          <Link to="/" className="hidden lg:flex items-center gap-2 flex-shrink-0">
             <img 
               src={logo} 
               alt="BuyNest" 
-              className="h-7 sm:h-8 md:h-9 object-contain hover:scale-105 transition-transform duration-200" 
+              className="h-17 object-contain hover:scale-105 transition-transform duration-200" 
             />
           </Link>
 
-          <div className="hidden md:flex flex-1 max-w-2xl mx-4 lg:mx-8 relative transition-all duration-200">
+          <Link to="/" className="lg:hidden flex items-center gap-2 flex-shrink-0">
+            <img 
+              src={logosm} 
+              alt="BuyNest" 
+              className="h-8 sm:h-8 object-contain hover:scale-105 transition-transform duration-200" 
+            />
+          </Link>
+
+          {/* Desktop Search */}
+          <div className="hidden md:flex flex-1 max-w-2xl mx-4 lg:mx-8 relative">
             <div className={`
               relative flex items-center bg-gray-50 border rounded-xl transition-all duration-200 w-full
               ${isSearchFocused 
-                ? 'border-violet-400 ring-2 ring-violet-500/20 bg-white shadow-lg' 
+                ? 'border-gray-900 ring-2 ring-gray-900/20 bg-white shadow-lg' 
                 : 'border-gray-200 hover:border-gray-300'
               }
             `}>
               <FiSearch className={`
                 absolute left-4 text-lg transition-colors duration-200
-                ${isSearchFocused ? 'text-violet-600' : 'text-gray-400'}
+                ${isSearchFocused ? 'text-gray-900' : 'text-gray-400'}
               `} />
               <input
                 ref={searchInputRef}
@@ -141,6 +215,7 @@ function Header({ onMenuToggle, menuOpen }) {
               )}
             </div>
             
+            {/* Search Suggestions */}
             {isSearchFocused && query && (
               <div className="absolute top-full left-0 right-0 mt-2 bg-white rounded-xl shadow-2xl border border-gray-100 overflow-hidden animate-slideDown">
                 <div className="p-2">
@@ -158,32 +233,36 @@ function Header({ onMenuToggle, menuOpen }) {
             )}
           </div>
 
+          {/* Actions */}
           <div className="flex items-center gap-1 sm:gap-2 md:gap-3 lg:gap-4 flex-shrink-0">
+            {/* Mobile Search Toggle */}
             <button
               onClick={toggleMobileSearch}
-              className="md:hidden p-2 text-gray-600 hover:text-violet-600 hover:bg-violet-50 rounded-full transition-colors"
+              className="md:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-full transition-colors"
               aria-label="Search"
             >
               <FiSearch className="w-5 h-5" />
             </button>
 
+            {/* Wishlist */}
             <Link 
               to="/wishlist"
-              className="hidden sm:flex flex-col items-center gap-0.5 text-gray-500 hover:text-violet-600 transition-colors group px-1 md:px-2"
+              className="hidden sm:flex flex-col items-center gap-0.5 text-gray-500 hover:text-gray-900 transition-colors group px-1 md:px-2"
               aria-label="Wishlist"
             >
               <FiHeart className="text-xl group-hover:scale-110 transition-transform" />
               <span className="text-[10px] font-medium hidden lg:block">Wishlist</span>
             </Link>
 
+            {/* Cart */}
             <Link 
               to="/cart" 
-              className="flex flex-col items-center gap-0.5 text-gray-500 hover:text-violet-600 transition-colors group px-1 md:px-2 relative"
+              className="flex flex-col items-center gap-0.5 text-gray-500 hover:text-gray-900 transition-colors group px-1 md:px-2 relative"
             >
               <div className="relative">
                 <FiShoppingCart className="text-xl sm:text-2xl group-hover:scale-110 transition-transform" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-2 min-w-[18px] h-[18px] bg-gradient-to-r from-violet-600 to-indigo-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 shadow-lg shadow-violet-500/25">
+                  <span className="absolute -top-1 -right-2 min-w-[18px] h-[18px] bg-gray-900 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 shadow-lg">
                     {cartCount > 9 ? '9+' : cartCount}
                   </span>
                 )}
@@ -191,25 +270,28 @@ function Header({ onMenuToggle, menuOpen }) {
               <span className="text-[10px] font-medium hidden lg:block">Cart</span>
             </Link>
 
+            {/* User Menu (Desktop) */}
             <div className="hidden sm:block px-1 md:px-2">
               <UserMenu user={user} />
             </div>
 
+            {/* Profile (Mobile) */}
             <Link 
               to="/profile"
-              className="sm:hidden p-2 text-gray-600 hover:text-violet-600 hover:bg-violet-50 rounded-full transition-colors"
+              className="sm:hidden p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-50 rounded-full transition-colors"
               aria-label="Profile"
             >
               <FiUser className="w-5 h-5" />
             </Link>
 
+            {/* Mobile Menu Toggle */}
             <button
               onClick={onMenuToggle}
               className="md:hidden flex items-center justify-center w-9 h-9 sm:w-10 sm:h-10 rounded-xl hover:bg-gray-100 transition-colors"
               aria-label="Toggle menu"
             >
               {menuOpen ? (
-                <FiX className="text-xl sm:text-2xl text-violet-600" />
+                <FiX className="text-xl sm:text-2xl text-gray-900" />
               ) : (
                 <FiMenu className="text-xl sm:text-2xl text-gray-600" />
               )}
@@ -217,20 +299,21 @@ function Header({ onMenuToggle, menuOpen }) {
           </div>
         </div>
 
+        {/* Mobile Bottom Navigation */}
         <div className="sm:hidden flex items-center justify-around px-2 py-1.5 border-t border-gray-100 mt-0.5">
-          <Link to="/" className="flex flex-col items-center gap-0.5 text-xs text-gray-500 hover:text-violet-600 transition-colors">
+          <Link to="/" className="flex flex-col items-center gap-0.5 text-xs text-gray-500 hover:text-gray-900 transition-colors">
             <FiHome className="text-lg" />
             <span>Home</span>
           </Link>
-          <Link to="/wishlist" className="flex flex-col items-center gap-0.5 text-xs text-gray-500 hover:text-violet-600 transition-colors">
+          <Link to="/wishlist" className="flex flex-col items-center gap-0.5 text-xs text-gray-500 hover:text-gray-900 transition-colors">
             <FiHeart className="text-lg" />
             <span>Wishlist</span>
           </Link>
-          <Link to="/orders" className="flex flex-col items-center gap-0.5 text-xs text-gray-500 hover:text-violet-600 transition-colors">
+          <Link to="/orders" className="flex flex-col items-center gap-0.5 text-xs text-gray-500 hover:text-gray-900 transition-colors">
             <FiShoppingCart className="text-lg" />
             <span>Orders</span>
           </Link>
-          <Link to="/profile" className="flex flex-col items-center gap-0.5 text-xs text-gray-500 hover:text-violet-600 transition-colors">
+          <Link to="/profile" className="flex flex-col items-center gap-0.5 text-xs text-gray-500 hover:text-gray-900 transition-colors">
             <FiUser className="text-lg" />
             <span>Profile</span>
           </Link>

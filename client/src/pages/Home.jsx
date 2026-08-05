@@ -5,11 +5,7 @@ import banner from "../assets/banner3.png"
 import API from "../services/api"
 import ProductCard from "../components/ProductCard";
 import { 
-  FiShoppingBag, 
-  FiUsers, 
-  FiPackage, 
-  FiHeadphones, 
-  FiChevronRight,
+  FiShoppingBag, FiUsers, FiPackage, FiHeadphones, FiChevronRight,
   FiStar,
   FiTruck,
   FiShield,

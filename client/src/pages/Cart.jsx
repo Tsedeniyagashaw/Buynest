@@ -46,6 +46,7 @@ function Cart() {
                 }
             });
             setCart(res.data);
+             window.dispatchEvent(new Event('cartUpdated'));
 
         } catch(error){
             console.log(error.response?.data);
