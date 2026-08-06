@@ -50,6 +50,7 @@ function Header({ onMenuToggle, menuOpen }) {
       const res = await API.get("/cart", {
         headers: { Authorization: `Bearer ${token}` }
       });
+  
       
       // Calculate total items from the cart
       const cartData = res.data;
@@ -68,6 +69,43 @@ function Header({ onMenuToggle, menuOpen }) {
     }
   };
 
+
+
+  // Listen for auth changes (login/logout)
+  useEffect(() => {
+    const handleAuthChange = (event) => {
+      if (event.detail?.action === 'logout') {
+        setUser(null);
+        setCartCount(0);
+      } else if (event.detail?.action === 'login') {
+        // Refetch user on login
+        const fetchUser = async () => {
+          try {
+            const token = localStorage.getItem("token");
+            if (!token) {
+              setUser(null);
+              return;
+            }
+            
+            const res = await API.get("/auth/profile", {
+              headers: { Authorization: `Bearer ${token}` }
+            });
+            setUser(res.data);
+          } catch (error) {
+            console.log(error.response?.data);
+          }
+        };
+        fetchUser();
+      }
+    };
+
+    // Listen for custom auth events
+    window.addEventListener('authChange', handleAuthChange);
+    
+    return () => {
+      window.removeEventListener('authChange', handleAuthChange);
+    };
+  }, [])
   // Fetch cart count on mount and when user changes
   useEffect(() => {
     fetchCartCount();

@@ -28,6 +28,7 @@ import AboutUs from "./pages/AboutUs"
 import ContactUs from "./pages/ContactUs"
 import AdminFeedback from "./pages/admin/AdminFeedback"
 import Wishlist from "./pages/Wishlist"
+import ProtectedRoute from "./pages/ProtectedRoute"
 
 
 function App() {
@@ -45,14 +46,14 @@ function App() {
     <Route path="login" element={<Login />} />
     <Route path="register" element={<Register />} />
     <Route path="product" element={<Products />} />
-    <Route path="cart" element={<Cart />} />
-    <Route path="orders" element={<Orders />} />
-    <Route path="profile" element={<Profile />} />
+    <Route path="cart" element={<ProtectedRoute> <Cart /></ProtectedRoute>} />
+    <Route path="orders" element={<ProtectedRoute> <Orders /> </ProtectedRoute>} />
+    <Route path="profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
     <Route path="about" element={<AboutUs />} />
     <Route path="contact" element={<ContactUs />} />
     <Route 
  path="/wishlist" 
- element={<Wishlist />}
+ element={<ProtectedRoute>  <Wishlist /> </ProtectedRoute>}
 />
 
     <Route path="seller-dashboard" element={<SellerDashboard />} />

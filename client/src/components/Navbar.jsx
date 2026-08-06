@@ -55,15 +55,13 @@ function Navbar({ menuOpen, setMenuOpen }) {
     `;
   };
 
-  const navItems = [
-    { path: '/', label: 'Home', icon: FiHome },
-    { path: '/product', label: 'Products', icon: FiPackage },
-    ...(token ? [
-      { path: '/cart', label: 'Cart', icon: FiShoppingCart },
-      { path: '/orders', label: 'Orders', icon: FiClipboard },
-      { path: '/wishlist', label: 'Wishlist', icon: FiHeart },
-    ] : [])
-  ];
+const navItems = [
+  { path: '/', label: 'Home', icon: FiHome },
+  { path: '/product', label: 'Products', icon: FiPackage },
+  { path: '/cart', label: 'Cart', icon: FiShoppingCart },
+  { path: '/orders', label: 'Orders', icon: FiClipboard },
+  { path: '/wishlist', label: 'Wishlist', icon: FiHeart },
+];
 
   return (
     <>
