@@ -8,7 +8,7 @@ function Layout() {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className="mx-0 lg:mx-10 flex flex-col min-h-screen">
+    <div className="mx-0 flex flex-col min-h-screen">
       <Header
         onMenuToggle={() => setMenuOpen(prev => !prev)}
         menuOpen={menuOpen}

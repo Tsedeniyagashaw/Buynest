@@ -156,7 +156,7 @@ function Header({ onMenuToggle, menuOpen }) {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md shadow-sm px-0  lg:px-10">
       {/* Mobile Search Overlay */}
       {isMobileSearchOpen && (
         <div className="md:hidden fixed inset-0 bg-white z-50 animate-slideDown">

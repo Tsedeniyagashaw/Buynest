@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import home from "../assets/home3.png";
+import home from "../assets/home4.png";
 import API from "../services/api";
 import ProductCard from "../components/ProductCard";
 
@@ -112,7 +112,7 @@ function Home() {
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-5 ">
 
 
-        <div className="grid lg:grid-cols-2 items-center gap-14">
+        <div className="grid lg:grid-cols-2 items-center gap-10">
 
 
           {/* LEFT */}
@@ -136,7 +136,7 @@ function Home() {
               text-5xl
               md:text-4xl
               lg:text-6xl
-              font-bold
+              font-semibold
               tracking-tight
               leading-tight
               text-gray-900
@@ -232,7 +232,7 @@ function Home() {
 
           {/* IMAGE */}
 
-          <div className="flex justify-center">
+          <div className="flex justify-center mt-7">
 
 
             <img
