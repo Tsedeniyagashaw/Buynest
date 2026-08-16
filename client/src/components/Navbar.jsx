@@ -2,22 +2,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
 import profile from '../assets/profile.png';
-import { 
-  FiShoppingCart, 
-  FiHome, 
-  FiPackage, 
-  FiLogIn, 
-  FiUserPlus,
-  FiClipboard,
-  FiInfo,
-  FiPhone,
-  FiUser,
-  FiSettings,
-  FiLogOut,
-  FiGrid,
-  FiHeart,
-  FiChevronRight
-} from "react-icons/fi";
+import {  FiShoppingCart,  FiHome, FiPackage, FiLogIn, FiUserPlus,FiClipboard,FiInfo,FiPhone,FiUser,FiSettings,
+  FiLogOut, FiGrid, FiHeart, FiChevronRight} from "react-icons/fi";
 
 function Navbar({ menuOpen, setMenuOpen }) {
   const { token, logout, user } = useContext(AuthContext);

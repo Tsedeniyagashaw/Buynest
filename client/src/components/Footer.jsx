@@ -1,16 +1,5 @@
-// components/Footer.jsx
 import { Link } from "react-router-dom";
-import { 
-  FiFacebook, 
-  FiTwitter, 
-  FiInstagram, 
-  FiYoutube, 
-  FiMail, 
-  FiMapPin, 
-  FiPhone,
-  FiSend,
-  FiChevronRight
-} from "react-icons/fi";
+import { FiFacebook, FiTwitter, FiInstagram, FiYoutube, FiMail, FiMapPin,FiPhone,FiSend,FiChevronRight} from "react-icons/fi";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -21,7 +10,7 @@ function Footer() {
     { name: "Products", path: "/product" },
     { name: "Privacy Policy", path: "/privacy" },
     { name: "Terms & Conditions", path: "/terms" },
-    { name: "Returns Policy", path: "/returns" }
+    { name: "Returns Policy", path: "/returns" },
   ];
 
   const categories = [
@@ -30,19 +19,18 @@ function Footer() {
     { name: "Home & Living", path: "/product?category=home" },
     { name: "Books", path: "/product?category=books" },
     { name: "Toys & Games", path: "/product?category=toys" },
-    { name: "Sports", path: "/product?category=sports" }
+    { name: "Sports", path: "/product?category=sports" },
   ];
 
   const socialLinks = [
     { icon: FiFacebook, href: "https://facebook.com", label: "Facebook" },
     { icon: FiTwitter, href: "https://twitter.com", label: "Twitter" },
     { icon: FiInstagram, href: "https://instagram.com", label: "Instagram" },
-    { icon: FiYoutube, href: "https://youtube.com", label: "YouTube" }
+    { icon: FiYoutube, href: "https://youtube.com", label: "YouTube" },
   ];
 
   const handleNewsletterSubmit = (e) => {
     e.preventDefault();
-    // Handle newsletter subscription
     const email = e.target.elements.email.value;
     console.log("Newsletter subscription:", email);
     e.target.reset();
@@ -51,10 +39,8 @@ function Footer() {
 
   return (
     <footer className="bg-gray-900 text-gray-300">
-      {/* Main Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
-          {/* Brand Section */}
           <div>
             <Link to="/" className="inline-block mb-4">
               <span className="text-2xl font-extrabold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
@@ -62,13 +48,12 @@ function Footer() {
               </span>
             </Link>
             <p className="text-gray-400 text-sm leading-relaxed mb-4">
-              Your one-stop destination for quality products at great prices. 
-              Shop smarter with BuyNest.
+              Your one-stop destination for quality products at great prices. Shop smarter with BuyNest.
             </p>
             <div className="space-y-2 text-sm">
               <div className="flex items-center gap-3">
                 <FiMapPin className="w-4 h-4 text-violet-400 flex-shrink-0" />
-                <span className="text-gray-400">123 Shopping Street, New York, NY</span>
+                <span className="text-gray-400">Bole,Addis Ababa, Ethiopia</span>
               </div>
               <div className="flex items-center gap-3">
                 <FiMail className="w-4 h-4 text-violet-400 flex-shrink-0" />
@@ -78,22 +63,19 @@ function Footer() {
               </div>
               <div className="flex items-center gap-3">
                 <FiPhone className="w-4 h-4 text-violet-400 flex-shrink-0" />
-                <a href="tel:+15551234567" className="text-gray-400 hover:text-white transition-colors">
-                  +1 (555) 123-4567
+                <a href="tel:+2519123-4567" className="text-gray-400 hover:text-white transition-colors">
+                  +251  9123-4567
                 </a>
               </div>
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">
-              Quick Links
-            </h3>
+            <h3 className="text-white font-semibold text-lg mb-4">Quick Links</h3>
             <ul className="space-y-2.5">
               {quickLinks.map((link) => (
                 <li key={link.name}>
-                  <Link 
+                  <Link
                     to={link.path}
                     className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
                   >
@@ -105,15 +87,12 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Categories */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">
-              Categories
-            </h3>
+            <h3 className="text-white font-semibold text-lg mb-4">Categories</h3>
             <ul className="space-y-2.5">
               {categories.map((category) => (
                 <li key={category.name}>
-                  <Link 
+                  <Link
                     to={category.path}
                     className="text-gray-400 hover:text-white transition-colors flex items-center gap-2 group"
                   >
@@ -125,14 +104,9 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter */}
           <div>
-            <h3 className="text-white font-semibold text-lg mb-4">
-              Subscribe to Newsletter
-            </h3>
-            <p className="text-gray-400 text-sm mb-4">
-              Get the latest updates on new products and upcoming sales.
-            </p>
+            <h3 className="text-white font-semibold text-lg mb-4">Subscribe to Newsletter</h3>
+            <p className="text-gray-400 text-sm mb-4">Get the latest updates on new products and upcoming sales.</p>
             <form onSubmit={handleNewsletterSubmit} className="space-y-3">
               <div className="relative">
                 <input
@@ -149,18 +123,13 @@ function Footer() {
                   <FiSend className="w-4 h-4 text-white" />
                 </button>
               </div>
-              <p className="text-xs text-gray-500">
-                We respect your privacy. Unsubscribe at any time.
-              </p>
+              <p className="text-xs text-gray-500">We respect your privacy. Unsubscribe at any time.</p>
             </form>
           </div>
         </div>
 
-        {/* Social Links */}
         <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-400">
-            © {currentYear} BuyNest. All rights reserved.
-          </p>
+          <p className="text-sm text-gray-400">© {currentYear} BuyNest. All rights reserved.</p>
           <div className="flex items-center gap-3">
             {socialLinks.map((social) => (
               <a

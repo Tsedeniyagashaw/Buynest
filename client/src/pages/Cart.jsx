@@ -4,7 +4,6 @@ import prod from "/public/macbook-air-m1-838.jpg"
 
 
 
-
 function Cart() {
     const [cart, setCart] = useState(null);
     const [loading, setLoading] = useState(true);

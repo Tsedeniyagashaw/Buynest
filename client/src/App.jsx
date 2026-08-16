@@ -29,6 +29,7 @@ import ContactUs from "./pages/ContactUs"
 import AdminFeedback from "./pages/admin/AdminFeedback"
 import Wishlist from "./pages/Wishlist"
 import ProtectedRoute from "./pages/ProtectedRoute"
+import AIChat from "./components/AIChat"
 
 
 function App() {
@@ -51,6 +52,8 @@ function App() {
     <Route path="profile" element={<ProtectedRoute> <Profile /> </ProtectedRoute>} />
     <Route path="about" element={<AboutUs />} />
     <Route path="contact" element={<ContactUs />} />
+    <Route path="chat" element={<AIChat />} />
+
     <Route 
  path="/wishlist" 
  element={<ProtectedRoute>  <Wishlist /> </ProtectedRoute>}

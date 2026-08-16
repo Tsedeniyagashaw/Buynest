@@ -45,7 +45,7 @@ function ContactUs() {
     {
       icon: FiMapPin,
       title: "Visit Us",
-      details: ["123 Shopping Street", "New York, NY 10001", "United States"]
+      details: ["Bole", "Addis Ababa", "Ethiopia"]
     },
     {
       icon: FiMail,
@@ -56,8 +56,8 @@ function ContactUs() {
     {
       icon: FiPhone,
       title: "Call Us",
-      details: ["+1 (555) 123-4567", "+1 (555) 987-6543"],
-      link: "tel:+15551234567"
+      details: ["+251 93123-4567", "+251 987-6543"],
+      link: "tel:+2519234567"
     },
     {
       icon: FiClock,
