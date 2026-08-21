@@ -1,9 +1,7 @@
 import API from "../services/api";
 import { Link } from "react-router-dom";
 import prod from "../../public/images.jfif";
-import { FiShoppingCart } from "react-icons/fi";
-import { FiStar } from "react-icons/fi";
-import { FiHeart } from "react-icons/fi";
+import { FiShoppingCart, FiStar, FiHeart } from "react-icons/fi";
 import { useEffect, useState } from "react";
 
 function ProductCard({ product }) {
@@ -26,7 +24,9 @@ function ProductCard({ product }) {
         },
       });
 
-      const exists = res.data.items?.some((item) => item.product._id === product._id);
+      const exists = res.data.items?.some(
+        (item) => item.product._id === product._id,
+      );
 
       setIsWishlisted(exists);
     } catch (error) {
@@ -76,7 +76,8 @@ function ProductCard({ product }) {
   const handleAddToCart = async (productId) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await API.post(
+
+      await API.post(
         "/cart",
         { productId, quantity: 1 },
         {
@@ -85,6 +86,7 @@ function ProductCard({ product }) {
           },
         },
       );
+
       alert("Added to Cart");
       window.dispatchEvent(new Event("cartUpdated"));
     } catch (error) {
@@ -93,54 +95,92 @@ function ProductCard({ product }) {
   };
 
   return (
-    <div className="relative max-w-sm bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition duration-300 flex flex-col">
-      <Link to={`/products/${product._id}`}>
+    <div className="group relative flex max-w-sm flex-col overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:border-gray-300 hover:shadow-lg">
+      {/* Product Image */}
+      <Link
+        to={`/products/${product._id}`}
+        className="relative block overflow-hidden bg-gray-100"
+      >
         <img
           src={prod}
           alt={product.name}
-          className="w-full h-48 object-cover hover:scale-105 transition duration-300"
+          className="h-52 w-full object-cover transition duration-500 group-hover:scale-105"
         />
+
+        {/* Wishlist */}
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            handleWishlist();
+          }}
+          disabled={wishlistLoading}
+          className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 shadow-sm backdrop-blur transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
+          aria-label="Add to wishlist"
+        >
+          <FiHeart
+            size={20}
+            className={
+              isWishlisted
+                ? "fill-red-500 text-red-500"
+                : "text-gray-700"
+            }
+          />
+        </button>
       </Link>
-      <div className="flex items-center gap-1 mt-2">
-        <div className="flex text-yellow-400">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <FiStar
-              key={star}
-              size={15}
-              className={star <= Math.round(product.averageRating) ? "fill-yellow-400" : "text-gray-300"}
-            />
-          ))}
+
+      {/* Product Details */}
+      <div className="flex flex-1 flex-col p-5">
+        {/* Rating */}
+        <div className="mb-2 flex items-center gap-2">
+          <div className="flex items-center gap-0.5">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <FiStar
+                key={star}
+                size={15}
+                className={
+                  star <= Math.round(product.averageRating)
+                    ? "fill-yellow-400 text-yellow-400"
+                    : "text-gray-300"
+                }
+              />
+            ))}
+          </div>
+
+          <span className="text-xs text-gray-500">
+            {product.averageRating || 0} ({product.numReviews || 0})
+          </span>
         </div>
 
-        <span className="text-sm text-gray-500">
-          {product.averageRating || 0}({product.numReviews || 0})
-        </span>
-      </div>
-
-      <div className="p-4 flex flex-col flex-1">
+        {/* Product Name */}
         <Link to={`/products/${product._id}`}>
-          <h2 className="font-bold text-lg text-indigo-700 hover:text-indigo-900 transition">{product.name}</h2>
+          <h2 className="line-clamp-1 text-lg font-semibold text-gray-900 transition hover:text-gray-600">
+            {product.name}
+          </h2>
 
-          <p className="text-gray-600 text-sm mt-2 line-clamp-2">{product.description}</p>
+          {/* Description */}
+          <p className="mt-2 line-clamp-2 text-sm leading-5 text-gray-500">
+            {product.description}
+          </p>
+        </Link>
 
-          <div className="mt-3 flex justify-between items-center">
-            <p className="text-lg font-semibold text-gray-800">${product.price}</p>
+        {/* Price + Seller */}
+        <div className="mt-4 flex items-end justify-between gap-3">
+          <p className="text-xl font-bold text-gray-900">
+            ${product.price}
+          </p>
 
-            <p className="text-xs text-gray-500">{product.seller.email}</p>
-          </div>
-        </Link>{" "}
-        <button
-          onClick={handleWishlist}
-          disabled={wishlistLoading}
-          className="absolute top-3 right-3 bg-white rounded-full p-2 shadow"
-        >
-          <FiHeart size={22} className={isWishlisted ? "fill-red-500 text-red-500" : "text-gray-500"} />
-        </button>
+          <p className="max-w-[150px] truncate text-xs text-gray-400">
+            {product.seller.email}
+          </p>
+        </div>
+
+        {/* Add to Cart */}
         <button
           onClick={() => handleAddToCart(product._id)}
-          className="mt-4 w-full bg-indigo-700 hover:bg-indigo-800 text-white py-2 rounded-lg transition flex items-center justify-center gap-2"
+          className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-gray-900 py-2.5 text-sm font-medium text-white transition hover:bg-gray-800 active:scale-[0.98]"
         >
-          <FiShoppingCart size={20} className="text-white" /> Add to Cart
+          <FiShoppingCart size={18} />
+          Add to Cart
         </button>
       </div>
     </div>

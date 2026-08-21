@@ -1,44 +1,85 @@
 import { useState, useEffect } from "react";
-import API from "../services/api"
+import API from "../services/api";
 import ProductCard from "../components/ProductCard";
 
-
-
 function Products() {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-        const fetchProducts = async () => {
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await API.get("/products");
+        setProducts(res.data);
+      } catch (error) {
+        console.log(error);
+      } finally {
+        setLoading(false);
+      }
+    };
 
-            try {
-                const res = await API.get("/products");
-                setProducts(res.data);
-            }
-            catch(error){
-                console.log(error);
-            }
-            finally {
-                setLoading(false);
-            }
-        };
-        fetchProducts();
-    }, []);
+    fetchProducts();
+  }, []);
 
-    if (loading) {
-        return <h2>Loading..</h2>
-    }
+  if (loading) {
     return (
-        <div>
-            <div  className="max-w-7xl mx-auto  px-4 py-6">
+      <div className="flex min-h-[60vh] items-center justify-center">
+        <p className="text-sm font-medium text-gray-500">
+          Loading products...
+        </p>
+      </div>
+    );
+  }
 
-            <h1 className="text-2xl md:text-4xl font-bold text-gray-700 my-5">Available Products</h1>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-5 lg:gap-10">
+  return (
+    <main className="min-h-screen bg-gray-50">
+      <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+        {/* Page Header */}
+        <div className="mb-8 flex flex-col gap-2">
+          <p className="text-sm font-medium uppercase tracking-wider text-gray-500">
+            Explore our collection
+          </p>
+
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+            Available Products
+          </h1>
+
+          <p className="text-sm text-gray-500 sm:text-base">
+            Browse and discover products from our sellers.
+          </p>
+        </div>
+
+        {/* Product Count */}
+        <div className="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
+          <p className="text-sm text-gray-500">
+            <span className="font-semibold text-gray-900">
+              {products.length}
+            </span>{" "}
+            {products.length === 1 ? "product" : "products"} available
+          </p>
+        </div>
+
+        {/* Products */}
+        {products.length > 0 ? (
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.map((product) => (
-                <ProductCard key={product._id}  product={product}/>
+              <ProductCard key={product._id} product={product} />
             ))}
-</div>
-        </div></div>
-    )
+          </div>
+        ) : (
+          <div className="rounded-2xl border border-gray-200 bg-white py-16 text-center">
+            <h2 className="text-lg font-semibold text-gray-900">
+              No products found
+            </h2>
+
+            <p className="mt-2 text-sm text-gray-500">
+              There are currently no products available.
+            </p>
+          </div>
+        )}
+      </div>
+    </main>
+  );
 }
-export default Products
+
+export default Products;

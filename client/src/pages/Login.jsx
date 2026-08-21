@@ -18,10 +18,7 @@ function Login() {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Where the user wanted to go before logging in
   const from = location.state?.from?.pathname || "/";
-
-  // Optional message from ProtectedRoute
   const message = location.state?.message;
 
   const handleChange = (e) => {
@@ -58,27 +55,29 @@ function Login() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-md w-full transform transition-all hover:scale-105 duration-300">
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">
+    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-10">
+      <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white p-8 shadow-sm sm:p-10">
+        {/* Header */}
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Welcome Back
           </h1>
 
-          <p className="text-gray-500 text-sm">
+          <p className="mt-2 text-sm text-gray-500">
             Sign in to continue to your account
           </p>
 
           {message && (
-            <div className=" p-3 rounded-lg font-bold  text-blue-700 text-sm">
+            <div className="mt-4 rounded-lg border border-gray-200 bg-gray-50 p-3 text-sm font-medium text-gray-700">
               {message}
             </div>
           )}
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
+        <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Email */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-gray-700">
               Email Address
             </label>
 
@@ -89,12 +88,13 @@ function Login() {
               onChange={handleChange}
               value={form.email}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 placeholder-gray-400"
+              className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
             />
           </div>
 
+          {/* Password */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="mb-2 block text-sm font-medium text-gray-700">
               Password
             </label>
 
@@ -105,28 +105,30 @@ function Login() {
               onChange={handleChange}
               value={form.password}
               required
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all duration-200 placeholder-gray-400"
+              className="w-full rounded-xl border border-gray-300 bg-white px-4 py-3 text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-gray-900 focus:ring-1 focus:ring-gray-900"
             />
           </div>
 
-          <div className="text-right">
+          {/* Forgot Password */}
+          <div className="flex justify-end">
             <a
               href="#"
-              className="text-sm text-blue-600 hover:text-blue-800 hover:underline transition-colors"
+              className="text-sm font-medium text-gray-600 transition hover:text-gray-900 hover:underline"
             >
               Forgot password?
             </a>
           </div>
 
+          {/* Sign In */}
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold py-3 px-4 rounded-lg hover:from-blue-700 hover:to-indigo-700 focus:ring-4 focus:ring-blue-300 transition-all duration-200 transform hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+            className="w-full rounded-xl bg-gray-900 px-4 py-3 font-semibold text-white transition hover:bg-gray-800 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-50"
           >
             {isLoading ? (
               <span className="flex items-center justify-center">
                 <svg
-                  className="animate-spin h-5 w-5 mr-3 text-white"
+                  className="mr-3 h-5 w-5 animate-spin text-white"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
                   viewBox="0 0 24 24"
@@ -154,49 +156,54 @@ function Login() {
             )}
           </button>
 
+          {/* Divider */}
           <div className="relative my-6">
             <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-gray-300"></div>
+              <div className="w-full border-t border-gray-200" />
             </div>
 
             <div className="relative flex justify-center text-sm">
-              <span className="px-4 bg-white text-gray-500">or</span>
+              <span className="bg-white px-4 text-gray-400">or</span>
             </div>
           </div>
 
-          <GoogleLogin
-            onSuccess={async (credentialResponse) => {
-              try {
-                const res = await API.post("/auth/google", {
-                  credential: credentialResponse.credential,
-                });
+          {/* Google Login */}
+          <div className="flex justify-center">
+            <GoogleLogin
+              onSuccess={async (credentialResponse) => {
+                try {
+                  const res = await API.post("/auth/google", {
+                    credential: credentialResponse.credential,
+                  });
 
-                login(res.data.token);
+                  login(res.data.token);
 
-                const role = res.data.user.role;
+                  const role = res.data.user.role;
 
-                if (role === "admin") {
-                  navigate("/admin", { replace: true });
-                } else if (role === "seller") {
-                  navigate("/seller", { replace: true });
-                } else {
-                  navigate(from, { replace: true });
+                  if (role === "admin") {
+                    navigate("/admin", { replace: true });
+                  } else if (role === "seller") {
+                    navigate("/seller", { replace: true });
+                  } else {
+                    navigate(from, { replace: true });
+                  }
+                } catch (err) {
+                  console.log(err.response?.data);
+                  alert("Google login failed");
                 }
-              } catch (err) {
-                console.log(err.response?.data);
-                alert("Google login failed");
-              }
-            }}
-            onError={() => {
-              console.log("Google Login Failed");
-            }}
-          />
+              }}
+              onError={() => {
+                console.log("Google Login Failed");
+              }}
+            />
+          </div>
 
-          <p className="text-center text-sm text-gray-600">
+          {/* Register */}
+          <p className="pt-2 text-center text-sm text-gray-500">
             Don't have an account?{" "}
             <Link
               to="/register"
-              className="text-blue-600 hover:text-blue-800 font-semibold hover:underline transition-colors"
+              className="font-semibold text-gray-900 transition hover:text-gray-600 hover:underline"
             >
               Sign up
             </Link>
