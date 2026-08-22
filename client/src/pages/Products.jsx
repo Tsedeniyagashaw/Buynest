@@ -23,11 +23,37 @@ function Products() {
 
   if (loading) {
     return (
-      <div className="flex min-h-[60vh] items-center justify-center">
-        <p className="text-sm font-medium text-gray-500">
-          Loading products...
-        </p>
+    <div className="mx-auto grid max-w-7xl grid-cols-1 gap-5 px-4 py-10 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+  {[1, 2, 3, 4, 5, 6, 7, 8].map((item) => (
+    <div
+      key={item}
+      className="overflow-hidden rounded-2xl border border-gray-200 bg-white"
+    >
+      {/* Image skeleton */}
+      <div className="h-52 animate-pulse bg-gray-200" />
+
+      <div className="space-y-4 p-5">
+        {/* Rating */}
+        <div className="h-3 w-24 animate-pulse rounded bg-gray-200" />
+
+        {/* Product name */}
+        <div className="h-5 w-3/4 animate-pulse rounded bg-gray-200" />
+
+        {/* Description */}
+        <div className="space-y-2">
+          <div className="h-3 w-full animate-pulse rounded bg-gray-200" />
+          <div className="h-3 w-5/6 animate-pulse rounded bg-gray-200" />
+        </div>
+
+        {/* Price */}
+        <div className="h-6 w-20 animate-pulse rounded bg-gray-200" />
+
+        {/* Button */}
+        <div className="h-10 w-full animate-pulse rounded-xl bg-gray-200" />
       </div>
+    </div>
+  ))}
+</div>
     );
   }
 
