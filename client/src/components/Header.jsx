@@ -187,7 +187,7 @@ function Header({ onMenuToggle, menuOpen }) {
             <img
               src={logo}
               alt="BuyNest"
-              className="h-17 object-contain hover:scale-105 transition-transform duration-200"
+              className="h-17 object-contain"
             />
           </Link>
 
@@ -195,7 +195,7 @@ function Header({ onMenuToggle, menuOpen }) {
             <img
               src={logosm}
               alt="BuyNest"
-              className="h-8 sm:h-8 object-contain hover:scale-105 transition-transform duration-200"
+              className="h-8 sm:h-8 object-contain"
             />
           </Link>
 
@@ -205,7 +205,7 @@ function Header({ onMenuToggle, menuOpen }) {
               relative flex items-center bg-gray-50 border rounded-xl transition-all duration-200 w-full
               ${
                 isSearchFocused
-                  ? "border-gray-900 ring-2 ring-gray-900/20 bg-white shadow-lg"
+                  ? "border-gray-900 ring-1 ring-gray-900/20 bg-white shadow-lg"
                   : "border-gray-200 hover:border-gray-300"
               }
             `}
@@ -279,7 +279,7 @@ function Header({ onMenuToggle, menuOpen }) {
               <div className="relative">
                 <FiShoppingCart className="text-xl sm:text-2xl group-hover:scale-110 transition-transform" />
                 {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-2 min-w-[18px] h-[18px] bg-gray-900 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 shadow-lg">
+                  <span className="absolute -top-1 -right-2 min-w-[18px] h-[18px] bg-red-700 text-white text-[10px] font-bold rounded-full flex items-center justify-center px-1 shadow-lg">
                     {cartCount > 9 ? "9+" : cartCount}
                   </span>
                 )}

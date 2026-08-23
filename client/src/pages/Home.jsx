@@ -1,6 +1,6 @@
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../context/AuthContext";
-import home from "../assets/home4.png";
+import home from "../assets/homee.png";
 import API from "../services/api";
 import ProductCard from "../components/ProductCard";
 

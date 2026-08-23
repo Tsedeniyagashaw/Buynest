@@ -59,7 +59,7 @@ function UserMenu({ user }) {
         <button onClick={() => setOpen(!open)}
           className="flex items-center gap-1 group focus:outline-none px-1 py-1 rounded-lg hover:bg-gray-50 transition-colors"
           aria-expanded={open} aria-haspopup="true">
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gray-900 text-white flex items-center justify-center font-semibold text-xs sm:text-sm hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gray-800 text-white flex items-center justify-center font-semibold text-xs sm:text-sm hover:shadow-lg transition-all duration-300 group-hover:scale-105">
             {getInitials(user?.firstName, user?.lastName)}
           </div>
           <div className="hidden lg:flex items-center gap-1">
@@ -78,7 +78,7 @@ function UserMenu({ user }) {
           <div className="absolute right-0 top-full mt-2 w-64 sm:w-72 bg-white rounded-2xl shadow-2xl border border-gray-100 z-50 overflow-hidden animate-slideDown">
             <div className="px-4 sm:px-5 py-3 sm:py-4 bg-gray-50 border-b border-gray-100">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-base sm:text-lg shadow-md flex-shrink-0">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-800 text-white flex items-center justify-center font-bold text-base sm:text-lg shadow-md flex-shrink-0">
                   {getInitials(user?.firstName, user?.lastName)}
                 </div>
                 <div className="min-w-0">

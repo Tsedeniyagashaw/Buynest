@@ -52,7 +52,7 @@ const navItems = [
   return (
     <>
       <nav className={`
-        hidden md:flex bg-blue-950 text-white 
+        hidden md:flex bg-gray-800 text-white  
         items-center justify-between h-16 px-6 lg:px-13  shadow-lg
         transition-all duration-300
         ${scrolled ? 'shadow-2xl backdrop-blur-md bg-opacity-95' : ''}
