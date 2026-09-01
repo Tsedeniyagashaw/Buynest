@@ -4,7 +4,6 @@ const cors = require("cors");
 require("dotenv").config();
 
 
-
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
@@ -33,7 +32,6 @@ app.use("/api/feedback", feedbackRoutes);
 app.use("/api/reviews", reviewRoutes);
 app.use("/api/wishlist", wishlistRoutes);
 app.use("/api/ai", aiRoutes);
-
 
 
 mongoose

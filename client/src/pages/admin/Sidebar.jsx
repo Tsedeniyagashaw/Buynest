@@ -1,40 +1,146 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import {
+  LayoutDashboard,
+  Users,
+  ShoppingBag,
+  Package,
+  Store,
+  MessageSquare,
+  ChevronDown,
+  ShieldCheck,
+} from "lucide-react";
+import { useState } from "react";
 
 function Sidebar() {
+  const [isExpanded, setIsExpanded] = useState(true);
+
+  const linkClass = ({ isActive }) =>
+    isActive
+      ? "flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-900 text-white shadow-lg shadow-gray-900/20 transition-all duration-200 group"
+      : "flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 group";
+
+  const iconClass = ({ isActive }) =>
+    isActive
+      ? "w-5 h-5 text-white"
+      : "w-5 h-5 text-gray-400 group-hover:text-gray-600 transition-colors";
+
+  const navItems = [
+    {
+      to: "/admin",
+      end: true,
+      icon: LayoutDashboard,
+      label: "Dashboard",
+    },
+    {
+      to: "/admin/users",
+      icon: Users,
+      label: "Users",
+    },
+    {
+      to: "/admin/orders",
+      icon: ShoppingBag,
+      label: "Orders",
+    },
+    {
+      to: "/admin/products",
+      icon: Package,
+      label: "Products",
+    },
+    {
+      to: "/admin/sellers",
+      icon: Store,
+      label: "Sellers",
+    },
+    {
+      to: "/admin/feedback",
+      icon: MessageSquare,
+      label: "Users Feedback",
+    },
+  ];
+
   return (
-    <div className="w-64 bg-gray-50 border-r-5 border-indigo-900  text-violet-800 h-full py-5">
+    <div
+      className={`
+        relative flex flex-col h-screen bg-white border-r border-gray-200
+        transition-all duration-300
+        ${isExpanded ? "w-64" : "w-20"}
+        shadow-sm
+      `}
+    >
+      {/* Toggle Button */}
+      <button
+        onClick={() => setIsExpanded(!isExpanded)}
+        className="absolute -right-3 top-20 bg-white border border-gray-200 rounded-full p-1.5 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110 z-10"
+      >
+        <ChevronDown
+          className={`w-4 h-4 text-gray-600 transition-transform duration-300 ${
+            isExpanded ? "rotate-0" : "rotate-180"
+          }`}
+        />
+      </button>
 
-      <h1 className="text-2xl font-bold mb-8 text-center">
-        Admin Panel
-      </h1>
+      {/* Header */}
+      <div className="flex items-center gap-3 px-4 py-6 border-b border-gray-100">
+        <div className="w-10 h-10 rounded-xl bg-gray-900 flex items-center justify-center shadow-lg shadow-gray-900/20 flex-shrink-0">
+          <ShieldCheck className="w-5 h-5 text-white" />
+        </div>
 
-      <nav className="flex flex-col gap-3 ">
+        {isExpanded && (
+          <div className="flex-1 min-w-0">
+            <h2 className="text-lg font-bold text-gray-900 truncate">
+              Admin Panel
+            </h2>
 
-        <Link className="block w-full px-5 py-4 hover:bg-gray-200" to="/admin">
-          Dashboard
-        </Link>
+            <p className="text-xs text-gray-500 truncate">
+              Manage your platform
+            </p>
+          </div>
+        )}
+      </div>
 
-        <Link className="block w-full px-5 py-4 hover:bg-gray-100" to="/admin/users">
-          Users
-        </Link>
+      {/* Navigation */}
+      <nav className="flex-1 px-3 py-4 overflow-y-auto">
+        <div className="space-y-1">
+          {navItems.map((item) => (
+            <NavLink
+              key={item.to}
+              to={item.to}
+              end={item.end}
+              className={linkClass}
+              title={!isExpanded ? item.label : ""}
+            >
+              {({ isActive }) => (
+                <>
+                  <item.icon className={iconClass({ isActive })} />
 
-        <Link className="block w-full px-5 py-4 hover:bg-gray-100" to="/admin/orders">
-          Orders
-        </Link>
+                  {isExpanded && (
+                    <span className="font-medium text-sm truncate">
+                      {item.label}
+                    </span>
+                  )}
 
-        <Link className="block w-full px-5 py-4 hover:bg-gray-100" to="/admin/products">
-          Products
-        </Link>
-
-        <Link className="block w-full px-5 py-4 hover:bg-gray-100" to="/admin/sellers">
-          Sellers
-        </Link>
-
-         <Link className="block w-full px-5 py-4 hover:bg-gray-100" to="/admin/feedback">
-          Users Feedback
-        </Link>
-
+                  {isActive && isExpanded && (
+                    <span className="ml-auto w-1.5 h-1.5 rounded-full bg-white/80 animate-pulse" />
+                  )}
+                </>
+              )}
+            </NavLink>
+          ))}
+        </div>
       </nav>
+
+      {/* Bottom Section */}
+      <div className="border-t border-gray-100 p-4">
+        <div className="flex items-center justify-center">
+          {isExpanded ? (
+            <p className="text-xs text-gray-400">
+              Admin Dashboard
+            </p>
+          ) : (
+            <ShieldCheck className="w-5 h-5 text-gray-400" />
+          )}
+        </div>
+      </div>
     </div>
   );
 }

@@ -108,24 +108,37 @@ function ProductCard({ product }) {
         />
 
         {/* Wishlist */}
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            handleWishlist();
-          }}
-          disabled={wishlistLoading}
-          className="absolute right-3 top-3 flex h-10 w-10 items-center justify-center rounded-full bg-white/95 shadow-sm backdrop-blur transition hover:bg-gray-100 disabled:cursor-not-allowed disabled:opacity-60"
-          aria-label="Add to wishlist"
-        >
-          <FiHeart
-            size={20}
-            className={
-              isWishlisted
-                ? "fill-red-500 text-red-500"
-                : "text-gray-700"
-            }
-          />
-        </button>
+     <button
+  onClick={(e) => {
+    e.preventDefault();
+    handleWishlist();
+  }}
+  disabled={wishlistLoading}
+  aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+  className="
+    absolute top-3 right-3
+    p-1
+    text-gray-700
+    transition-all duration-200
+    hover:scale-110
+    hover:text-gray-900
+    disabled:cursor-not-allowed
+    disabled:opacity-50
+  "
+>
+  <FiHeart
+    size={21}
+    strokeWidth={1.8}
+    className={`
+      transition-all duration-200
+      ${
+        isWishlisted
+          ? "fill-red-500 text-red-500"
+          : "text-gray-700"
+      }
+    `}
+  />
+</button>
       </Link>
 
       {/* Product Details */}

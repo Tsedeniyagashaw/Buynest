@@ -1,3 +1,4 @@
+
 import { Link, NavLink } from "react-router-dom";
 import { 
   LayoutDashboard, 
@@ -64,7 +65,7 @@ function SellerSidebar() {
 
   const linkClass = ({ isActive }) =>
     isActive
-      ? "flex items-center gap-3 px-4 py-3 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 text-white shadow-lg shadow-violet-500/25 transition-all duration-200 group"
+      ? "flex items-center gap-3 px-4 py-3 rounded-xl bg-gray-900 text-white shadow-lg shadow-gray-900/20 transition-all duration-200 group"
       : "flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 group";
 
   const iconClass = ({ isActive }) =>
@@ -95,12 +96,12 @@ function SellerSidebar() {
 
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-6 border-b border-gray-100">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 flex items-center justify-center shadow-lg shadow-violet-500/25 flex-shrink-0">
+        <div className="w-10 h-10 rounded-xl bg-gray-900 flex items-center justify-center shadow-lg shadow-gray-900/20 flex-shrink-0">
           <Store className="w-5 h-5 text-white" />
         </div>
         {isExpanded && (
           <div className="flex-1 min-w-0">
-            <h2 className="text-lg font-bold bg-gradient-to-r from-violet-600 to-indigo-600 bg-clip-text text-transparent truncate">
+            <h2 className="text-lg font-bold text-gray-900 truncate">
               Seller Panel
             </h2>
             <p className="text-xs text-gray-500 truncate">Manage your store</p>
@@ -168,7 +169,7 @@ function SellerSidebar() {
           onClick={() => setShowProfileMenu(!showProfileMenu)}
           className="w-full flex items-center gap-3 hover:bg-gray-50 rounded-xl p-2 transition-colors group"
         >
-          <div className="w-10 h-10 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0 shadow-md shadow-violet-500/25">
+          <div className="w-10 h-10 rounded-full bg-gray-900 text-white flex items-center justify-center font-bold text-sm flex-shrink-0 shadow-md shadow-gray-900/20">
             {user && getInitials(user.firstName, user.lastName)}
           </div>
           {isExpanded && (
@@ -232,7 +233,7 @@ function SellerSidebar() {
                   </p>
                 </div>
                 {unreadCount > 0 && (
-                  <button className="text-xs text-violet-600 hover:text-violet-700 font-medium px-3 py-1.5 bg-violet-50 hover:bg-violet-100 rounded-lg transition-colors">
+                  <button className="text-xs text-gray-900 hover:text-gray-700 font-medium px-3 py-1.5 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
                     Mark all read
                   </button>
                 )}
@@ -255,7 +256,7 @@ function SellerSidebar() {
                       className={`
                         px-4 py-3 border-b border-gray-50 cursor-pointer 
                         transition-colors hover:bg-gray-50
-                        ${!notification.isRead ? 'bg-violet-50/50 border-l-4 border-l-violet-500' : ''}
+                        ${!notification.isRead ? 'bg-gray-100/70 border-l-4 border-l-gray-900' : ''}
                       `}
                     >
                       <div className="flex items-start gap-2">
@@ -273,14 +274,14 @@ function SellerSidebar() {
                           </p>
                         </div>
                         {!notification.isRead && (
-                          <span className="w-1.5 h-1.5 rounded-full bg-violet-500 flex-shrink-0 mt-1.5" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-gray-900 flex-shrink-0 mt-1.5" />
                         )}
                       </div>
                     </div>
                   ))
                 )}
                 {notifications.length > 5 && (
-                  <button className="w-full px-4 py-2 text-sm text-violet-600 hover:bg-violet-50 transition-colors font-medium">
+                  <button className="w-full px-4 py-2 text-sm text-gray-900 hover:bg-gray-100 transition-colors font-medium">
                     View all notifications
                   </button>
                 )}
@@ -294,3 +295,4 @@ function SellerSidebar() {
 }
 
 export default SellerSidebar;
+

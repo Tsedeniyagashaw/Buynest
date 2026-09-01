@@ -1,5 +1,6 @@
 import { useState } from "react";
 import API from "../../services/api";
+import { X } from "lucide-react";
 
 function AddAdminModal({ open, onClose }) {
   const [formData, setFormData] = useState({
@@ -23,7 +24,7 @@ function AddAdminModal({ open, onClose }) {
       const token = localStorage.getItem("token");
 
       await API.post(
-        "/admin/create-admin", // change if your route is different
+        "/admin/create-admin",
         {
           ...formData,
           role: "admin",
@@ -57,88 +58,317 @@ function AddAdminModal({ open, onClose }) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+      className="
+        fixed
+        inset-0
+        z-50
+        flex
+        items-center
+        justify-center
+        bg-gray-900/50
+        backdrop-blur-sm
+        px-4
+      "
       onClick={onClose}
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-white w-[450px] rounded-xl p-6 shadow-xl"
+        className="
+          bg-white
+          w-full
+          max-w-lg
+          rounded-2xl
+          border
+          border-gray-200
+          shadow-2xl
+          overflow-hidden
+        "
       >
-        <h2 className="text-2xl font-bold mb-6">
-          Add New Admin
-        </h2>
 
-        <div className="space-y-3">
+        {/* Header */}
+        <div className="flex items-start justify-between px-6 py-5 border-b border-gray-100">
 
-          <input
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleChange}
-            placeholder="First Name"
-            className="w-full border rounded-lg p-2"
-          />
+          <div>
+            <h2 className="text-xl font-bold text-gray-900">
+              Add New Admin
+            </h2>
 
-          <input
-            name="middleName"
-            value={formData.middleName}
-            onChange={handleChange}
-            placeholder="Middle Name"
-            className="w-full border rounded-lg p-2"
-          />
-
-          <input
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleChange}
-            placeholder="Last Name"
-            className="w-full border rounded-lg p-2"
-          />
-
-          <input
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={handleChange}
-            placeholder="Email"
-            className="w-full border rounded-lg p-2"
-          />
-
-          <input
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            placeholder="Phone Number"
-            className="w-full border rounded-lg p-2"
-          />
-
-          <input
-            name="password"
-            type="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Password"
-            className="w-full border rounded-lg p-2"
-          />
-
-        </div>
-
-        <div className="flex justify-end gap-3 mt-6">
+            <p className="text-sm text-gray-500 mt-1">
+              Create an administrator account for your platform.
+            </p>
+          </div>
 
           <button
             onClick={onClose}
-            className="px-4 py-2 rounded-lg bg-gray-200 hover:bg-gray-300"
+            className="
+              p-2
+              rounded-lg
+              text-gray-400
+              hover:text-gray-900
+              hover:bg-gray-100
+              transition-colors
+            "
+            aria-label="Close"
+          >
+            <X className="w-5 h-5" />
+          </button>
+
+        </div>
+
+        {/* Form */}
+        <div className="px-6 py-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+            {/* First Name */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                First Name
+              </label>
+
+              <input
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                placeholder="Enter first name"
+                className="
+                  w-full
+                  px-3.5
+                  py-2.5
+                  text-sm
+                  text-gray-900
+                  bg-white
+                  border
+                  border-gray-200
+                  rounded-lg
+                  outline-none
+                  placeholder:text-gray-400
+                  focus:border-gray-900
+                  focus:ring-2
+                  focus:ring-gray-900/10
+                  transition-all
+                "
+              />
+            </div>
+
+            {/* Middle Name */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Middle Name
+              </label>
+
+              <input
+                name="middleName"
+                value={formData.middleName}
+                onChange={handleChange}
+                placeholder="Enter middle name"
+                className="
+                  w-full
+                  px-3.5
+                  py-2.5
+                  text-sm
+                  text-gray-900
+                  bg-white
+                  border
+                  border-gray-200
+                  rounded-lg
+                  outline-none
+                  placeholder:text-gray-400
+                  focus:border-gray-900
+                  focus:ring-2
+                  focus:ring-gray-900/10
+                  transition-all
+                "
+              />
+            </div>
+
+            {/* Last Name */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Last Name
+              </label>
+
+              <input
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                placeholder="Enter last name"
+                className="
+                  w-full
+                  px-3.5
+                  py-2.5
+                  text-sm
+                  text-gray-900
+                  bg-white
+                  border
+                  border-gray-200
+                  rounded-lg
+                  outline-none
+                  placeholder:text-gray-400
+                  focus:border-gray-900
+                  focus:ring-2
+                  focus:ring-gray-900/10
+                  transition-all
+                "
+              />
+            </div>
+
+            {/* Phone */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Phone Number
+              </label>
+
+              <input
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                placeholder="Enter phone number"
+                className="
+                  w-full
+                  px-3.5
+                  py-2.5
+                  text-sm
+                  text-gray-900
+                  bg-white
+                  border
+                  border-gray-200
+                  rounded-lg
+                  outline-none
+                  placeholder:text-gray-400
+                  focus:border-gray-900
+                  focus:ring-2
+                  focus:ring-gray-900/10
+                  transition-all
+                "
+              />
+            </div>
+
+            {/* Email */}
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Email Address
+              </label>
+
+              <input
+                name="email"
+                type="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="admin@example.com"
+                className="
+                  w-full
+                  px-3.5
+                  py-2.5
+                  text-sm
+                  text-gray-900
+                  bg-white
+                  border
+                  border-gray-200
+                  rounded-lg
+                  outline-none
+                  placeholder:text-gray-400
+                  focus:border-gray-900
+                  focus:ring-2
+                  focus:ring-gray-900/10
+                  transition-all
+                "
+              />
+            </div>
+
+            {/* Password */}
+            <div className="md:col-span-2">
+              <label className="block text-sm font-medium text-gray-700 mb-1.5">
+                Password
+              </label>
+
+              <input
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                placeholder="Create a secure password"
+                className="
+                  w-full
+                  px-3.5
+                  py-2.5
+                  text-sm
+                  text-gray-900
+                  bg-white
+                  border
+                  border-gray-200
+                  rounded-lg
+                  outline-none
+                  placeholder:text-gray-400
+                  focus:border-gray-900
+                  focus:ring-2
+                  focus:ring-gray-900/10
+                  transition-all
+                "
+              />
+
+              <p className="text-xs text-gray-400 mt-1.5">
+                Use a strong password for the administrator account.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Footer */}
+        <div className="
+          flex
+          items-center
+          justify-end
+          gap-3
+          px-6
+          py-4
+          bg-gray-50
+          border-t
+          border-gray-100
+        ">
+
+          <button
+            onClick={onClose}
+            className="
+              px-4
+              py-2.5
+              rounded-lg
+              text-sm
+              font-medium
+              text-gray-700
+              bg-white
+              border
+              border-gray-200
+              hover:bg-gray-100
+              hover:text-gray-900
+              transition-colors
+            "
           >
             Cancel
           </button>
 
           <button
             onClick={handleCreateAdmin}
-            className="px-4 py-2 rounded-lg bg-violet-600 hover:bg-violet-700 text-white"
+            className="
+              px-4
+              py-2.5
+              rounded-lg
+              text-sm
+              font-medium
+              text-white
+              bg-gray-900
+              hover:bg-gray-800
+              shadow-sm
+              transition-colors
+            "
           >
             Create Admin
           </button>
 
         </div>
+
       </div>
     </div>
   );
