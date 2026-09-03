@@ -10,7 +10,7 @@ import {
   YAxis,
   Tooltip,
   ResponsiveContainer,
-  Legend
+  Legend,
 } from "recharts";
 import {
   TrendingUp,
@@ -20,7 +20,7 @@ import {
   Clock,
   CheckCircle,
   Truck,
-  AlertCircle
+  AlertCircle,
 } from "lucide-react";
 
 function SellerAnalytics() {
@@ -31,11 +31,13 @@ function SellerAnalytics() {
     const fetchAnalytics = async () => {
       try {
         const token = localStorage.getItem("token");
+
         const res = await API.get("/orders/seller/analytics", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
+
         setData(res.data);
       } catch (err) {
         console.log(err.response?.data);
@@ -49,10 +51,12 @@ function SellerAnalytics() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-violet-600 border-t-transparent"></div>
-          <p className="mt-4 text-gray-600 font-medium">Loading analytics...</p>
+          <div className="w-8 h-8 border-2 border-gray-300 border-t-gray-900 rounded-full animate-spin mx-auto" />
+          <p className="mt-3 text-sm text-gray-500">
+            Loading analytics...
+          </p>
         </div>
       </div>
     );
@@ -60,13 +64,17 @@ function SellerAnalytics() {
 
   if (!data) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
-        <div className="text-center max-w-md p-8 bg-white rounded-2xl shadow-xl">
-          <div className="w-20 h-20 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <AlertCircle className="w-10 h-10 text-amber-600" />
+      <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+        <div className="text-center max-w-md">
+          <div className="w-12 h-12 bg-amber-50 border border-amber-200 rounded-xl flex items-center justify-center mx-auto">
+            <AlertCircle className="w-6 h-6 text-amber-600" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">No data available</h2>
-          <p className="text-gray-500">
+
+          <h2 className="mt-4 text-xl font-semibold text-gray-900">
+            No data available
+          </h2>
+
+          <p className="mt-2 text-sm text-gray-500">
             Start selling to see your analytics dashboard.
           </p>
         </div>
@@ -74,327 +82,428 @@ function SellerAnalytics() {
     );
   }
 
-  const pieData = Object.entries(data.statusCount).map(
+  const pieData = Object.entries(data.statusCount || {}).map(
     ([key, value]) => ({
       name: key.charAt(0).toUpperCase() + key.slice(1),
       value,
     })
   );
 
-  const COLORS = {
-    pending: "#facc15",
+  /*
+   * Status colors are intentionally limited to semantic colors.
+   * Shipped uses a neutral gray instead of purple.
+   */
+  const STATUS_COLORS = {
+    pending: "#f59e0b",
     paid: "#3b82f6",
-    shipped: "#a855f7",
-    delivered: "#22c55e"
+    shipped: "#6b7280",
+    delivered: "#10b981",
   };
 
   const statusIcons = {
     pending: <Clock className="w-4 h-4" />,
     paid: <ShoppingBag className="w-4 h-4" />,
     shipped: <Truck className="w-4 h-4" />,
-    delivered: <CheckCircle className="w-4 h-4" />
+    delivered: <CheckCircle className="w-4 h-4" />,
   };
 
-  const statusColors = {
-    pending: "bg-amber-100 text-amber-700",
-    paid: "bg-blue-100 text-blue-700",
-    shipped: "bg-purple-100 text-purple-700",
-    delivered: "bg-emerald-100 text-emerald-700"
+  const statusStyles = {
+    pending: "bg-amber-50 text-amber-700",
+    paid: "bg-blue-50 text-blue-700",
+    shipped: "bg-gray-100 text-gray-600",
+    delivered: "bg-emerald-50 text-emerald-700",
   };
 
-  // Calculate additional metrics
-  const averageOrderValue = data.totalOrders > 0 
-    ? data.totalRevenue / data.totalOrders 
-    : 0;
+  const averageOrderValue =
+    data.totalOrders > 0
+      ? data.totalRevenue / data.totalOrders
+      : 0;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
         {/* Header */}
-        <div className="mb-10">
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+        <div className="mb-7">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold bg-gradient-to-r from-gray-900 to-gray-600 bg-clip-text text-transparent">
-                Analytics Dashboard
+              <h1 className="text-2xl md:text-3xl font-semibold text-gray-900">
+                Analytics
               </h1>
-              <p className="text-gray-500 mt-1">
-                Track your sales performance and order insights
+
+              <p className="mt-1 text-sm text-gray-500">
+                Track your sales performance and order activity.
               </p>
             </div>
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 px-4 py-2 bg-white rounded-xl shadow-sm border border-gray-200">
-                <TrendingUp className="w-4 h-4 text-green-600" />
-                <span className="text-sm font-medium text-gray-700">
-                  {data.totalOrders > 0 ? "Active" : "No sales yet"}
-                </span>
-              </div>
+
+            <div className="inline-flex items-center gap-2 self-start sm:self-auto px-3 py-2 bg-white border border-gray-200 rounded-lg">
+              <TrendingUp
+                className={`w-4 h-4 ${
+                  data.totalOrders > 0
+                    ? "text-emerald-600"
+                    : "text-gray-400"
+                }`}
+              />
+
+              <span className="text-sm font-medium text-gray-700">
+                {data.totalOrders > 0
+                  ? "Active"
+                  : "No sales yet"}
+              </span>
             </div>
           </div>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          {/* Revenue Card */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center justify-between">
+        {/* Summary Stats */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+
+          {/* Revenue */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-gray-500">Total Revenue</p>
-                <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
-                  ${data.totalRevenue.toFixed(2)}
+                <p className="text-sm text-gray-500">
+                  Total Revenue
                 </p>
-                <p className="text-xs text-gray-400 mt-1">
+
+                <p className="mt-2 text-2xl font-semibold text-gray-900">
+                  ${Number(data.totalRevenue).toFixed(2)}
+                </p>
+
+                <p className="mt-1 text-xs text-gray-400">
                   Lifetime sales
                 </p>
               </div>
-              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                <DollarSign className="w-6 h-6 text-emerald-600" />
+
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                <DollarSign className="w-5 h-5 text-gray-600" />
               </div>
             </div>
           </div>
 
-          {/* Orders Card */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center justify-between">
+          {/* Orders */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-gray-500">Total Orders</p>
-                <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
+                <p className="text-sm text-gray-500">
+                  Total Orders
+                </p>
+
+                <p className="mt-2 text-2xl font-semibold text-gray-900">
                   {data.totalOrders}
                 </p>
-                <p className="text-xs text-gray-400 mt-1">
+
+                <p className="mt-1 text-xs text-gray-400">
                   All time orders
                 </p>
               </div>
-              <div className="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center">
-                <ShoppingBag className="w-6 h-6 text-violet-600" />
+
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                <ShoppingBag className="w-5 h-5 text-gray-600" />
               </div>
             </div>
           </div>
 
-          {/* Average Order Value Card */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center justify-between">
+          {/* Average Order */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-gray-500">Average Order Value</p>
-                <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
+                <p className="text-sm text-gray-500">
+                  Average Order Value
+                </p>
+
+                <p className="mt-2 text-2xl font-semibold text-gray-900">
                   ${averageOrderValue.toFixed(2)}
                 </p>
-                <p className="text-xs text-gray-400 mt-1">
-                  Per order average
+
+                <p className="mt-1 text-xs text-gray-400">
+                  Average per order
                 </p>
               </div>
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <TrendingUp className="w-6 h-6 text-blue-600" />
+
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                <TrendingUp className="w-5 h-5 text-gray-600" />
               </div>
             </div>
           </div>
 
-          {/* Status Distribution Card */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center justify-between">
+          {/* Status Count */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-gray-500">Active Statuses</p>
-                <p className="text-2xl md:text-3xl font-bold text-gray-900 mt-1">
-                  {Object.keys(data.statusCount).length}
+                <p className="text-sm text-gray-500">
+                  Order Statuses
                 </p>
-                <p className="text-xs text-gray-400 mt-1">
-                  Different order statuses
+
+                <p className="mt-2 text-2xl font-semibold text-gray-900">
+                  {Object.keys(data.statusCount || {}).length}
+                </p>
+
+                <p className="mt-1 text-xs text-gray-400">
+                  Active order statuses
                 </p>
               </div>
-              <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center">
-                <Package className="w-6 h-6 text-amber-600" />
+
+              <div className="w-10 h-10 bg-gray-100 rounded-lg flex items-center justify-center">
+                <Package className="w-5 h-5 text-gray-600" />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Charts Grid */}
+        {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Pie Chart - Order Status */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center justify-between mb-6">
+
+          {/* Order Status */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <div className="flex items-start justify-between gap-4 mb-5">
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">
-                  Order Status Distribution
+                <h2 className="text-base font-semibold text-gray-900">
+                  Order Status
                 </h2>
-                <p className="text-sm text-gray-500 mt-1">
-                  Breakdown of all orders by status
+
+                <p className="mt-1 text-sm text-gray-500">
+                  Breakdown of your orders by status.
                 </p>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400">
-                  Total: {data.totalOrders}
-                </span>
-              </div>
+
+              <span className="text-xs text-gray-400">
+                {data.totalOrders} total
+              </span>
             </div>
 
-            <div className="flex flex-col items-center">
-              <ResponsiveContainer width="100%" height={280}>
-                <PieChart>
-                  <Pie
-                    data={pieData}
-                    dataKey="value"
-                    nameKey="name"
-                    cx="50%"
-                    cy="50%"
-                    outerRadius={90}
-                    innerRadius={60}
-                    paddingAngle={2}
-                    label={({ name, percent }) => 
-                      `${name} ${(percent * 100).toFixed(0)}%`
-                    }
-                    labelLine={false}
-                  >
-                    {pieData.map((entry, index) => (
-                      <Cell 
-                        key={`cell-${index}`} 
-                        fill={COLORS[entry.name.toLowerCase()] || "#94a3b8"}
-                        className="hover:opacity-80 transition-opacity cursor-pointer"
-                      />
-                    ))}
-                  </Pie>
-                  <Tooltip 
-                    formatter={(value) => [`${value} orders`, 'Count']}
-                    contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '0.75rem',
-                      padding: '0.75rem'
-                    }}
-                  />
-                  <Legend 
-                    verticalAlign="bottom" 
-                    height={36}
-                    iconType="circle"
-                    iconSize={8}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
+            {pieData.length === 0 ? (
+              <div className="h-[320px] flex flex-col items-center justify-center">
+                <Package className="w-10 h-10 text-gray-300" />
 
-              {/* Status Legend Cards */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 w-full mt-4 pt-4 border-t border-gray-100">
-                {pieData.map((item) => (
-                  <div key={item.name} className="flex items-center gap-2">
-                    <div 
-                      className="w-3 h-3 rounded-full"
-                      style={{ backgroundColor: COLORS[item.name.toLowerCase()] || "#94a3b8" }}
+                <p className="mt-3 text-sm text-gray-500">
+                  No order data yet
+                </p>
+              </div>
+            ) : (
+              <>
+                <ResponsiveContainer width="100%" height={280}>
+                  <PieChart>
+                    <Pie
+                      data={pieData}
+                      dataKey="value"
+                      nameKey="name"
+                      cx="50%"
+                      cy="45%"
+                      outerRadius={90}
+                      innerRadius={58}
+                      paddingAngle={2}
+                      label={({ name, percent }) =>
+                        `${name} ${(percent * 100).toFixed(0)}%`
+                      }
+                      labelLine={false}
+                    >
+                      {pieData.map((entry, index) => (
+                        <Cell
+                          key={`cell-${index}`}
+                          fill={
+                            STATUS_COLORS[
+                              entry.name.toLowerCase()
+                            ] || "#9ca3af"
+                          }
+                        />
+                      ))}
+                    </Pie>
+
+                    <Tooltip
+                      formatter={(value) => [
+                        `${value} orders`,
+                        "Count",
+                      ]}
+                      contentStyle={{
+                        backgroundColor: "white",
+                        border: "1px solid #e5e7eb",
+                        borderRadius: "8px",
+                        padding: "8px 12px",
+                      }}
                     />
-                    <div className="flex-1 min-w-0">
-                      <p className="text-xs font-medium text-gray-700 truncate">
-                        {item.name}
-                      </p>
-                      <p className="text-xs text-gray-500">
-                        {item.value}
-                      </p>
+
+                    <Legend
+                      verticalAlign="bottom"
+                      height={30}
+                      iconType="circle"
+                      iconSize={7}
+                    />
+                  </PieChart>
+                </ResponsiveContainer>
+
+                {/* Status Summary */}
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2 pt-4 border-t border-gray-100">
+                  {pieData.map((item) => (
+                    <div
+                      key={item.name}
+                      className="flex items-center gap-2 min-w-0"
+                    >
+                      <span
+                        className="w-2.5 h-2.5 rounded-full shrink-0"
+                        style={{
+                          backgroundColor:
+                            STATUS_COLORS[
+                              item.name.toLowerCase()
+                            ] || "#9ca3af",
+                        }}
+                      />
+
+                      <div className="min-w-0">
+                        <p className="text-xs font-medium text-gray-700 truncate">
+                          {item.name}
+                        </p>
+
+                        <p className="text-xs text-gray-400">
+                          {item.value}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+                  ))}
+                </div>
+              </>
+            )}
           </div>
 
-          {/* Bar Chart - Top Products */}
-          <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 hover:shadow-lg transition-shadow duration-300">
-            <div className="flex items-center justify-between mb-6">
+          {/* Top Products */}
+          <div className="bg-white border border-gray-200 rounded-xl p-5">
+            <div className="flex items-start justify-between gap-4 mb-5">
               <div>
-                <h2 className="text-lg font-semibold text-gray-900">
-                  Top Performing Products
+                <h2 className="text-base font-semibold text-gray-900">
+                  Top Products
                 </h2>
-                <p className="text-sm text-gray-500 mt-1">
-                  Most ordered products by quantity
+
+                <p className="mt-1 text-sm text-gray-500">
+                  Your most ordered products by quantity.
                 </p>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-xs text-gray-400">
-                  {data.topProducts.length} products
-                </span>
-              </div>
+
+              <span className="text-xs text-gray-400">
+                {data.topProducts?.length || 0} products
+              </span>
             </div>
 
-            {data.topProducts.length === 0 ? (
-              <div className="flex flex-col items-center justify-center h-64">
-                <Package className="w-12 h-12 text-gray-300 mb-3" />
-                <p className="text-gray-500 text-sm">No products sold yet</p>
+            {!data.topProducts ||
+            data.topProducts.length === 0 ? (
+              <div className="h-[320px] flex flex-col items-center justify-center">
+                <Package className="w-10 h-10 text-gray-300" />
+
+                <p className="mt-3 text-sm text-gray-500">
+                  No products sold yet
+                </p>
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={320}>
-                <BarChart 
+                <BarChart
                   data={data.topProducts}
-                  margin={{ top: 10, right: 10, left: 0, bottom: 20 }}
+                  margin={{
+                    top: 10,
+                    right: 10,
+                    left: 0,
+                    bottom: 20,
+                  }}
                 >
-                  <XAxis 
-                    dataKey="name" 
-                    tick={{ fontSize: 12, fill: '#6b7280' }}
-                    axisLine={{ stroke: '#e5e7eb' }}
+                  <XAxis
+                    dataKey="name"
+                    tick={{
+                      fontSize: 11,
+                      fill: "#6b7280",
+                    }}
+                    axisLine={{
+                      stroke: "#e5e7eb",
+                    }}
                     tickLine={false}
                     interval={0}
-                    angle={-45}
+                    angle={-35}
                     textAnchor="end"
                     height={60}
                   />
-                  <YAxis 
-                    tick={{ fontSize: 12, fill: '#6b7280' }}
-                    axisLine={{ stroke: '#e5e7eb' }}
+
+                  <YAxis
+                    tick={{
+                      fontSize: 11,
+                      fill: "#6b7280",
+                    }}
+                    axisLine={false}
                     tickLine={false}
-                    label={{ 
-                      value: 'Units Sold', 
-                      angle: -90, 
-                      position: 'insideLeft',
-                      style: { fill: '#6b7280', fontSize: 12 }
-                    }}
+                    allowDecimals={false}
                   />
-                  <Tooltip 
-                    formatter={(value) => [`${value} units`, 'Sold']}
+
+                  <Tooltip
+                    formatter={(value) => [
+                      `${value} units`,
+                      "Sold",
+                    ]}
                     contentStyle={{
-                      backgroundColor: 'white',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '0.75rem',
-                      padding: '0.75rem'
+                      backgroundColor: "white",
+                      border: "1px solid #e5e7eb",
+                      borderRadius: "8px",
+                      padding: "8px 12px",
                     }}
                   />
-                  <Bar 
-                    dataKey="qty" 
-                    fill="#6366f1"
-                    radius={[6, 6, 0, 0]}
-                    barSize={40}
-                    className="hover:opacity-80 transition-opacity cursor-pointer"
-                  >
-                    {data.topProducts.map((entry, index) => (
-                      <Cell 
-                        key={`bar-${index}`}
-                        fill={`hsl(239, 84%, ${65 - (index * 5)}%)`}
-                      />
-                    ))}
-                  </Bar>
+
+                  <Bar
+                    dataKey="qty"
+                    fill="#374151"
+                    radius={[4, 4, 0, 0]}
+                    barSize={34}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             )}
           </div>
         </div>
 
-        {/* Additional Insights */}
-        {data.totalOrders > 0 && (
-          <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {pieData.map((item) => (
-              <div 
-                key={item.name}
-                className="bg-white rounded-xl shadow-sm border border-gray-100 p-4 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-center gap-3">
-                  <div className={`w-10 h-10 rounded-lg ${statusColors[item.name.toLowerCase()] || 'bg-gray-100 text-gray-700'} flex items-center justify-center`}>
-                    {statusIcons[item.name.toLowerCase()] || <Package className="w-4 h-4" />}
+        {/* Status Overview */}
+        {data.totalOrders > 0 && pieData.length > 0 && (
+          <div className="mt-6">
+            <div className="mb-4">
+              <h2 className="text-base font-semibold text-gray-900">
+                Order Overview
+              </h2>
+
+              <p className="mt-1 text-sm text-gray-500">
+                Current distribution of your orders.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {pieData.map((item) => {
+                const statusKey = item.name.toLowerCase();
+                const percentage =
+                  (item.value / data.totalOrders) * 100;
+
+                return (
+                  <div
+                    key={item.name}
+                    className="bg-white border border-gray-200 rounded-xl p-4"
+                  >
+                    <div className="flex items-center gap-3">
+                      <div
+                        className={`w-9 h-9 rounded-lg flex items-center justify-center ${
+                          statusStyles[statusKey] ||
+                          "bg-gray-100 text-gray-600"
+                        }`}
+                      >
+                        {statusIcons[statusKey] || (
+                          <Package className="w-4 h-4" />
+                        )}
+                      </div>
+
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-gray-900">
+                          {item.name}
+                        </p>
+
+                        <p className="mt-0.5 text-xs text-gray-500">
+                          {item.value} orders ·{" "}
+                          {percentage.toFixed(1)}%
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-medium text-gray-900">
-                      {item.name}
-                    </p>
-                    <p className="text-xs text-gray-500">
-                      {item.value} orders ({((item.value / data.totalOrders) * 100).toFixed(1)}%)
-                    </p>
-                  </div>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
           </div>
         )}
       </div>

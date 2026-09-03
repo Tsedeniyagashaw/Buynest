@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import API from "../../services/api";
 import { useEffect } from "react";
@@ -26,7 +25,7 @@ function Topbar() {
         if (!token) return;
 
         const res = await API.get("/auth/profile", {
-          headers: { Authorization: `Bearer ${token}` }
+          headers: { Authorization: `Bearer ${token}` },
         });
 
         setUser(res.data);
@@ -47,8 +46,8 @@ function Topbar() {
 
         const res = await API.get("/admin/profile", {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         setAdmin(res.data);
@@ -69,20 +68,17 @@ function Topbar() {
 
         const res = await API.get("/notifications", {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
+            Authorization: `Bearer ${token}`,
+          },
         });
 
         // Filter to get only unread notifications
-        const unreadNotifications = res.data.filter(n => !n.read);
+        const unreadNotifications = res.data.filter((n) => !n.read);
 
         setNotifications(unreadNotifications);
         setUnreadCount(unreadNotifications.length);
       } catch (error) {
-        console.log(
-          "Error fetching notifications:",
-          error.response?.data
-        );
+        console.log("Error fetching notifications:", error.response?.data);
       }
     };
 
@@ -105,17 +101,15 @@ function Topbar() {
         { read: true },
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
 
       // Remove from UI
-      setNotifications(prev =>
-        prev.filter(item => item._id !== notification._id)
-      );
+      setNotifications((prev) => prev.filter((item) => item._id !== notification._id));
 
-      setUnreadCount(prev => prev - 1);
+      setUnreadCount((prev) => prev - 1);
 
       // Close notification dropdown
       setShowNotifications(false);
@@ -128,12 +122,8 @@ function Topbar() {
       } else if (notification.type === "order") {
         navigate("/admin/orders");
       }
-
     } catch (error) {
-      console.log(
-        "Error handling notification:",
-        error.response?.data
-      );
+      console.log("Error handling notification:", error.response?.data);
     }
   };
 
@@ -147,20 +137,16 @@ function Topbar() {
         {},
         {
           headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
+            Authorization: `Bearer ${token}`,
+          },
+        },
       );
 
       setNotifications([]);
       setUnreadCount(0);
       setShowNotifications(false);
-
     } catch (error) {
-      console.log(
-        "Error marking all as read:",
-        error.response?.data
-      );
+      console.log("Error marking all as read:", error.response?.data);
     }
   };
 
@@ -200,10 +186,8 @@ function Topbar() {
 
   return (
     <div className="h-30 bg-white border-b border-gray-200 flex items-center justify-between px-6 sticky top-0 z-40">
-
       {/* Left Section */}
       <div className="flex items-center gap-3 min-w-0">
-
         <div className="min-w-0">
           <h1 className="text-lg font-semibold text-gray-900 truncate">
             Welcome back
@@ -224,13 +208,9 @@ function Topbar() {
 
       {/* Right Section */}
       <div className="flex items-center gap-3">
-
         {/* Search Bar */}
         <div className="relative w-52 md:w-64 lg:w-80">
-          <FiSearch
-            className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-            size={18}
-          />
+          <FiSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
 
           <input
             type="text"
@@ -266,11 +246,8 @@ function Topbar() {
 
         {/* Notifications */}
         <div className="relative">
-
           <button
-            onClick={() =>
-              setShowNotifications(!showNotifications)
-            }
+            onClick={() => setShowNotifications(!showNotifications)}
             className="
               relative
               p-2.5
@@ -284,13 +261,11 @@ function Topbar() {
             "
             aria-label="Notifications"
           >
-            <FiBell
-              size={20}
-              className="text-gray-600"
-            />
+            <FiBell size={20} className="text-gray-600" />
 
             {unreadCount > 0 && (
-              <span className="
+              <span
+                className="
                 absolute
                 -top-1
                 -right-1
@@ -307,7 +282,8 @@ function Topbar() {
                 font-bold
                 border-2
                 border-white
-              ">
+              "
+              >
                 {unreadCount > 99 ? "99+" : unreadCount}
               </span>
             )}
@@ -317,13 +293,11 @@ function Topbar() {
           {showNotifications && (
             <>
               {/* Overlay */}
-              <div
-                className="fixed inset-0 z-40"
-                onClick={() => setShowNotifications(false)}
-              />
+              <div className="fixed inset-0 z-40" onClick={() => setShowNotifications(false)} />
 
               {/* Dropdown */}
-              <div className="
+              <div
+                className="
                 absolute
                 right-0
                 mt-3
@@ -336,15 +310,12 @@ function Topbar() {
                 border-gray-200
                 overflow-hidden
                 z-50
-              ">
-
+              "
+              >
                 {/* Header */}
                 <div className="flex items-center justify-between px-4 py-4 border-b border-gray-100">
-
                   <div>
-                    <h3 className="text-sm font-semibold text-gray-900">
-                      Notifications
-                    </h3>
+                    <h3 className="text-sm font-semibold text-gray-900">Notifications</h3>
 
                     <p className="text-xs text-gray-500 mt-0.5">
                       {unreadCount > 0
@@ -375,11 +346,10 @@ function Topbar() {
 
                 {/* Notifications List */}
                 <div className="max-h-96 overflow-y-auto">
-
                   {notifications.length === 0 ? (
                     <div className="flex flex-col items-center justify-center p-10 text-center">
-
-                      <div className="
+                      <div
+                        className="
                         w-12
                         h-12
                         rounded-full
@@ -388,29 +358,20 @@ function Topbar() {
                         items-center
                         justify-center
                         mb-3
-                      ">
-                        <FiCheckCircle
-                          className="text-gray-500"
-                          size={22}
-                        />
+                      "
+                      >
+                        <FiCheckCircle className="text-gray-500" size={22} />
                       </div>
 
-                      <p className="text-sm font-medium text-gray-700">
-                        No new notifications
-                      </p>
+                      <p className="text-sm font-medium text-gray-700">No new notifications</p>
 
-                      <p className="text-xs text-gray-400 mt-1">
-                        You're all caught up!
-                      </p>
-
+                      <p className="text-xs text-gray-400 mt-1">You're all caught up!</p>
                     </div>
                   ) : (
                     notifications.map((notification) => (
                       <div
                         key={notification._id}
-                        onClick={() =>
-                          handleNotificationClick(notification)
-                        }
+                        onClick={() => handleNotificationClick(notification)}
                         className="
                           px-4
                           py-3.5
@@ -422,11 +383,10 @@ function Topbar() {
                           group
                         "
                       >
-
                         <div className="flex items-start gap-3">
-
                           {/* Notification Icon */}
-                          <div className="
+                          <div
+                            className="
                             w-9
                             h-9
                             rounded-lg
@@ -436,55 +396,56 @@ function Topbar() {
                             items-center
                             justify-center
                             flex-shrink-0
-                          ">
-                            {getNotificationIcon(
-                              notification.type
-                            )}
+                          "
+                          >
+                            {getNotificationIcon(notification.type)}
                           </div>
 
                           {/* Content */}
                           <div className="flex-1 min-w-0">
-
-                            <p className="
+                            <p
+                              className="
                               text-sm
                               text-gray-700
                               group-hover:text-gray-900
                               transition-colors
                               leading-5
-                            ">
+                            "
+                            >
                               {notification.message}
                             </p>
 
-                            <p className="
+                            <p
+                              className="
                               text-xs
                               text-gray-400
                               mt-1
-                            ">
-                              {formatTime(
-                                notification.createdAt
-                              )}
+                            "
+                            >
+                              {formatTime(notification.createdAt)}
                             </p>
-
                           </div>
 
- {!notification.read && (<span className=" w-2 h-2 bg-gray-900 rounded-full  flex-shrink-0
+                          {!notification.read && (
+                            <span
+                              className=" w-2 h-2 bg-gray-900 rounded-full  flex-shrink-0
                               mt-2"
                             />
                           )}
-
                         </div>
                       </div>
                     ))
                   )}
-
                 </div>
 
                 {notifications.length > 0 && (
-                  <div className="p-2
+                  <div
+                    className="p-2
                     border-t
                     border-gray-100
                     bg-gray-50
-                  ">
+                  "
+                  >
                     <button
                       onClick={() => {
                         setShowNotifications(false);
@@ -507,7 +468,6 @@ function Topbar() {
                     </button>
                   </div>
                 )}
-
               </div>
             </>
           )}
@@ -515,11 +475,9 @@ function Topbar() {
 
         {/* User Menu */}
         <UserMenu user={user} />
-
       </div>
     </div>
   );
 }
 
 export default Topbar;
-
