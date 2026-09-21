@@ -32,7 +32,6 @@ function Header({ onMenuToggle, menuOpen }) {
     fetchUser();
   }, []);
 
-  // Function to fetch cart count
   const fetchCartCount = async () => {
     try {
       const token = localStorage.getItem("token");

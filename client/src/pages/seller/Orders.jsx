@@ -1,15 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import { useSearch } from "../../context/SearchContext";
-import {
-  ShoppingBag,
-  Package,
-  Truck,
-  CheckCircle,
-  Clock,
-  Search,
-  ArrowUpDown,
-} from "lucide-react";
+import { ShoppingBag, Package, Truck, CheckCircle, Clock, Search, ArrowUpDown, } from "lucide-react";
 
 function SellerOrders() {
   const [orders, setOrders] = useState([]);
@@ -178,7 +170,6 @@ function SellerOrders() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        {/* Header */}
         <div className="mb-7">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
@@ -201,7 +192,6 @@ function SellerOrders() {
             </div>
           </div>
 
-          {/* Search + Sort */}
           <div className="mt-6 flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -231,7 +221,6 @@ function SellerOrders() {
           </div>
         </div>
 
-        {/* Orders */}
         {sortedOrders.length > 0 ? (
           <div className="space-y-4">
             {sortedOrders.map((order) => {

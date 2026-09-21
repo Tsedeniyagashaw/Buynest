@@ -72,7 +72,6 @@ function AdminOrders() {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 md:px-6 lg:px-8">
 
-      {/* Page Header */}
       <div className="mb-7">
         <h1 className="text-2xl font-bold text-gray-900">
           Orders
@@ -83,7 +82,6 @@ function AdminOrders() {
         </p>
       </div>
 
-      {/* Orders Summary */}
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm text-gray-500">
           Showing{" "}
@@ -94,13 +92,11 @@ function AdminOrders() {
         </p>
       </div>
 
-      {/* Orders Table */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
 
         <div className="overflow-x-auto">
           <table className="min-w-full">
 
-            {/* Table Header */}
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr className="text-left text-xs uppercase tracking-wide text-gray-500">
 
@@ -127,7 +123,6 @@ function AdminOrders() {
               </tr>
             </thead>
 
-            {/* Table Body */}
             <tbody className="divide-y divide-gray-100">
 
               {filteredOrders.length === 0 ? (
@@ -147,52 +142,18 @@ function AdminOrders() {
                 </tr>
               ) : (
                 filteredOrders.map((order) => (
-                  <tr
-                    key={order._id}
-                    className="
-                      text-sm
-                      hover:bg-gray-50
-                      transition-colors
-                      duration-150
-                    "
-                  >
+                  <tr key={order._id} className=" text-sm hover:bg-gray-50 transition-colors duration-150 " >
 
-                    {/* Order ID */}
                     <td className="px-6 py-5">
-                      <span className="
-                        inline-flex
-                        items-center
-                        px-2.5
-                        py-1
-                        rounded-md
-                        bg-gray-100
-                        border
-                        border-gray-200
-                        text-xs
-                        font-semibold
-                        text-gray-700
-                      ">
+                      <span className=" inline-flex items-center px-2.5 py-1 rounded-md bg-gray-100 border border-gray-200 text-xs font-semibold text-gray-700 ">
                         #{order._id.slice(-6).toUpperCase()}
                       </span>
                     </td>
 
-                    {/* Buyer */}
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
 
-                        <div className="
-                          w-9
-                          h-9
-                          rounded-full
-                          bg-gray-900
-                          text-white
-                          flex
-                          items-center
-                          justify-center
-                          text-xs
-                          font-semibold
-                          flex-shrink-0
-                        ">
+                        <div className=" w-9 h-9 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs font-semibold flex-shrink-0 ">
                           {`${order.user?.firstName?.[0] || ""}${order.user?.lastName?.[0] || ""}`
                             .toUpperCase() || "U"}
                         </div>
@@ -211,7 +172,6 @@ function AdminOrders() {
                       </div>
                     </td>
 
-                    {/* Items */}
                     <td className="px-6 py-5">
                       <div className="space-y-2 max-w-xs">
 
@@ -226,16 +186,7 @@ function AdminOrders() {
                               </span>
                             </p>
 
-                            <span className="
-                              flex-shrink-0
-                              text-xs
-                              font-medium
-                              text-gray-500
-                              bg-gray-100
-                              px-2
-                              py-0.5
-                              rounded-md
-                            ">
+                            <span className=" flex-shrink-0 text-xs font-medium text-gray-500 bg-gray-100 px-2 py-0.5 rounded-md ">
                               × {item.quantity}
                             </span>
                           </div>
@@ -244,53 +195,21 @@ function AdminOrders() {
                       </div>
                     </td>
 
-                    {/* Total */}
                     <td className="px-6 py-5">
                       <span className="font-semibold text-gray-900">
                         ${Number(order.totalPrice || 0).toFixed(2)}
                       </span>
                     </td>
 
-                    {/* Status */}
                     <td className="px-6 py-5">
 
                       <span
-                        className={`
-                          inline-flex
-                          items-center
-                          gap-1.5
-                          px-2.5
-                          py-1
-                          rounded-md
-                          text-xs
-                          font-medium
-                          border
-                          ${
-                            order.status === "Delivered"
-                              ? "bg-green-50 text-green-700 border-green-100"
-                              : order.status === "Pending"
-                              ? "bg-yellow-50 text-yellow-700 border-yellow-100"
-                              : order.status === "Processing"
-                              ? "bg-blue-50 text-blue-700 border-blue-100"
-                              : "bg-red-50 text-red-600 border-red-100"
-                          }
+                        className={` inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium border
+                          ${ order.status === "Delivered" ? "bg-green-50 text-green-700 border-green-100" : order.status === "Pending" ? "bg-yellow-50 text-yellow-700 border-yellow-100" : order.status === "Processing" ? "bg-blue-50 text-blue-700 border-blue-100" : "bg-red-50 text-red-600 border-red-100" }
                         `}
                       >
                         <span
-                          className={`
-                            w-1.5
-                            h-1.5
-                            rounded-full
-                            ${
-                              order.status === "Delivered"
-                                ? "bg-green-500"
-                                : order.status === "Pending"
-                                ? "bg-yellow-500"
-                                : order.status === "Processing"
-                                ? "bg-blue-500"
-                                : "bg-red-500"
-                            }
-                          `}
+                          className={` w-1.5 h-1.5 rounded-full ${ order.status === "Delivered" ? "bg-green-500" : order.status === "Pending" ? "bg-yellow-500" : order.status === "Processing" ? "bg-blue-500" : "bg-red-500" } `}
                         />
 
                         {order.status}

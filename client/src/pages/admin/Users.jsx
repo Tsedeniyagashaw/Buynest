@@ -95,7 +95,6 @@ function Users() {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 md:px-6 lg:px-8">
 
-      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-7">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
@@ -107,25 +106,7 @@ function Users() {
           </p>
         </div>
 
-        <button
-          className="
-            inline-flex
-            items-center
-            justify-center
-            gap-2
-            px-4
-            py-2.5
-            rounded-lg
-            text-sm
-            font-medium
-            text-white
-            bg-gray-900
-            hover:bg-gray-800
-            shadow-sm
-            transition-colors
-            duration-200
-          "
-        >
+        <button className=" inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 shadow-sm transition-colors duration-200 " >
           <span className="text-lg leading-none">
             +
           </span>
@@ -134,7 +115,6 @@ function Users() {
         </button>
       </div>
 
-      {/* Users Summary */}
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm text-gray-500">
           Showing{" "}
@@ -145,14 +125,11 @@ function Users() {
         </p>
       </div>
 
-      {/* Users Table */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
 
-        {/* Responsive Table Wrapper */}
         <div className="overflow-x-auto">
           <table className="min-w-full">
 
-            {/* Table Header */}
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr className="text-left text-xs uppercase tracking-wide text-gray-500">
 
@@ -183,7 +160,6 @@ function Users() {
               </tr>
             </thead>
 
-            {/* Table Body */}
             <tbody className="divide-y divide-gray-100">
 
               {filteredUsers.length === 0 ? (
@@ -204,33 +180,12 @@ function Users() {
               ) : (
                 filteredUsers.map((user) => (
 
-                  <tr
-                    key={user._id}
-                    className="
-                      text-sm
-                      hover:bg-gray-50
-                      transition-colors
-                      duration-150
-                    "
-                  >
+                  <tr key={user._id} className=" text-sm hover:bg-gray-50 transition-colors duration-150 " >
 
-                    {/* Name */}
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-3">
 
-                        <div className="
-                          w-9
-                          h-9
-                          rounded-full
-                          bg-gray-900
-                          text-white
-                          flex
-                          items-center
-                          justify-center
-                          text-xs
-                          font-semibold
-                          flex-shrink-0
-                        ">
+                        <div className=" w-9 h-9 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs font-semibold flex-shrink-0 ">
                           {`${user.firstName?.[0] || ""}${user.lastName?.[0] || ""}`.toUpperCase() || "U"}
                         </div>
 
@@ -243,31 +198,14 @@ function Users() {
                       </div>
                     </td>
 
-                    {/* Email */}
                     <td className="px-6 py-4 text-gray-600">
                       {user.email || "N/A"}
                     </td>
 
-                    {/* Role */}
                     <td className="px-6 py-4">
                       <span
-                        className={`
-                          inline-flex
-                          items-center
-                          px-2.5
-                          py-1
-                          rounded-md
-                          text-xs
-                          font-medium
-                          border
-                          ${
-                            user.role === "admin"
-                              ? "bg-gray-900 text-white border-gray-900"
-                              : user.role === "seller"
-                              ? "bg-gray-100 text-gray-700 border-gray-200"
-                              : "bg-gray-50 text-gray-600 border-gray-200"
-                          }
-                        `}
+                        className={` inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium border
+                          ${ user.role === "admin" ? "bg-gray-900 text-white border-gray-900" : user.role === "seller" ? "bg-gray-100 text-gray-700 border-gray-200" : "bg-gray-50 text-gray-600 border-gray-200" } `}
                       >
                         {user.role}
                       </span>
@@ -278,35 +216,11 @@ function Users() {
 
                       {user.role === "seller" ? (
                         user.isApproved ? (
-                          <span className="
-                            inline-flex
-                            items-center
-                            px-2.5
-                            py-1
-                            text-xs
-                            rounded-md
-                            bg-green-50
-                            text-green-700
-                            border
-                            border-green-100
-                            font-medium
-                          ">
+                          <span className=" inline-flex items-center px-2.5 py-1 text-xs rounded-md bg-green-50 text-green-700 border border-green-100 font-medium ">
                             Approved
                           </span>
                         ) : (
-                          <span className="
-                            inline-flex
-                            items-center
-                            px-2.5
-                            py-1
-                            text-xs
-                            rounded-md
-                            bg-red-50
-                            text-red-600
-                            border
-                            border-red-100
-                            font-medium
-                          ">
+                          <span className=" inline-flex items-center px-2.5 py-1 text-xs rounded-md bg-red-50 text-red-600 border border-red-100 font-medium ">
                             Not Approved
                           </span>
                         )
@@ -318,42 +232,15 @@ function Users() {
 
                     </td>
 
-                    {/* Status */}
                     <td className="px-6 py-4">
 
                       {user.isBlocked ? (
-                        <span className="
-                          inline-flex
-                          items-center
-                          gap-1.5
-                          px-2.5
-                          py-1
-                          text-xs
-                          rounded-md
-                          bg-red-50
-                          text-red-600
-                          border
-                          border-red-100
-                          font-medium
-                        ">
+                        <span className=" inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-red-50 text-red-600 border border-red-100 font-medium ">
                           <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                           Suspended
                         </span>
                       ) : (
-                        <span className="
-                          inline-flex
-                          items-center
-                          gap-1.5
-                          px-2.5
-                          py-1
-                          text-xs
-                          rounded-md
-                          bg-green-50
-                          text-green-700
-                          border
-                          border-green-100
-                          font-medium
-                        ">
+                        <span className=" inline-flex items-center gap-1.5 px-2.5 py-1 text-xs rounded-md bg-green-50 text-green-700 border border-green-100 font-medium ">
                           <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
                           Active
                         </span>
@@ -361,24 +248,12 @@ function Users() {
 
                     </td>
 
-                    {/* Action */}
                     <td className="px-6 py-4 text-right">
 
                       {user.role !== "admin" && (
                         <button
                           onClick={() => toggleBlock(user._id)}
-                          className={`
-                            inline-flex
-                            items-center
-                            justify-center
-                            px-3
-                            py-1.5
-                            rounded-md
-                            text-xs
-                            font-medium
-                            border
-                            transition-colors
-                            duration-200
+                          className={` inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-medium border transition-colors duration-200
                             ${
                               user.isBlocked
                                 ? "text-green-700 bg-green-50 border-green-200 hover:bg-green-100"
@@ -386,9 +261,7 @@ function Users() {
                             }
                           `}
                         >
-                          {user.isBlocked
-                            ? "Activate"
-                            : "Suspend"}
+                          {user.isBlocked ? "Activate" : "Suspend"}
                         </button>
                       )}
 

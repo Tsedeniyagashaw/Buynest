@@ -16,9 +16,7 @@ function ReviewModal({ product, orderId, onClose, onSuccess }) {
 
     try {
       setLoading(true);
-
       const token = localStorage.getItem("token");
-
       await API.post(
         "/reviews",
         {

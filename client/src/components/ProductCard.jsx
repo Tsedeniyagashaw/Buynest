@@ -107,7 +107,6 @@ function ProductCard({ product }) {
           className="h-52 w-full object-cover transition duration-500 group-hover:scale-105"
         />
 
-        {/* Wishlist */}
      <button
   onClick={(e) => {
     e.preventDefault();
@@ -115,47 +114,18 @@ function ProductCard({ product }) {
   }}
   disabled={wishlistLoading}
   aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-  className="
-    absolute top-3 right-3
-    p-1
-    text-gray-700
-    transition-all duration-200
-    hover:scale-110
-    hover:text-gray-900
-    disabled:cursor-not-allowed
-    disabled:opacity-50
-  "
->
-  <FiHeart
-    size={21}
-    strokeWidth={1.8}
-    className={`
-      transition-all duration-200
-      ${
-        isWishlisted
-          ? "fill-red-500 text-red-500"
-          : "text-gray-700"
-      }
-    `}
-  />
+  className="absolute top-3 right-3 p-1 text-gray-700 transition-all duration-200 hover:scale-110 hover:text-gray-900  disabled:cursor-not-allowed disabled:opacity-50 ">
+  <FiHeart size={21} strokeWidth={1.8}
+    className={`transition-all duration-200 ${isWishlisted ? "fill-red-500 text-red-500" : "text-gray-700" }`} />
 </button>
       </Link>
 
-      {/* Product Details */}
       <div className="flex flex-1 flex-col p-5">
-        {/* Rating */}
         <div className="mb-2 flex items-center gap-2">
           <div className="flex items-center gap-0.5">
             {[1, 2, 3, 4, 5].map((star) => (
-              <FiStar
-                key={star}
-                size={15}
-                className={
-                  star <= Math.round(product.averageRating)
-                    ? "fill-yellow-400 text-yellow-400"
-                    : "text-gray-300"
-                }
-              />
+              <FiStar  key={star} size={15}
+                className={ star <= Math.round(product.averageRating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}  />
             ))}
           </div>
 
@@ -164,19 +134,16 @@ function ProductCard({ product }) {
           </span>
         </div>
 
-        {/* Product Name */}
         <Link to={`/products/${product._id}`}>
           <h2 className="line-clamp-1 text-lg font-semibold text-gray-900 transition hover:text-gray-600">
             {product.name}
           </h2>
 
-          {/* Description */}
           <p className="mt-2 line-clamp-2 text-sm leading-5 text-gray-500">
             {product.description}
           </p>
         </Link>
 
-        {/* Price + Seller */}
         <div className="mt-4 flex items-end justify-between gap-3">
           <p className="text-xl font-bold text-gray-900">
             ${product.price}
@@ -187,7 +154,6 @@ function ProductCard({ product }) {
           </p>
         </div>
 
-        {/* Add to Cart */}
         <button
           onClick={() => handleAddToCart(product._id)}
           className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-gray-900 py-2.5 text-sm font-medium text-white transition hover:bg-gray-800 active:scale-[0.98]"

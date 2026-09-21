@@ -1,16 +1,4 @@
-import {
-  FiUsers,
-  FiPackage,
-  FiHeadphones,
-  FiStar,
-  FiShield,
-  FiTruck,
-  FiRefreshCw,
-  FiAward,
-  FiHeart,
-  FiGlobe,
-  FiChevronRight,
-} from "react-icons/fi";
+import { FiUsers, FiPackage, FiHeadphones, FiStar, FiShield, FiTruck, FiRefreshCw, FiAward, FiHeart, FiGlobe, FiChevronRight, } from "react-icons/fi";
 import { Link } from "react-router-dom";
 
 function AboutUs() {

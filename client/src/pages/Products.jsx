@@ -29,26 +29,20 @@ function Products() {
       key={item}
       className="overflow-hidden rounded-2xl border border-gray-200 bg-white"
     >
-      {/* Image skeleton */}
       <div className="h-52 animate-pulse bg-gray-200" />
 
       <div className="space-y-4 p-5">
-        {/* Rating */}
         <div className="h-3 w-24 animate-pulse rounded bg-gray-200" />
 
-        {/* Product name */}
         <div className="h-5 w-3/4 animate-pulse rounded bg-gray-200" />
 
-        {/* Description */}
         <div className="space-y-2">
           <div className="h-3 w-full animate-pulse rounded bg-gray-200" />
           <div className="h-3 w-5/6 animate-pulse rounded bg-gray-200" />
         </div>
 
-        {/* Price */}
         <div className="h-6 w-20 animate-pulse rounded bg-gray-200" />
 
-        {/* Button */}
         <div className="h-10 w-full animate-pulse rounded-xl bg-gray-200" />
       </div>
     </div>
@@ -60,7 +54,6 @@ function Products() {
   return (
     <main className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        {/* Page Header */}
         <div className="mb-8 flex flex-col gap-2">
           <p className="text-sm font-medium uppercase tracking-wider text-gray-500">
             Explore our collection
@@ -75,7 +68,6 @@ function Products() {
           </p>
         </div>
 
-        {/* Product Count */}
         <div className="mb-6 flex items-center justify-between border-b border-gray-200 pb-4">
           <p className="text-sm text-gray-500">
             <span className="font-semibold text-gray-900">
@@ -85,7 +77,6 @@ function Products() {
           </p>
         </div>
 
-        {/* Products */}
         {products.length > 0 ? (
           <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
             {products.map((product) => (

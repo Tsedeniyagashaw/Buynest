@@ -1,7 +1,5 @@
 const Groq = require("groq-sdk");
 const { searchProducts } = require("./tools");
-
-
 const groq = new Groq({
     apiKey: process.env.GROQ_API_KEY
 });

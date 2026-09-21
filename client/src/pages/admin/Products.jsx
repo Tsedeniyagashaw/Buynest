@@ -93,7 +93,6 @@ function AdminProducts() {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 md:px-6 lg:px-8">
 
-      {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-7">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
@@ -106,25 +105,7 @@ function AdminProducts() {
           </p>
         </div>
 
-        <button
-          className="
-            inline-flex
-            items-center
-            justify-center
-            gap-2
-            px-4
-            py-2.5
-            rounded-lg
-            text-sm
-            font-medium
-            text-white
-            bg-gray-900
-            hover:bg-gray-800
-            shadow-sm
-            transition-colors
-            duration-200
-          "
-        >
+        <button className=" inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-medium text-white bg-gray-900 hover:bg-gray-800 shadow-sm transition-colors duration-200 " >
           <span className="text-lg leading-none">
             +
           </span>
@@ -133,7 +114,6 @@ function AdminProducts() {
         </button>
       </div>
 
-      {/* Products Summary */}
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm text-gray-500">
           Showing{" "}
@@ -144,13 +124,11 @@ function AdminProducts() {
         </p>
       </div>
 
-      {/* Products Table */}
       <div className="bg-white rounded-xl border border-gray-200 shadow-sm overflow-hidden">
 
         <div className="overflow-x-auto">
           <table className="min-w-full">
 
-            {/* Table Header */}
             <thead className="bg-gray-50 border-b border-gray-200">
               <tr className="text-left text-xs uppercase tracking-wide text-gray-500">
 
@@ -181,7 +159,6 @@ function AdminProducts() {
               </tr>
             </thead>
 
-            {/* Table Body */}
             <tbody className="divide-y divide-gray-100">
 
               {filteredProducts.length === 0 ? (
@@ -201,35 +178,12 @@ function AdminProducts() {
                 </tr>
               ) : (
                 filteredProducts.map((product) => (
-                  <tr
-                    key={product._id}
-                    className="
-                      text-sm
-                      hover:bg-gray-50
-                      transition-colors
-                      duration-150
-                    "
-                  >
+                  <tr key={product._id} className=" text-sm hover:bg-gray-50 transition-colors duration-150 " >
 
-                    {/* Product Name */}
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
 
-                        <div className="
-                          w-9
-                          h-9
-                          rounded-lg
-                          bg-gray-100
-                          border
-                          border-gray-200
-                          flex
-                          items-center
-                          justify-center
-                          text-xs
-                          font-semibold
-                          text-gray-700
-                          flex-shrink-0
-                        ">
+                        <div className=" w-9 h-9 rounded-lg bg-gray-100 border border-gray-200 flex items-center justify-center text-xs font-semibold text-gray-700 flex-shrink-0 ">
                           {product.name?.[0]?.toUpperCase() || "P"}
                         </div>
 
@@ -246,7 +200,6 @@ function AdminProducts() {
                       </div>
                     </td>
 
-                    {/* Description */}
                     <td className="px-6 py-5">
                       <p
                         className="text-gray-600 max-w-xs truncate"
@@ -256,14 +209,12 @@ function AdminProducts() {
                       </p>
                     </td>
 
-                    {/* Price */}
                     <td className="px-6 py-5">
                       <span className="font-semibold text-gray-900">
                         ${Number(product.price || 0).toFixed(2)}
                       </span>
                     </td>
 
-                    {/* Seller */}
                     <td className="px-6 py-5">
                       <div className="min-w-0">
                         <p className="text-gray-700 truncate max-w-[200px]">
@@ -272,42 +223,15 @@ function AdminProducts() {
                       </div>
                     </td>
 
-                    {/* Status */}
                     <td className="px-6 py-5">
 
                       {product.isActive ? (
-                        <span className="
-                          inline-flex
-                          items-center
-                          gap-1.5
-                          px-2.5
-                          py-1
-                          rounded-md
-                          text-xs
-                          font-medium
-                          bg-green-50
-                          text-green-700
-                          border
-                          border-green-100
-                        ">
+                        <span className=" inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-green-50 text-green-700 border border-green-100 ">
                           <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
                           Active
                         </span>
                       ) : (
-                        <span className="
-                          inline-flex
-                          items-center
-                          gap-1.5
-                          px-2.5
-                          py-1
-                          rounded-md
-                          text-xs
-                          font-medium
-                          bg-red-50
-                          text-red-600
-                          border
-                          border-red-100
-                        ">
+                        <span className=" inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-red-50 text-red-600 border border-red-100 ">
                           <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                           Inactive
                         </span>
@@ -315,37 +239,17 @@ function AdminProducts() {
 
                     </td>
 
-                    {/* Action */}
                     <td className="px-6 py-5 text-right">
 
                       <button
                         onClick={() => toggleProductStatus(product._id)}
-                        className={`
-                          inline-flex
-                          items-center
-                          justify-center
-                          px-3
-                          py-1.5
-                          rounded-md
-                          text-xs
-                          font-medium
-                          border
-                          transition-colors
-                          duration-200
-                          ${
-                            product.isActive
-                              ? "text-red-600 bg-red-50 border-red-200 hover:bg-red-100"
-                              : "text-green-700 bg-green-50 border-green-200 hover:bg-green-100"
-                          }
+                        className={` inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-medium border transition-colors duration-200
+                          ${ product.isActive ? "text-red-600 bg-red-50 border-red-200 hover:bg-red-100" : "text-green-700 bg-green-50 border-green-200 hover:bg-green-100" }
                         `}
                       >
-                        {product.isActive
-                          ? "Deactivate"
-                          : "Activate"}
+                        {product.isActive ? "Deactivate" : "Activate"}
                       </button>
-
                     </td>
-
                   </tr>
                 ))
               )}

@@ -1,11 +1,10 @@
 const Product = require("../models/Product");
-const User = require("../models/User");
+const User = require("../models/user");
 
 
 const createProduct = async ( req, res) => {
     try{
         const seller = await User.findById(req.user.id);
-
         if (!seller) {
     return res.status(404).json({
         message: "User not found"

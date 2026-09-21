@@ -1,24 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  ResponsiveContainer,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  BarChart,
-  Bar,
-} from "recharts";
-import {
-  FaUsers,
-  FaBoxOpen,
-  FaShoppingCart,
-  FaUserShield,
-  FaClock,
-} from "react-icons/fa";
+import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer, XAxis, YAxis, CartesianGrid, BarChart, Bar, } from "recharts";
+import { FaUsers, FaBoxOpen, FaShoppingCart, FaUserShield, FaClock, } from "react-icons/fa";
 import AddAdminModal from "./AddAdmin";
 
 function AdminHome() {
@@ -44,7 +27,6 @@ function AdminHome() {
       ]
     : [];
 
-  // Neutral colors to match the new gray/white design
   const COLORS = ["#111827", "#4B5563", "#9CA3AF", "#D1D5DB"];
 
   useEffect(() => {
@@ -84,7 +66,6 @@ function AdminHome() {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 md:px-6 lg:px-8">
 
-      {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">
@@ -105,10 +86,8 @@ function AdminHome() {
         </button>
       </div>
 
-      {/* Statistics Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
 
-        {/* Users */}
         <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-start justify-between">
             <div>
@@ -129,7 +108,6 @@ function AdminHome() {
           <div className="mt-4 h-1 w-10 bg-gray-900 rounded-full"></div>
         </div>
 
-        {/* Products */}
         <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-start justify-between">
             <div>
@@ -150,7 +128,6 @@ function AdminHome() {
           <div className="mt-4 h-1 w-10 bg-gray-700 rounded-full"></div>
         </div>
 
-        {/* Orders */}
         <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-start justify-between">
             <div>
@@ -171,7 +148,6 @@ function AdminHome() {
           <div className="mt-4 h-1 w-10 bg-gray-500 rounded-full"></div>
         </div>
 
-        {/* Sellers */}
         <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-start justify-between">
             <div>
@@ -192,7 +168,6 @@ function AdminHome() {
           <div className="mt-4 h-1 w-12 bg-gray-400 rounded-full"></div>
         </div>
 
-        {/* Pending */}
         <div className="bg-white rounded-xl p-5 border border-gray-200 shadow-sm hover:shadow-md transition-shadow duration-200">
           <div className="flex items-start justify-between">
             <div>
@@ -215,10 +190,8 @@ function AdminHome() {
 
       </div>
 
-      {/* Charts */}
       <div className="grid grid-cols-1 lg:grid-cols-5 gap-6 mt-6">
 
-        {/* Bar Chart */}
         <div className="lg:col-span-3 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
 
           <div className="mb-6">
@@ -233,62 +206,20 @@ function AdminHome() {
 
           <div style={{ width: "100%", height: 300 }}>
             <ResponsiveContainer>
-              <BarChart
-                data={graphData}
-                margin={{
-                  top: 10,
-                  right: 10,
-                  left: -20,
-                  bottom: 0,
-                }}
-              >
-                <CartesianGrid
-                  strokeDasharray="3 3"
-                  stroke="#E5E7EB"
-                />
+              <BarChart data={graphData} margin={{ top: 10, right: 10, left: -20, bottom: 0, }} >
+                <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />
 
-                <XAxis
-                  dataKey="name"
-                  tick={{
-                    fill: "#6B7280",
-                    fontSize: 12,
-                  }}
-                  axisLine={{
-                    stroke: "#E5E7EB",
-                  }}
-                  tickLine={false}
-                />
+                <XAxis dataKey="name" tick={{ fill: "#6B7280", fontSize: 12, }} axisLine={{ stroke: "#E5E7EB", }} tickLine={false} />
 
-                <YAxis
-                  tick={{
-                    fill: "#6B7280",
-                    fontSize: 12,
-                  }}
-                  axisLine={false}
-                  tickLine={false}
-                />
+                <YAxis tick={{ fill: "#6B7280", fontSize: 12, }} axisLine={false} tickLine={false} />
 
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "#FFFFFF",
-                    border: "1px solid #E5E7EB",
-                    borderRadius: "8px",
-                    boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)",
-                  }}
-                />
-
-                <Bar
-                  dataKey="value"
-                  fill="#111827"
-                  radius={[6, 6, 0, 0]}
-                  barSize={45}
-                />
+                <Tooltip contentStyle={{ backgroundColor: "#FFFFFF", border: "1px solid #E5E7EB", borderRadius: "8px", boxShadow: "0 4px 12px rgba(0, 0, 0, 0.08)", }} />
+                <Bar dataKey="value" fill="#111827" radius={[6, 6, 0, 0]} barSize={45} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Pie Chart */}
         <div className="lg:col-span-2 bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
 
           <div className="mb-6">
@@ -304,22 +235,9 @@ function AdminHome() {
           <div style={{ width: "100%", height: 300 }}>
             <ResponsiveContainer>
               <PieChart>
-                <Pie
-                  data={chartData}
-                  dataKey="value"
-                  nameKey="name"
-                  cx="50%"
-                  cy="50%"
-                  outerRadius={95}
-                  innerRadius={55}
-                  paddingAngle={2}
-                  label
-                >
+                <Pie data={chartData} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={95} innerRadius={55} paddingAngle={2} label >
                   {chartData.map((entry, index) => (
-                    <Cell
-                      key={index}
-                      fill={COLORS[index % COLORS.length]}
-                    />
+                    <Cell key={index} fill={COLORS[index % COLORS.length]} />
                   ))}
                 </Pie>
 
@@ -335,7 +253,6 @@ function AdminHome() {
             </ResponsiveContainer>
           </div>
 
-          {/* Chart Legend */}
           <div className="grid grid-cols-2 gap-3 mt-2">
             {chartData.map((item, index) => (
               <div
@@ -360,7 +277,6 @@ function AdminHome() {
         </div>
       </div>
 
-      {/* Add Admin Modal */}
       <AddAdminModal
         open={showAddAdmin}
         onClose={() => setShowAddAdmin(false)}

@@ -1,24 +1,8 @@
 
 import { useEffect, useState } from "react";
 import API from "../../services/api";
-import {
-    LineChart,
-    Line,
-    XAxis,
-    YAxis,
-    CartesianGrid,
-    Tooltip,
-    ResponsiveContainer,
-} from "recharts";
-import {
-    Package,
-    ShoppingBag,
-    DollarSign,
-    Clock,
-    TrendingUp,
-    Users,
-    Eye,
-} from "lucide-react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, } from "recharts";
+import { Package, ShoppingBag, DollarSign, Clock, TrendingUp, Users, Eye, } from "lucide-react";
 
 function SellerDashboard() {
     const [stats, setStats] = useState(null);

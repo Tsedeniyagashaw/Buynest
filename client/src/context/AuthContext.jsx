@@ -4,11 +4,11 @@ import { useNavigate } from "react-router-dom";
 export const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-    const navigate = useNavigate(); // Fix: useNavigate() instead of Navigate
+    const navigate = useNavigate(); 
     const [token, setToken] = useState(
         localStorage.getItem("token") || null
     );
-    const [user, setUser] = useState(null); // Add user state
+    const [user, setUser] = useState(null); 
 
     const login = (newToken, userData) => {
         localStorage.setItem("token", newToken);
@@ -21,23 +21,17 @@ function AuthProvider({ children }) {
 
     const logout = async () => {
         try {
-            // Clear token from localStorage
             localStorage.removeItem("token");
             localStorage.removeItem("user");
             
-            // Clear state
             setToken(null);
             setUser(null);
             
-            // Dispatch custom event to notify other components
             window.dispatchEvent(new CustomEvent('authChange', { 
                 detail: { action: 'logout' } 
             }));
             
-            // Also dispatch storage event for components listening to storage
-            window.dispatchEvent(new Event('storage'));
-            
-            // Navigate to home or login
+            window.dispatchEvent(new Event('storage'));            
             navigate('/');
         } catch (error) {
             console.error('Logout error:', error);
@@ -45,16 +39,7 @@ function AuthProvider({ children }) {
     };
 
     return (
-        <AuthContext.Provider
-            value={{ 
-                token, 
-                user, 
-                setUser,
-                login, 
-                logout,
-                isAuthenticated: !!token 
-            }}
-        >
+        <AuthContext.Provider value={{  token, user, setUser, login, logout, isAuthenticated: !!token  }} >
             {children}
         </AuthContext.Provider>
     );

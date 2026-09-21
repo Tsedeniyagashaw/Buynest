@@ -11,16 +11,12 @@ function Layout() {
     <div className="mx-0 flex flex-col min-h-screen">
       <Header
         onMenuToggle={() => setMenuOpen(prev => !prev)}
-        menuOpen={menuOpen}
-      />
+        menuOpen={menuOpen}/>
       <Navbar menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       
-      {/* Main content area - grows to fill available space */}
       <main className="flex-grow">
         <Outlet />
       </main>
-      
-      {/* Footer stays at the bottom */}
       <Footer />
     </div>
   );

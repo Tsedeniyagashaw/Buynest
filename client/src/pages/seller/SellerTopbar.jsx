@@ -1,22 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import API from "../../services/api";
 import { useSearch } from "../../context/SearchContext";
-import { 
-  Search, 
-  Bell, 
-  User, 
-  ChevronDown,
-  Settings,
-  LogOut,
-  HelpCircle,
-  MessageSquare,
-  X,
-  CheckCircle,
-  AlertCircle,
-  ShoppingBag,
-  Package,
-  Truck
-} from "lucide-react";
+import { Search, Bell, User, ChevronDown, Settings, LogOut, HelpCircle, MessageSquare, X, CheckCircle, AlertCircle, ShoppingBag, Package, Truck } from "lucide-react";
 import UserMenu from "../../components/UserMenu";
 
 function SellerTopbar() {
@@ -47,7 +32,6 @@ function SellerTopbar() {
       fetchUser();
     }, []);
 
-  // Click outside handlers
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (notificationRef.current && !notificationRef.current.contains(event.target)) {
@@ -128,7 +112,6 @@ function SellerTopbar() {
     <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
       <div className="flex items-center justify-between px-4 md:px-6 h-16">
         
-        {/* Left Section - Search */}
         <div className="flex-1 max-w-xl">
           <div className={`
             relative flex items-center transition-all duration-200
@@ -157,10 +140,8 @@ function SellerTopbar() {
           </div>
         </div>
 
-        {/* Right Section */}
         <div className="flex items-center gap-2 md:gap-4">
           
-          {/* Notifications */}
           <div className="relative" ref={notificationRef}>
             <button
               onClick={() => setShowNotifications(!showNotifications)}
@@ -174,7 +155,6 @@ function SellerTopbar() {
               )}
             </button>
 
-            {/* Notifications Dropdown */}
             {showNotifications && (
               <div className="absolute right-0 mt-2 w-80 sm:w-96 bg-white rounded-2xl shadow-2xl border border-gray-100 overflow-hidden animate-in fade-in slide-in-from-top-2 duration-200">
                 <div className="flex items-center justify-between p-4 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-white">
@@ -263,7 +243,6 @@ function SellerTopbar() {
             )}
           </div>
 
-          {/* Profile */}
 <UserMenu user={user}/>
           
         </div>

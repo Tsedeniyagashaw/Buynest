@@ -6,11 +6,6 @@ const { protect } = require("../middleware/authMiddleware")
 
 
 router.get("/profile",protect, authorizeRoles("seller"), getSellerProfile);
-router.get(
-    "/stats",
-    protect,
-    authorizeRoles("seller"),
-    getSellerStats
-);
+router.get( "/stats", protect, authorizeRoles("seller"), getSellerStats);
 
 module.exports = router;

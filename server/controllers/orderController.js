@@ -1,8 +1,6 @@
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
-const User = require("../models/User");
-
-
+const User = require("../models/user");
 
 const createOrder = async (req, res) => {
   try {
@@ -20,25 +18,23 @@ const createOrder = async (req, res) => {
     cart.items.forEach((item) => {
       totalPrice += item.product.price * item.quantity;
     });
-const buyer = await User.findById(req.user.id);
+    const buyer = await User.findById(req.user.id);
     const order = await Order.create({
+
       user: req.user.id,
-
       orderItems: cart.items.map((item) => ({
-    product: item.product._id,
-    seller: item.product.seller,
-
-    // Snapshot
-    name: item.product.name,
-    price: item.product.price,
-    image: item.product.image || "",
-    category: item.product.category || "",
-
-    quantity: item.quantity,
-})),
+      product: item.product._id,
+      seller: item.product.seller,
+      name: item.product.name,
+      price: item.product.price,
+      image: item.product.image || "",
+      category: item.product.category || "",
+      quantity: item.quantity,
+        })),
 
       totalPrice,
     });
+
     const Notification = require("../models/Notification");
 
 for (const item of cart.items) {
@@ -54,8 +50,8 @@ for (const item of cart.items) {
     await cart.save();
     console.log(order);
 
-    res.status(201).json(order);
-  } catch (error) {
+    res.status(201).json(order); } 
+    catch (error) {
     res.status(500).json({
       message: error.message,
     });
@@ -81,86 +77,10 @@ const orders = await Order.find({
     }
 }
 
-// const getSellerOrders = async (req, res) => {
-//     try {
-//         const orders = await Order.find()
-//         .populate("user", "firstName email")
-//         .populate("orderItems.product");
-
-//         const sellerOrders = orders.filter(order =>
-//     order.orderItems.some(
-//         item =>
-//             item.product &&
-//             item.product.seller.toString() === req.user.id
-//     )
-// );
-//         res.json(sellerOrders);
-//     }
-//     catch(error) {
-//         res.status(500).json({
-//             message: error.message
-//         })
-//     }
-// }
-
-// const updateOrderStatus = async (req, res) => {
-//     try {
-//         const { status } = req.body;
-
-//        const order = await Order.findById(req.params.id)
-//     .populate("orderItems.product"); 
-//     if(!order) {
-//             return res.status(404).json({
-//                 message: "Order not found"
-//             });
-//         }
-
-// const ownsProduct = order.orderItems.some(
-//     item =>
-//         item.product &&
-//         item.product.seller.toString() === req.user.id
-// );
-
-// if (!ownsProduct) {
-//     return res.status(403).json({
-//         message: "Not authorized"
-//     });
-// }
-
-       
-//         const allowedStatuses = [
-//     "pending",
-//     "paid",
-//     "shipped",
-//     "delivered"
-// ];
-
-// if (!allowedStatuses.includes(status)) {
-//     return res.status(400).json({
-//         message: "Invalid status"
-//     });
-// }
-
-//         order.status = status;
-
-//         const updatedOrder = await order.save();
-
-//         res.json(updatedOrder);
-//     }
-//     catch (error) {
-//         res.status(500).json({
-//             message: error.message
-//         });
-//     }
-// }
-
-
-
 
 const updateOrderStatus = async (req, res) => {
   try {
     const { status } = req.body;
-
     const order = await Order.findById(req.params.id);
 
     if (!order) {
@@ -172,7 +92,6 @@ const updateOrderStatus = async (req, res) => {
     order.status = status;
     await order.save();
 
-    // Return populated order
     const updatedOrder = await Order.findById(order._id)
       .populate("user", "firstName lastName email")
       .populate("orderItems.product");
@@ -255,18 +174,5 @@ const getSellerAnalytics = async (req, res) => {
   }
 };
 
-module.exports = { getSellerAnalytics };
 
-
-
-
-
-module.exports = {
-    createOrder,
-    getMyOrders,
-    getSellerOrders,
-    updateOrderStatus,
-    // getSellerStats,
-    getSellerAnalytics
-
-};
+module.exports = { createOrder, getMyOrders, getSellerOrders, updateOrderStatus, getSellerAnalytics };

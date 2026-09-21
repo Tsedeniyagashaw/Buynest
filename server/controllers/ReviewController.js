@@ -32,18 +32,12 @@ const updateProductRating = async(productId)=>{
     );
 
 };
-// =========================
-// Create Review
-// =========================
+
 
 const createReview = async (req, res) => {
 
     try {
-
         const { product, order, rating, comment } = req.body;
-
-
-        // Check that the order exists
         const existingOrder = await Order.findById(order);
 
         if (!existingOrder) {
@@ -54,8 +48,6 @@ const createReview = async (req, res) => {
 
         }
 
-
-        // Make sure the order belongs to the logged-in buyer
         if (existingOrder.user.toString() !== req.user.id) {
 
             return res.status(403).json({
@@ -63,9 +55,6 @@ const createReview = async (req, res) => {
             });
 
         }
-
-
-        // Order must be delivered
         if (existingOrder.status !== "delivered") {
 
             return res.status(400).json({
@@ -73,9 +62,6 @@ const createReview = async (req, res) => {
             });
 
         }
-
-
-        // Check if this product exists in the order
         const purchased = existingOrder.orderItems.some(
             item => item.product.toString() === product
         );
@@ -87,9 +73,6 @@ const createReview = async (req, res) => {
             });
 
         }
-
-
-        // Prevent duplicate review
        const alreadyReviewed = await Review.findOne({
     user: req.user.id,
     product
@@ -134,9 +117,6 @@ const createReview = async (req, res) => {
     }
 
 };
-// =========================
-// Get Product Reviews
-// =========================
 
 const getProductReviews = async (req, res) => {
 
@@ -165,9 +145,6 @@ const getProductReviews = async (req, res) => {
 
 };
 
-// =========================
-// Update Review
-// =========================
 
 const updateReview = async (req, res) => {
 
@@ -222,9 +199,7 @@ res.json({
 
 };
 
-// =========================
-// Delete Review
-// =========================
+
 
 const deleteReview = async (req, res) => {
 
@@ -276,9 +251,4 @@ const deleteReview = async (req, res) => {
 };
 
 
-module.exports = {
-    createReview,
-    getProductReviews,
-    updateReview,
-    deleteReview,
-};
+module.exports = { createReview, getProductReviews, updateReview,  deleteReview,};

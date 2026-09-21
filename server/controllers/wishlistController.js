@@ -23,8 +23,6 @@ const getWishlist = async (req, res) => {
   }
 };
 
-
-
 const addToWishlist = async (req, res) => {
   try {
 
@@ -86,7 +84,6 @@ const addToWishlist = async (req, res) => {
   }
 };
 
-
 const removeFromWishlist = async (req, res) => {
 
   try {
@@ -130,8 +127,6 @@ const removeFromWishlist = async (req, res) => {
   }
 };
 
-
-
 const clearWishlist = async(req,res)=>{
 
   try{
@@ -168,11 +163,4 @@ const clearWishlist = async(req,res)=>{
 
 };
 
-
-
-module.exports = {
-    getWishlist,
-    addToWishlist,
-    removeFromWishlist,
-    clearWishlist
-};
+module.exports = {  getWishlist,  addToWishlist,  removeFromWishlist,  clearWishlist };

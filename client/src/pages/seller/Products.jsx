@@ -1,18 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
 import { useSearch } from "../../context/SearchContext";
-import {
-  Plus,
-  Pencil,
-  Trash2,
-  Package,
-  Search,
-  X,
-  AlertTriangle,
-  Tag,
-  DollarSign,
-  FileText,
-} from "lucide-react";
+import { Plus, Pencil, Trash2, Package, Search, X, AlertTriangle, Tag, DollarSign, FileText, } from "lucide-react";
 
 function SellerProducts() {
   const [products, setProducts] = useState([]);

@@ -2,14 +2,12 @@ const mongoose = require("mongoose");
 
 const notificationSchema = new mongoose.Schema(
   {
-    // The user who receives this notification
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
 
-    // Used by frontend navigation
     type: {
       type: String,
       enum: [
@@ -25,7 +23,6 @@ const notificationSchema = new mongoose.Schema(
       required: true,
     },
 
-    // Only related to orders
     order: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Order",

@@ -51,7 +51,6 @@ function Orders() {
   return (
     <div className="min-h-screen bg-gray-50">
       <div className="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
-        {/* Header */}
         <div className="mb-8">
           <p className="text-sm font-medium uppercase tracking-wider text-gray-500">
             Purchase history
@@ -66,7 +65,6 @@ function Orders() {
           </p>
         </div>
 
-        {/* Orders Table */}
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div className="overflow-x-auto">
             <table className="w-full border-collapse">
@@ -100,14 +98,12 @@ function Orders() {
                     key={order._id}
                     className="border-b border-gray-100 transition hover:bg-gray-50"
                   >
-                    {/* Order ID */}
                     <td className="px-5 py-5 align-top">
                       <p className="max-w-[140px] truncate text-xs font-medium text-gray-500">
                         #{order._id}
                       </p>
                     </td>
 
-                    {/* Product Names */}
                     <td className="px-5 py-5 align-top">
                       <div className="space-y-1">
                         {order.orderItems.map((item) => (
@@ -121,7 +117,6 @@ function Orders() {
                       </div>
                     </td>
 
-                    {/* Status */}
                     <td className="px-5 py-5 align-top">
                       <span
                         className={`
@@ -142,14 +137,12 @@ function Orders() {
                       </span>
                     </td>
 
-                    {/* Total */}
                     <td className="px-5 py-5 align-top">
                       <span className="text-base font-bold text-gray-900">
                         ${order.totalPrice}
                       </span>
                     </td>
 
-                    {/* Purchased Products */}
                     <td className="px-5 py-5 align-top">
                       <div className="min-w-[320px] space-y-3">
                         {order.orderItems.map((item) => (
@@ -162,7 +155,6 @@ function Orders() {
                               transition hover:border-gray-300 hover:bg-white
                             "
                           >
-                            {/* Product */}
                             <div className="flex min-w-0 items-center gap-3">
                               <img
                                 src={item.image || "/images.jfif"}
@@ -189,7 +181,6 @@ function Orders() {
                               </div>
                             </div>
 
-                            {/* Review */}
                             {order.status === "delivered" && (
                               <button
                                 onClick={() => {
@@ -201,15 +192,8 @@ function Orders() {
 
                                   setShowReviewModal(true);
                                 }}
-                                className="
-                                  shrink-0 rounded-lg
-                                  bg-gray-900 px-3 py-2
-                                  text-xs font-semibold text-white
-                                  transition hover:bg-gray-800
-                                  active:scale-95
-                                "
-                              >
-                                ⭐ Review
+                                className=" shrink-0 rounded-lg bg-gray-900 px-3 py-2 text-xs font-semibold text-white transition hover:bg-gray-800 active:scale-95 " >
+                                 Review
                               </button>
                             )}
                           </div>

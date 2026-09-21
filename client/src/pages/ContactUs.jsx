@@ -1,14 +1,5 @@
-// pages/ContactUs.jsx
 import { useState } from "react";
-import {
-  FiMail,
-  FiMapPin,
-  FiPhone,
-  FiSend,
-  FiCheck,
-  FiClock,
-  FiGlobe,
-} from "react-icons/fi";
+import { FiMail, FiMapPin, FiPhone, FiSend, FiCheck, FiClock, FiGlobe, } from "react-icons/fi";
 import API from "../services/api";
 
 function ContactUs() {
@@ -93,7 +84,6 @@ function ContactUs() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Hero */}
       <div className="relative overflow-hidden bg-gray-900 py-16 md:py-20">
         <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/5 blur-3xl" />
         <div className="absolute -bottom-32 -left-20 h-72 w-72 rounded-full bg-white/5 blur-3xl" />
@@ -119,10 +109,8 @@ function ContactUs() {
         </div>
       </div>
 
-      {/* Contact Section */}
       <div className="relative z-10 mx-auto -mt-8 max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 md:grid-cols-5">
-          {/* Contact Information */}
           <div className="space-y-4 md:col-span-2">
             {contactInfo.map((info, index) => (
               <div
@@ -153,7 +141,6 @@ function ContactUs() {
             ))}
           </div>
 
-          {/* Contact Form */}
           <div className="md:col-span-3">
             <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm md:p-8">
               <div className="mb-7">
@@ -170,7 +157,6 @@ function ContactUs() {
                 </p>
               </div>
 
-              {/* Success */}
               {success && (
                 <div className="mb-6 flex items-center gap-3 rounded-xl border border-green-200 bg-green-50 p-4">
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-green-100">
@@ -183,7 +169,6 @@ function ContactUs() {
                 </div>
               )}
 
-              {/* Error */}
               {error && (
                 <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
                   <p className="text-sm font-medium text-red-700">
@@ -193,7 +178,6 @@ function ContactUs() {
               )}
 
               <form onSubmit={handleSubmit} className="space-y-5">
-                {/* Name */}
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     Your Name
@@ -210,7 +194,6 @@ function ContactUs() {
                   />
                 </div>
 
-                {/* Email */}
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     Email Address
@@ -227,7 +210,6 @@ function ContactUs() {
                   />
                 </div>
 
-                {/* Subject */}
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     Subject
@@ -244,7 +226,6 @@ function ContactUs() {
                   />
                 </div>
 
-                {/* Message */}
                 <div>
                   <label className="mb-2 block text-sm font-medium text-gray-700">
                     Message
@@ -261,7 +242,6 @@ function ContactUs() {
                   />
                 </div>
 
-                {/* Submit */}
                 <button
                   type="submit"
                   disabled={loading}
@@ -285,7 +265,6 @@ function ContactUs() {
         </div>
       </div>
 
-      {/* Map */}
       <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
         <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
           <div className="relative flex h-[300px] items-center justify-center bg-gray-100 md:h-[400px]">

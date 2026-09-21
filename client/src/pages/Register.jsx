@@ -60,7 +60,6 @@ function Register() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-10">
       <div className="w-full max-w-lg rounded-2xl border border-gray-200 bg-white p-8 shadow-sm sm:p-10">
-        {/* Header */}
         <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold tracking-tight text-gray-900">
             Create Account
@@ -71,7 +70,6 @@ function Register() {
           </p>
         </div>
 
-        {/* Error */}
         {error && (
           <div className="mb-6 rounded-xl border border-red-200 bg-red-50 p-4">
             <p className="text-sm font-medium text-red-700">{error}</p>
@@ -79,7 +77,6 @@ function Register() {
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Names */}
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div>
               <label className="mb-2 block text-sm font-medium text-gray-700">
@@ -112,7 +109,6 @@ function Register() {
             </div>
           </div>
 
-          {/* Middle Name */}
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Middle Name{" "}
@@ -130,7 +126,6 @@ function Register() {
             />
           </div>
 
-          {/* Email */}
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Email Address
@@ -147,7 +142,6 @@ function Register() {
             />
           </div>
 
-          {/* Phone */}
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Phone Number
@@ -164,7 +158,6 @@ function Register() {
             />
           </div>
 
-          {/* Password */}
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
               Password
@@ -186,7 +179,6 @@ function Register() {
             </p>
           </div>
 
-          {/* Role */}
           <div>
             <label className="mb-2 block text-sm font-medium text-gray-700">
               I want to register as a
@@ -203,7 +195,6 @@ function Register() {
             </select>
           </div>
 
-          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
@@ -217,14 +208,7 @@ function Register() {
                   fill="none"
                   viewBox="0 0 24 24"
                 >
-                  <circle
-                    className="opacity-25"
-                    cx="12"
-                    cy="12"
-                    r="10"
-                    stroke="currentColor"
-                    strokeWidth="4"
-                  />
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
 
                   <path
                     className="opacity-75"
@@ -240,7 +224,6 @@ function Register() {
             )}
           </button>
 
-          {/* Login */}
           <p className="pt-1 text-center text-sm text-gray-500">
             Already have an account?{" "}
             <a

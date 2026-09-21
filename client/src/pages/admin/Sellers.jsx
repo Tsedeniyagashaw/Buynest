@@ -70,7 +70,6 @@ function Sellers() {
   return (
     <div className="min-h-screen bg-gray-50 px-4 py-6 md:px-6 lg:px-8">
 
-      {/* Page Header */}
       <div className="mb-7">
         <h1 className="text-2xl font-bold text-gray-900">
           Sellers
@@ -81,7 +80,6 @@ function Sellers() {
         </p>
       </div>
 
-      {/* Seller Count */}
       <div className="flex items-center justify-between mb-4">
         <p className="text-sm text-gray-500">
           <span className="font-medium text-gray-700">
@@ -96,19 +94,7 @@ function Sellers() {
 
         {sellers.length === 0 ? (
           <div className="p-12 text-center">
-            <div className="
-              w-12
-              h-12
-              mx-auto
-              rounded-full
-              bg-gray-100
-              flex
-              items-center
-              justify-center
-              text-gray-500
-              font-semibold
-              mb-3
-            ">
+            <div className=" w-12 h-12 mx-auto rounded-full bg-gray-100 flex items-center justify-center text-gray-500 font-semibold mb-3 ">
               S
             </div>
 
@@ -124,7 +110,6 @@ function Sellers() {
           <div className="overflow-x-auto">
             <table className="min-w-full">
 
-              {/* Table Header */}
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr className="text-left text-xs uppercase tracking-wide text-gray-500">
 
@@ -151,37 +136,15 @@ function Sellers() {
                 </tr>
               </thead>
 
-              {/* Table Body */}
               <tbody className="divide-y divide-gray-100">
 
                 {sellers.map((seller) => (
-                  <tr
-                    key={seller._id}
-                    className="
-                      text-sm
-                      hover:bg-gray-50
-                      transition-colors
-                      duration-150
-                    "
-                  >
+                  <tr key={seller._id} className=" text-sm hover:bg-gray-50 transition-colors duration-150 " >
 
-                    {/* Seller */}
                     <td className="px-6 py-5">
                       <div className="flex items-center gap-3">
 
-                        <div className="
-                          w-9
-                          h-9
-                          rounded-full
-                          bg-gray-900
-                          text-white
-                          flex
-                          items-center
-                          justify-center
-                          text-xs
-                          font-semibold
-                          flex-shrink-0
-                        ">
+                        <div className=" w-9 h-9 rounded-full bg-gray-900 text-white flex items-center justify-center text-xs font-semibold flex-shrink-0 ">
                           {`${seller.firstName?.[0] || ""}${seller.lastName?.[0] || ""}`
                             .toUpperCase() || "S"}
                         </div>
@@ -200,68 +163,26 @@ function Sellers() {
                       </div>
                     </td>
 
-                    {/* Email */}
                     <td className="px-6 py-5">
                       <p className="text-gray-600 truncate max-w-[240px]">
                         {seller.email || "N/A"}
                       </p>
                     </td>
 
-                    {/* Role */}
                     <td className="px-6 py-5">
-                      <span className="
-                        inline-flex
-                        items-center
-                        px-2.5
-                        py-1
-                        rounded-md
-                        text-xs
-                        font-medium
-                        bg-gray-100
-                        text-gray-700
-                        border
-                        border-gray-200
-                      ">
+                      <span className=" inline-flex items-center px-2.5 py-1 rounded-md text-xs font-medium bg-gray-100 text-gray-700 border border-gray-200 ">
                         Seller
                       </span>
                     </td>
 
-                    {/* Approval Status */}
                     <td className="px-6 py-5">
 
-                      {seller.isApproved ? (
-                        <span className="
-                          inline-flex
-                          items-center
-                          gap-1.5
-                          px-2.5
-                          py-1
-                          rounded-md
-                          text-xs
-                          font-medium
-                          bg-green-50
-                          text-green-700
-                          border
-                          border-green-100
-                        ">
+                      {seller.isApproved ? ( <span className=" inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-green-50 text-green-700 border border-green-100 ">
                           <span className="w-1.5 h-1.5 rounded-full bg-green-500"></span>
                           Approved
                         </span>
                       ) : (
-                        <span className="
-                          inline-flex
-                          items-center
-                          gap-1.5
-                          px-2.5
-                          py-1
-                          rounded-md
-                          text-xs
-                          font-medium
-                          bg-red-50
-                          text-red-600
-                          border
-                          border-red-100
-                        ">
+                        <span className=" inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-red-50 text-red-600 border border-red-100 ">
                           <span className="w-1.5 h-1.5 rounded-full bg-red-500"></span>
                           Not Approved
                         </span>
@@ -269,33 +190,14 @@ function Sellers() {
 
                     </td>
 
-                    {/* Action */}
                     <td className="px-6 py-5 text-right">
 
                       <button
                         onClick={() => toggleApproval(seller)}
-                        className={`
-                          inline-flex
-                          items-center
-                          justify-center
-                          px-3
-                          py-1.5
-                          rounded-md
-                          text-xs
-                          font-medium
-                          border
-                          transition-colors
-                          duration-200
-                          ${
-                            seller.isApproved
-                              ? "text-red-600 bg-red-50 border-red-200 hover:bg-red-100"
-                              : "text-gray-900 bg-gray-100 border-gray-200 hover:bg-gray-200"
-                          }
+                        className={` inline-flex items-center justify-center px-3 py-1.5 rounded-md text-xs font-medium border transition-colors duration-200
+                          ${ seller.isApproved ? "text-red-600 bg-red-50 border-red-200 hover:bg-red-100" : "text-gray-900 bg-gray-100 border-gray-200 hover:bg-gray-200" }
                         `}
-                      >
-                        {seller.isApproved
-                          ? "Revoke Approval"
-                          : "Approve Seller"}
+                      > {seller.isApproved ? "Revoke Approval" : "Approve Seller"}
                       </button>
 
                     </td>

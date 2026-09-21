@@ -43,9 +43,7 @@ const [reviewLoading, setReviewLoading] = useState(true);
     }
 
     catch(error){
-
       console.log(error.response?.data);
-
     }
 
     finally{
@@ -68,11 +66,7 @@ const [reviewLoading, setReviewLoading] = useState(true);
     <>
     <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-10 p-6">
 
-     
-
-     
       <div className="flex-1 space-y-4">
-
         <h1 className="text-3xl font-bold text-gray-800">
           {product.name}
         </h1>
@@ -148,10 +142,6 @@ const [reviewLoading, setReviewLoading] = useState(true);
           </p>
         </div>
 
-      
-
-      
-
         <button className="w-1/2 mt-3 bg-violet-600 text-white py-3 rounded-lg font-semibold hover:bg-violet-700 transition">
           Add to Cart
         </button>
@@ -162,15 +152,9 @@ const [reviewLoading, setReviewLoading] = useState(true);
           <div className="border border-violet-200  rounded-lg p-2">Fast Delivery</div>
           <div className="border border-violet-200  rounded-lg p-2">Easy Return</div>
         </div>
-
-         
-
       </div>
-
-
       <div className="flex flex-col lg:flex-row gap-5 flex-1">
 
-  {/* Thumbnail Images */}
   <div className="order-2 flex lg:flex-col gap-3 justify-center">
     {[prod1, prod2, prod3].map((img, i) => (
       <div
@@ -186,36 +170,22 @@ const [reviewLoading, setReviewLoading] = useState(true);
     ))}
   </div>
 
-  {/* Main Product Image */}
   <div className="order-1  flex-1">
     <div className="relative h-[400px]  rounded-2xl bg-gray-50 border border-gray-200 shadow-lg overflow-hidden flex items-center justify-center">
 
-      {/* Optional badge */}
       <span className="absolute top-3 left-3 bg-purple-600 text-white text-xs px-3 py-1 rounded-full font-medium shadow">
         Featured
       </span>
-
-      <img
-        src={prod}
-        alt="Main Product"
-        className="w-full h-full object-contain  transition-transform duration-500 hover:scale-110"
-      />
+      <img src={prod} alt="Main Product" className="w-full h-full object-contain  transition-transform duration-500 hover:scale-110" />
     </div>
   </div>
-
 </div>
-
     </div>
 <div className="mt-10 w-full">
-
-<h2 className="text-2xl font-bold text-gray-800 mb-5">
-  Customer Reviews
-</h2>
-
+<h2 className="text-2xl font-bold text-gray-800 mb-5"> Customer Reviews </h2>
 
 {
 reviewLoading ? (
-
 <p>
 Loading reviews...
 </p>
@@ -267,25 +237,13 @@ new Date(review.createdAt)
 
 <p className="mt-3 text-gray-600">
 {review.comment}
-</p>
-
-
+</p> 
+</div> )) } 
+</div>
+) }
 </div>
 
-))
-
-}
-
-</div>
-
-)
-
-}
-
-</div>
-    
-    
-    </>
+ </>
   );
 }
 

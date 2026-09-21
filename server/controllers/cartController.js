@@ -40,7 +40,6 @@ const addToCart = async (req, res) => {
     }
 };
 
-
 const getCart = async (req, res) => {
     try {
         const cart = await Cart.findOne({ user: req.user.id }).populate("items.product");
@@ -55,6 +54,7 @@ const getCart = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
 const updateCartItem = async (req, res) => {
     try {
         const { productId, quantity } = req.body;
@@ -123,6 +123,5 @@ res.json(updatedCart);
         });
     }
 }
-
 
 module.exports = { addToCart,  getCart, updateCartItem, removeFromCart}

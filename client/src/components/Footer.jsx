@@ -1,15 +1,5 @@
 import { Link } from "react-router-dom";
-import {
-  FiFacebook,
-  FiTwitter,
-  FiInstagram,
-  FiYoutube,
-  FiMail,
-  FiMapPin,
-  FiPhone,
-  FiSend,
-  FiChevronRight,
-} from "react-icons/fi";
+import {FiFacebook,FiTwitter,FiInstagram,FiYoutube,FiMail,FiMapPin,FiPhone,FiSend,FiChevronRight,} from "react-icons/fi";
 
 function Footer() {
   const currentYear = new Date().getFullYear();
@@ -54,10 +44,8 @@ function Footer() {
     <footer className="bg-gray-900 text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
 
-        {/* Main Footer */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
 
-          {/* Brand */}
           <div>
             <Link to="/" className="inline-block mb-4">
               <span className="text-2xl font-extrabold text-white">
@@ -104,7 +92,6 @@ function Footer() {
             </div>
           </div>
 
-          {/* Quick Links */}
           <div>
             <h3 className="text-white font-semibold text-lg mb-5">
               Quick Links
@@ -128,7 +115,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Categories */}
           <div>
             <h3 className="text-white font-semibold text-lg mb-5">
               Categories
@@ -152,7 +138,6 @@ function Footer() {
             </ul>
           </div>
 
-          {/* Newsletter */}
           <div>
             <h3 className="text-white font-semibold text-lg mb-5">
               Subscribe to Newsletter
@@ -168,50 +153,13 @@ function Footer() {
             >
               <div className="relative">
 
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  required
-                  className="
-                    w-full
-                    px-4
-                    py-3
-                    pr-14
-                    bg-gray-800
-                    border
-                    border-gray-700
-                    rounded-lg
-                    text-white
-                    placeholder-gray-500
-                    outline-none
-                    focus:border-gray-500
-                    focus:ring-1
-                    focus:ring-gray-500
-                    transition-all
-                  "
-                />
+                <input type="email" name="email" placeholder="Enter your email" required
+                  className=" w-full px-4 py-3 pr-14 bg-gray-800  border border-gray-700 rounded-lg text-white placeholder-gray-500 outline-none focus:border-gray-500 focus:ring-1  focus:ring-gray-500  transition-all" />
 
                 <button
                   type="submit"
                   aria-label="Subscribe"
-                  className="
-                    absolute
-                    right-2
-                    top-1/2
-                    -translate-y-1/2
-                    w-9
-                    h-9
-                    bg-white
-                    text-gray-900
-                    rounded-md
-                    flex
-                    items-center
-                    justify-center
-                    hover:bg-gray-200
-                    transition-colors
-                  "
-                >
+                  className="absolute  right-2  top-1/2  -translate-y-1/2  w-9 h-9  bg-white text-gray-900  rounded-md flex  items-center justify-center hover:bg-gray-200 transition-colors">
                   <FiSend className="w-4 h-4" />
                 </button>
 
@@ -223,8 +171,6 @@ function Footer() {
             </form>
           </div>
         </div>
-
-        {/* Bottom */}
         <div className="border-t border-gray-800 mt-12 pt-8 flex flex-col sm:flex-row justify-between items-center gap-5">
 
           <p className="text-sm text-gray-500">
@@ -239,29 +185,8 @@ function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="
-                  w-9
-                  h-9
-                  rounded-lg
-                  bg-gray-800
-                  hover:bg-white
-                  flex
-                  items-center
-                  justify-center
-                  group
-                  transition-all
-                  duration-200
-                "
-              >
-                <social.icon
-                  className="
-                    w-4
-                    h-4
-                    text-gray-500
-                    group-hover:text-gray-900
-                    transition-colors
-                  "
-                />
+                className=" w-9 h-9 rounded-lg bg-gray-800 hover:bg-white flex items-center justify-center group  transition-all duration-200">
+                <social.icon className=" w-4 h-4 text-gray-500 group-hover:text-gray-900 transition-colors"/>
               </a>
             ))}
           </div>

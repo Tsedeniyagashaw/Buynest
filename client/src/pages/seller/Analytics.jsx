@@ -1,27 +1,7 @@
 import { useEffect, useState } from "react";
 import API from "../../services/api";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  Legend,
-} from "recharts";
-import {
-  TrendingUp,
-  ShoppingBag,
-  Package,
-  DollarSign,
-  Clock,
-  CheckCircle,
-  Truck,
-  AlertCircle,
-} from "lucide-react";
+import { PieChart, Pie, Cell, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Legend, } from "recharts";
+import { TrendingUp, ShoppingBag, Package, DollarSign, Clock, CheckCircle, Truck, AlertCircle, } from "lucide-react";
 
 function SellerAnalytics() {
   const [data, setData] = useState(null);
@@ -89,10 +69,7 @@ function SellerAnalytics() {
     })
   );
 
-  /*
-   * Status colors are intentionally limited to semantic colors.
-   * Shipped uses a neutral gray instead of purple.
-   */
+  
   const STATUS_COLORS = {
     pending: "#f59e0b",
     paid: "#3b82f6",
@@ -123,7 +100,6 @@ function SellerAnalytics() {
     <div className="min-h-screen bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        {/* Header */}
         <div className="mb-7">
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
             <div>
@@ -154,10 +130,8 @@ function SellerAnalytics() {
           </div>
         </div>
 
-        {/* Summary Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
 
-          {/* Revenue */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -180,7 +154,6 @@ function SellerAnalytics() {
             </div>
           </div>
 
-          {/* Orders */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -203,7 +176,6 @@ function SellerAnalytics() {
             </div>
           </div>
 
-          {/* Average Order */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -226,7 +198,6 @@ function SellerAnalytics() {
             </div>
           </div>
 
-          {/* Status Count */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <div className="flex items-start justify-between gap-4">
               <div>
@@ -250,10 +221,8 @@ function SellerAnalytics() {
           </div>
         </div>
 
-        {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
 
-          {/* Order Status */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <div className="flex items-start justify-between gap-4 mb-5">
               <div>
@@ -283,55 +252,21 @@ function SellerAnalytics() {
               <>
                 <ResponsiveContainer width="100%" height={280}>
                   <PieChart>
-                    <Pie
-                      data={pieData}
-                      dataKey="value"
-                      nameKey="name"
-                      cx="50%"
-                      cy="45%"
-                      outerRadius={90}
-                      innerRadius={58}
-                      paddingAngle={2}
-                      label={({ name, percent }) =>
-                        `${name} ${(percent * 100).toFixed(0)}%`
-                      }
-                      labelLine={false}
-                    >
+                    <Pie data={pieData} dataKey="value" nameKey="name" cx="50%" cy="45%" outerRadius={90} innerRadius={58} paddingAngle={2} label={({ name, percent }) => `${name} ${(percent * 100).toFixed(0)}%` } labelLine={false} >
                       {pieData.map((entry, index) => (
-                        <Cell
-                          key={`cell-${index}`}
-                          fill={
-                            STATUS_COLORS[
-                              entry.name.toLowerCase()
-                            ] || "#9ca3af"
-                          }
-                        />
+                        <Cell key={`cell-${index}`} fill={ STATUS_COLORS[ entry.name.toLowerCase() ] || "#9ca3af" } />
                       ))}
                     </Pie>
 
                     <Tooltip
-                      formatter={(value) => [
-                        `${value} orders`,
-                        "Count",
-                      ]}
-                      contentStyle={{
-                        backgroundColor: "white",
-                        border: "1px solid #e5e7eb",
-                        borderRadius: "8px",
-                        padding: "8px 12px",
-                      }}
+                      formatter={(value) => [ `${value} orders`, "Count", ]}
+                      contentStyle={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderRadius: "8px", padding: "8px 12px", }}
                     />
 
-                    <Legend
-                      verticalAlign="bottom"
-                      height={30}
-                      iconType="circle"
-                      iconSize={7}
-                    />
+                    <Legend verticalAlign="bottom" height={30} iconType="circle" iconSize={7} />
                   </PieChart>
                 </ResponsiveContainer>
 
-                {/* Status Summary */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2 pt-4 border-t border-gray-100">
                   {pieData.map((item) => (
                     <div
@@ -340,12 +275,7 @@ function SellerAnalytics() {
                     >
                       <span
                         className="w-2.5 h-2.5 rounded-full shrink-0"
-                        style={{
-                          backgroundColor:
-                            STATUS_COLORS[
-                              item.name.toLowerCase()
-                            ] || "#9ca3af",
-                        }}
+                        style={{ backgroundColor: STATUS_COLORS[ item.name.toLowerCase() ] || "#9ca3af", }}
                       />
 
                       <div className="min-w-0">
@@ -364,7 +294,6 @@ function SellerAnalytics() {
             )}
           </div>
 
-          {/* Top Products */}
           <div className="bg-white border border-gray-200 rounded-xl p-5">
             <div className="flex items-start justify-between gap-4 mb-5">
               <div>
@@ -393,67 +322,21 @@ function SellerAnalytics() {
               </div>
             ) : (
               <ResponsiveContainer width="100%" height={320}>
-                <BarChart
-                  data={data.topProducts}
-                  margin={{
-                    top: 10,
-                    right: 10,
-                    left: 0,
-                    bottom: 20,
-                  }}
-                >
-                  <XAxis
-                    dataKey="name"
-                    tick={{
-                      fontSize: 11,
-                      fill: "#6b7280",
-                    }}
-                    axisLine={{
-                      stroke: "#e5e7eb",
-                    }}
-                    tickLine={false}
-                    interval={0}
-                    angle={-35}
-                    textAnchor="end"
-                    height={60}
-                  />
+                <BarChart data={data.topProducts} margin={{ top: 10, right: 10, left: 0, bottom: 20, }} >
+                  <XAxis dataKey="name" tick={{ fontSize: 11, fill: "#6b7280", }}
+                    axisLine={{ stroke: "#e5e7eb", }} tickLine={false} interval={0} angle={-35} textAnchor="end" height={60} />
 
-                  <YAxis
-                    tick={{
-                      fontSize: 11,
-                      fill: "#6b7280",
-                    }}
-                    axisLine={false}
-                    tickLine={false}
-                    allowDecimals={false}
-                  />
+                  <YAxis tick={{ fontSize: 11, fill: "#6b7280", }} axisLine={false} tickLine={false} allowDecimals={false} />
 
-                  <Tooltip
-                    formatter={(value) => [
-                      `${value} units`,
-                      "Sold",
-                    ]}
-                    contentStyle={{
-                      backgroundColor: "white",
-                      border: "1px solid #e5e7eb",
-                      borderRadius: "8px",
-                      padding: "8px 12px",
-                    }}
-                  />
+                  <Tooltip formatter={(value) => [ `${value} units`, "Sold", ]} contentStyle={{ backgroundColor: "white", border: "1px solid #e5e7eb", borderRadius: "8px", padding: "8px 12px", }} />
 
-                  <Bar
-                    dataKey="qty"
-                    fill="#374151"
-                    radius={[4, 4, 0, 0]}
-                    barSize={34}
-                  />
+                  <Bar dataKey="qty" fill="#374151" radius={[4, 4, 0, 0]} barSize={34} />
                 </BarChart>
               </ResponsiveContainer>
             )}
           </div>
         </div>
 
-        {/* Status Overview */}
         {data.totalOrders > 0 && pieData.length > 0 && (
           <div className="mt-6">
             <div className="mb-4">

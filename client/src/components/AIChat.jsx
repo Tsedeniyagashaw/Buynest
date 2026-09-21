@@ -28,7 +28,7 @@ function AIChat() {
 
     return (
         <div>
-            <h2>🤖 Buynest AI Assistant</h2>
+            <h2>Buynest AI Assistant</h2>
 
             <input
                 type="text"

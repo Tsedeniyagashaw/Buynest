@@ -1,14 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
-import {
-  LayoutDashboard,
-  Users,
-  ShoppingBag,
-  Package,
-  Store,
-  MessageSquare,
-  ChevronDown,
-  ShieldCheck,
-} from "lucide-react";
+import { LayoutDashboard, Users, ShoppingBag, Package, Store, MessageSquare, ChevronDown, ShieldCheck, } from "lucide-react";
 import { useState } from "react";
 
 function Sidebar() {
@@ -67,7 +58,6 @@ function Sidebar() {
         shadow-sm
       `}
     >
-      {/* Toggle Button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="absolute -right-3 top-20 bg-white border border-gray-200 rounded-full p-1.5 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110 z-10"
@@ -79,7 +69,6 @@ function Sidebar() {
         />
       </button>
 
-      {/* Header */}
       <div className="flex items-center gap-3 px-4 py-6 border-b border-gray-100">
         <div className="w-10 h-10 rounded-xl bg-gray-900 flex items-center justify-center shadow-lg shadow-gray-900/20 flex-shrink-0">
           <ShieldCheck className="w-5 h-5 text-white" />
@@ -98,7 +87,6 @@ function Sidebar() {
         )}
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 px-3 py-4 overflow-y-auto">
         <div className="space-y-1">
           {navItems.map((item) => (
@@ -129,7 +117,6 @@ function Sidebar() {
         </div>
       </nav>
 
-      {/* Bottom Section */}
       <div className="border-t border-gray-100 p-4">
         <div className="flex items-center justify-center">
           {isExpanded ? (

@@ -1,17 +1,5 @@
-
 import { Link, NavLink } from "react-router-dom";
-import { 
-  LayoutDashboard, 
-  Package, 
-  ShoppingBag, 
-  BarChart3, 
-  Settings,
-  LogOut,
-  ChevronDown,
-  Store,
-  User,
-  Bell
-} from "lucide-react";
+import { LayoutDashboard, Package, ShoppingBag, BarChart3, Settings, LogOut, ChevronDown, Store, User, Bell } from "lucide-react";
 import { useState, useEffect } from "react";
 import API from "../../services/api";
 
@@ -86,7 +74,6 @@ function SellerSidebar() {
       transition-all duration-300 ${isExpanded ? 'w-64' : 'w-20'}
       shadow-sm
     `}>
-      {/* Toggle Button */}
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className="absolute -right-3 top-20 bg-white border border-gray-200 rounded-full p-1.5 shadow-md hover:shadow-lg transition-all duration-200 hover:scale-110 z-10"
@@ -94,7 +81,6 @@ function SellerSidebar() {
         <ChevronDown className={`w-4 h-4 text-gray-600 transition-transform duration-300 ${isExpanded ? 'rotate-0' : 'rotate-180'}`} />
       </button>
 
-      {/* Header */}
       <div className="flex items-center gap-3 px-4 py-6 border-b border-gray-100">
         <div className="w-10 h-10 rounded-xl bg-gray-900 flex items-center justify-center shadow-lg shadow-gray-900/20 flex-shrink-0">
           <Store className="w-5 h-5 text-white" />
@@ -109,7 +95,6 @@ function SellerSidebar() {
         )}
       </div>
 
-      {/* Navigation */}
       <nav className="flex-1 px-3 py-4 overflow-y-auto">
         <div className="space-y-1">
           {navItems.map((item) => (
@@ -137,10 +122,8 @@ function SellerSidebar() {
           ))}
         </div>
 
-        {/* Divider */}
         <div className="my-6 border-t border-gray-100" />
 
-        {/* Bottom section */}
         <div className="space-y-1">
           <button
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-gray-600 hover:bg-gray-100 hover:text-gray-900 transition-all duration-200 group"
